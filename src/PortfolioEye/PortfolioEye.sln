@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{5205CE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{818B3A1B-0BC4-4431-A85B-A0B1EDF9AE56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Infrastructure.Tests", "PortfolioEye.Infrastructure.Tests\PortfolioEye.Infrastructure.Tests.csproj", "{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8D97539A-CD34-4D4F-89CC-274FA21D5961}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,10 @@ Global
 		{2B99A707-AA89-429D-A314-5643C9389538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B99A707-AA89-429D-A314-5643C9389538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B99A707-AA89-429D-A314-5643C9389538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +77,7 @@ Global
 		{15F0E474-40B9-4B64-8ADB-E5699BA715E7} = {D55F9ED9-EA91-4271-846B-A0A9C03F8FB3}
 		{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6} = {D55F9ED9-EA91-4271-846B-A0A9C03F8FB3}
 		{2B99A707-AA89-429D-A314-5643C9389538} = {5205CE1C-AD3A-4357-AA14-9944D48CA010}
+		{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5} = {8D97539A-CD34-4D4F-89CC-274FA21D5961}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC4593AF-630E-442E-8532-B81E5867723C}
