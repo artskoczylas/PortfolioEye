@@ -5,12 +5,15 @@ using PortfolioEye.Client.Pages;
 using PortfolioEye.Components;
 using PortfolioEye.Components.Account;
 using PortfolioEye.Data;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
 	.AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddMudServices();
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();

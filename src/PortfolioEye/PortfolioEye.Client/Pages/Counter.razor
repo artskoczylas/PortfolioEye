@@ -1,8 +1,8 @@
 ﻿@page "/counter"
-
+@inject ISnackbar Snackbar
 <PageTitle>Counter</PageTitle>
 
-<h1>Counter</h1>
+<MudText Typo="Typo.h3" GutterBottom="true">Counter</MudText>
 
 <p role="status">Current count: @currentCount</p>
 
@@ -13,6 +13,7 @@
 
     private void IncrementCount()
     {
+        Snackbar.Add("Ala ma kota", Severity.Info);
         currentCount++;
     }
 }

@@ -1,6 +1,11 @@
-﻿@inherits LayoutComponentBase
+﻿@using MudBlazor
+@inherits LayoutComponentBase
 @layout PortfolioEye.Client.Layout.MainLayout
 @inject NavigationManager NavigationManager
+
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 
 @if (HttpContext is null)
 {
