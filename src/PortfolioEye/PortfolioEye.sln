@@ -3,9 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye", "PortfolioEye\PortfolioEye.csproj", "{EF5A1CF7-C130-4209-93E5-5B1AD71E4D62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye", "PortfolioEye\PortfolioEye.csproj", "{EF5A1CF7-C130-4209-93E5-5B1AD71E4D62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Client", "PortfolioEye.Client\PortfolioEye.Client.csproj", "{278B92F1-0976-41CF-A2CA-721377268FB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Client", "PortfolioEye.Client\PortfolioEye.Client.csproj", "{278B92F1-0976-41CF-A2CA-721377268FB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Application", "PortfolioEye.Application\PortfolioEye.Application.csproj", "{ACEF3727-F915-4011-BCF6-093DC4E8425D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Common", "PortfolioEye.Common\PortfolioEye.Common.csproj", "{E8E7860E-81D1-4E89-A27D-B30637FC1911}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Infrastructure", "PortfolioEye.Infrastructure\PortfolioEye.Infrastructure.csproj", "{15F0E474-40B9-4B64-8ADB-E5699BA715E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Domain", "PortfolioEye.Domain\PortfolioEye.Domain.csproj", "{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Client.Infrastructure", "PortfolioEye.Client.Infrastructure\PortfolioEye.Client.Infrastructure.csproj", "{2B99A707-AA89-429D-A314-5643C9389538}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{D55F9ED9-EA91-4271-846B-A0A9C03F8FB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{5205CE1C-AD3A-4357-AA14-9944D48CA010}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{818B3A1B-0BC4-4431-A85B-A0B1EDF9AE56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +37,38 @@ Global
 		{278B92F1-0976-41CF-A2CA-721377268FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{278B92F1-0976-41CF-A2CA-721377268FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{278B92F1-0976-41CF-A2CA-721377268FB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACEF3727-F915-4011-BCF6-093DC4E8425D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACEF3727-F915-4011-BCF6-093DC4E8425D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACEF3727-F915-4011-BCF6-093DC4E8425D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACEF3727-F915-4011-BCF6-093DC4E8425D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8E7860E-81D1-4E89-A27D-B30637FC1911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E7860E-81D1-4E89-A27D-B30637FC1911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E7860E-81D1-4E89-A27D-B30637FC1911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E7860E-81D1-4E89-A27D-B30637FC1911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15F0E474-40B9-4B64-8ADB-E5699BA715E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15F0E474-40B9-4B64-8ADB-E5699BA715E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15F0E474-40B9-4B64-8ADB-E5699BA715E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15F0E474-40B9-4B64-8ADB-E5699BA715E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B99A707-AA89-429D-A314-5643C9389538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B99A707-AA89-429D-A314-5643C9389538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B99A707-AA89-429D-A314-5643C9389538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B99A707-AA89-429D-A314-5643C9389538}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF5A1CF7-C130-4209-93E5-5B1AD71E4D62} = {D55F9ED9-EA91-4271-846B-A0A9C03F8FB3}
+		{278B92F1-0976-41CF-A2CA-721377268FB1} = {5205CE1C-AD3A-4357-AA14-9944D48CA010}
+		{ACEF3727-F915-4011-BCF6-093DC4E8425D} = {818B3A1B-0BC4-4431-A85B-A0B1EDF9AE56}
+		{E8E7860E-81D1-4E89-A27D-B30637FC1911} = {818B3A1B-0BC4-4431-A85B-A0B1EDF9AE56}
+		{15F0E474-40B9-4B64-8ADB-E5699BA715E7} = {D55F9ED9-EA91-4271-846B-A0A9C03F8FB3}
+		{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6} = {D55F9ED9-EA91-4271-846B-A0A9C03F8FB3}
+		{2B99A707-AA89-429D-A314-5643C9389538} = {5205CE1C-AD3A-4357-AA14-9944D48CA010}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC4593AF-630E-442E-8532-B81E5867723C}
