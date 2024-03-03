@@ -1,13 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider Theme="currentTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
 	<MudAppBar Elevation="1">
-		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-		<MudText Typo="Typo.h5" Class="ml-3">Application</MudText>
+		<MudText Typo="Typo.h5" Class="ml-3">PortfolioEye</MudText>
 		<MudSpacer />
 		<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
 	</MudAppBar>
@@ -15,7 +14,11 @@
 		<NavMenu />
 	</MudDrawer>
 	<MudMainContent>
-		<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="my-2 pt-2">
+		<MudToolBar DisableGutters="true">
+			<MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
+			<MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+		</MudToolBar>
+		<MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
 			@Body
 		</MudContainer>
 	</MudMainContent>
@@ -34,4 +37,28 @@
 	{
 		_drawerOpen = !_drawerOpen;
 	}
+
+	private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+{
+		new BreadcrumbItem("Home", href: "#")   };
+
+	private MudTheme currentTheme = new()
+		{
+			Palette = new PaletteLight()
+			{
+				Primary = "#594AE2",
+				AppbarBackground = "#594AE2",
+				Background = "#FAFAFA"
+			},
+			PaletteDark = new PaletteDark()
+			{
+				Primary = "#594AE2",
+				AppbarBackground = "#594AE2"
+			},
+			LayoutProperties = new LayoutProperties()
+			{
+				DefaultBorderRadius = "6px",
+
+			}
+		};
 }

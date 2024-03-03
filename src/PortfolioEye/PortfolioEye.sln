@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye", "PortfolioEy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Client", "PortfolioEye.Client\PortfolioEye.Client.csproj", "{278B92F1-0976-41CF-A2CA-721377268FB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Application", "PortfolioEye.Application\PortfolioEye.Application.csproj", "{ACEF3727-F915-4011-BCF6-093DC4E8425D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Application", "PortfolioEye.Application\PortfolioEye.Application.csproj", "{ACEF3727-F915-4011-BCF6-093DC4E8425D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Common", "PortfolioEye.Common\PortfolioEye.Common.csproj", "{E8E7860E-81D1-4E89-A27D-B30637FC1911}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Common", "PortfolioEye.Common\PortfolioEye.Common.csproj", "{E8E7860E-81D1-4E89-A27D-B30637FC1911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Infrastructure", "PortfolioEye.Infrastructure\PortfolioEye.Infrastructure.csproj", "{15F0E474-40B9-4B64-8ADB-E5699BA715E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Infrastructure", "PortfolioEye.Infrastructure\PortfolioEye.Infrastructure.csproj", "{15F0E474-40B9-4B64-8ADB-E5699BA715E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Domain", "PortfolioEye.Domain\PortfolioEye.Domain.csproj", "{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Domain", "PortfolioEye.Domain\PortfolioEye.Domain.csproj", "{2433E6E2-EC3E-4C5F-8F24-E5DF79D02DC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Client.Infrastructure", "PortfolioEye.Client.Infrastructure\PortfolioEye.Client.Infrastructure.csproj", "{2B99A707-AA89-429D-A314-5643C9389538}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Client.Infrastructure", "PortfolioEye.Client.Infrastructure\PortfolioEye.Client.Infrastructure.csproj", "{2B99A707-AA89-429D-A314-5643C9389538}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{D55F9ED9-EA91-4271-846B-A0A9C03F8FB3}"
 EndProject
@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{5205CE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{818B3A1B-0BC4-4431-A85B-A0B1EDF9AE56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioEye.Infrastructure.Tests", "PortfolioEye.Infrastructure.Tests\PortfolioEye.Infrastructure.Tests.csproj", "{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioEye.Infrastructure.Tests", "PortfolioEye.Infrastructure.Tests\PortfolioEye.Infrastructure.Tests.csproj", "{7E9C6DF4-BA67-48E8-8EF9-6F398EB392F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8D97539A-CD34-4D4F-89CC-274FA21D5961}"
 EndProject
