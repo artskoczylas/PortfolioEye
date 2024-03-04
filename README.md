@@ -5,10 +5,10 @@ PortfolioEye is an open-source application for tracking investment portfolios, c
 ## Features
 
 PortfolioEye offers a range of features to help you track and analyze your investments:  
-**Multiple Portfolios**: Ability to create and manage multiple investment portfolios in one place.
-**Support for Various Asset Classes**: Initially, the application will support stocks and bonds. Other classes such as cryptocurrencies, real estate, etc., will be available in the future.
-**Intuitive Interface**: An easy-to-use interface allows for quick adding, editing, and analyzing your investments.
-**Privacy**: With the option for self-hosting, you have full control over your data. Your information is secure and private.
+- **Multiple Portfolios**: Ability to create and manage multiple investment portfolios in one place.
+- **Support for Various Asset Classes**: Initially, the application will support stocks and bonds. Other classes such as cryptocurrencies, real estate, etc., will be available in the future.
+- **Intuitive Interface**: An easy-to-use interface allows for quick adding, editing, and analyzing your investments.
+- **Privacy**: With the option for self-hosting, you have full control over your data. Your information is secure and private.
 ## Demo
 
 TBA
@@ -28,8 +28,8 @@ PortfolioEye is written in C# using Blazor WebAssembly. Data is stored in a Post
 ## Contributing
 
 PortfolioEye is an open-source project, and I encourage collaboration! If you want to help develop the application, you can do so in several ways:  
-**Bug Reporting**: If you find a bug, report it in the Issues section.
-**Proposing New Features**: Have an idea for a new feature? Let me know through Issues.
+- **Bug Reporting**: If you find a bug, report it in the Issues section.
+- **Proposing New Features**: Have an idea for a new feature? Let me know through Issues.
 
 ## Contact
 
