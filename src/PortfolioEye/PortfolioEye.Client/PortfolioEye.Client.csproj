@@ -14,4 +14,8 @@
     <PackageReference Include="MudBlazor" Version="6.16.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioEye.Client.Infrastructure\PortfolioEye.Client.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

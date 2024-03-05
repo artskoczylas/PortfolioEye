@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using PortfolioEye.Data;
+using PortfolioEye.Domain.Entities;
 
 namespace PortfolioEye.Components.Account
 {

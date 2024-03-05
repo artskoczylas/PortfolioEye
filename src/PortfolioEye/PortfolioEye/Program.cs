@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PortfolioEye.Client.Pages;
 using PortfolioEye.Components;
 using PortfolioEye.Components.Account;
-using PortfolioEye.Data;
+using PortfolioEye.Domain.Entities;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);

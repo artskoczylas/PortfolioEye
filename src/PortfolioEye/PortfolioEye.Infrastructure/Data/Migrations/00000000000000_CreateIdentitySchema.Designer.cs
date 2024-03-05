@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PortfolioEye.Data;
+using PortfolioEye.Domain.Entities;
 using System;
 
 #nullable disable
@@ -25,7 +25,7 @@ namespace PortfolioEye.Migrations
 
 			SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-			modelBuilder.Entity("PortfolioEye.Data.ApplicationUser", b =>
+			modelBuilder.Entity("PortfolioEye.Domain.Entities.ApplicationUser", b =>
 				{
 					b.Property<string>("Id")
 						.HasColumnType("nvarchar(450)");
@@ -234,7 +234,7 @@ namespace PortfolioEye.Migrations
 
 			modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
 				{
-					b.HasOne("PortfolioEye.Data.ApplicationUser", null)
+					b.HasOne("PortfolioEye.Domain.Entities.ApplicationUser", null)
 						.WithMany()
 						.HasForeignKey("UserId")
 						.OnDelete(DeleteBehavior.Cascade)
@@ -243,7 +243,7 @@ namespace PortfolioEye.Migrations
 
 			modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
 				{
-					b.HasOne("PortfolioEye.Data.ApplicationUser", null)
+					b.HasOne("PortfolioEye.Domain.Entities.ApplicationUser", null)
 						.WithMany()
 						.HasForeignKey("UserId")
 						.OnDelete(DeleteBehavior.Cascade)
@@ -258,7 +258,7 @@ namespace PortfolioEye.Migrations
 						.OnDelete(DeleteBehavior.Cascade)
 						.IsRequired();
 
-					b.HasOne("PortfolioEye.Data.ApplicationUser", null)
+					b.HasOne("PortfolioEye.Domain.Entities.ApplicationUser", null)
 						.WithMany()
 						.HasForeignKey("UserId")
 						.OnDelete(DeleteBehavior.Cascade)
@@ -267,7 +267,7 @@ namespace PortfolioEye.Migrations
 
 			modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
 				{
-					b.HasOne("PortfolioEye.Data.ApplicationUser", null)
+					b.HasOne("PortfolioEye.Domain.Entities.ApplicationUser", null)
 						.WithMany()
 						.HasForeignKey("UserId")
 						.OnDelete(DeleteBehavior.Cascade)

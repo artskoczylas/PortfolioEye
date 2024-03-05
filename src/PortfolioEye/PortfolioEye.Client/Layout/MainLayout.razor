@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider Theme="currentTheme" />
+<MudThemeProvider Theme="currentTheme" IsDarkMode="false" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -44,20 +44,29 @@
 
 	private MudTheme currentTheme = new()
 		{
-			Palette = new PaletteLight()
-			{
-				Primary = "#594AE2",
-				AppbarBackground = "#594AE2",
-				Background = "#FAFAFA"
-			},
-			PaletteDark = new PaletteDark()
-			{
-				Primary = "#594AE2",
-				AppbarBackground = "#594AE2"
-			},
+			// Palette = new PaletteLight()
+			// {
+			// 	Primary = "#594AE2",
+			// 	AppbarBackground = "#594AE2",
+			// 	Background = "#FAFAFA"
+			// },
+			Palette = CustomMudTheme.LightTheme.Palette,
+			PaletteDark = CustomMudTheme.DarkTheme.Palette,
 			LayoutProperties = new LayoutProperties()
 			{
-				DefaultBorderRadius = "6px",
+				DefaultBorderRadius = "4px"
+			},
+
+			Typography = new Typography()
+			{
+				Default = new Default()
+				{
+					FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
+					FontSize = "1rem",
+					FontWeight = 400,
+					LineHeight = 1.5,
+					LetterSpacing = ".00938em"
+				}
 
 			}
 		};

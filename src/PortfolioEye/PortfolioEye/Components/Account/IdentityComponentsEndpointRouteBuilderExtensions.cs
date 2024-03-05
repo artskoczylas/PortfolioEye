@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using PortfolioEye.Components.Account.Pages;
 using PortfolioEye.Components.Account.Pages.Manage;
-using PortfolioEye.Data;
+using PortfolioEye.Domain.Entities;
 using System.Security.Claims;
 using System.Text.Json;
 
