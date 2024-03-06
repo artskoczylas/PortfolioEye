@@ -1,58 +1,5 @@
-﻿@inherits LayoutComponentBase
-
-<MudThemeProvider Theme="currentTheme" IsDarkMode="false" />
-<MudDialogProvider />
-<MudSnackbarProvider />
-
-<MudLayout>
-	<MudAppBar Elevation="1">
-		<MudText Typo="Typo.h5" Class="ml-3">PortfolioEye</MudText>
-		<MudSpacer />
-		<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
-	</MudAppBar>
-	<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
-		<NavMenu />
-	</MudDrawer>
-	<MudMainContent>
-		<MudToolBar DisableGutters="true">
-			<MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
-			<MudBreadcrumbs Items="_items"></MudBreadcrumbs>
-		</MudToolBar>
-		<MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
-			@Body
-		</MudContainer>
-	</MudMainContent>
-</MudLayout>
-
-<div id="blazor-error-ui">
-	An unhandled error has occurred.
-	<a href="" class="reload">Reload</a>
-	<a class="dismiss">🗙</a>
-</div>
-
-@code {
-	bool _drawerOpen = true;
-
-	void DrawerToggle()
-	{
-		_drawerOpen = !_drawerOpen;
-	}
-
-	private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-{
-		new BreadcrumbItem("Home", href: "#")   };
-
-	private MudTheme currentTheme = new()
-		{
-			// Palette = new PaletteLight()
-			// {
-			// 	Primary = "#594AE2",
-			// 	AppbarBackground = "#594AE2",
-			// 	Background = "#FAFAFA"
-			// },
-			Palette = CustomMudTheme.LightTheme.Palette,
-			PaletteDark = CustomMudTheme.DarkTheme.Palette,
-			LayoutProperties = new L@inherits LayoutComponentBase
+﻿@using PortfolioEye.Client.Components.Shared
+@inherits LayoutComponentBase
 
 <MudThemeProvider Theme="currentTheme" />
 <MudDialogProvider />
@@ -62,7 +9,40 @@
 	<MudAppBar Elevation="1">
 		<MudText Typo="Typo.h5" Class="ml-3">PortfolioEye</MudText>
 		<MudSpacer />
-		<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+		<AuthorizeView>
+			<Authorized>
+				<MudMenu Dense="true" Class="mt-1 ml-4">
+					<ActivatorContent>
+						<MudAvatar Color="Color.Secondary">
+							PE
+						</MudAvatar>
+					</ActivatorContent>
+					<ChildContent>
+						<PersonCard Class="mt-n2" />
+						<MudDivider Class="mb-2" />
+						<MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" OnClick="@(() => NavigateWithReload("Account/Manage"))" />
+						<MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Logout" OnClick="@(() => NavigateWithReload("Account/Logout"))" />
+					</ChildContent>
+				</MudMenu>
+			</Authorized>
+			<NotAuthorized>
+				<MudMenu Dense="true" Class="mt-1 ml-4">
+					<ActivatorContent>
+						<MudAvatar Color="Color.Secondary">
+							<MudIcon Icon="@Icons.Material.Filled.Person"/>
+						</MudAvatar>
+					</ActivatorContent>
+					<ChildContent>
+						<PersonCard Class="mt-n2" />
+						<MudDivider Class="mb-2" />
+						<MudLink Href="Account/Login"><MudText>Zaloguj</MudText></MudLink>
+						<MudListItem Text="Zarejestruj konto" Icon="@Icons.Material.Outlined.Login" OnClick="@(() => NavigateWithReload("Account/Register"))" />
+						<MudListItem Text="Zaloguj się" Icon="@Icons.Material.Outlined.Login" OnClick="@(() => NavigateWithReload("Account/Login"))" />
+					</ChildContent>
+				</MudMenu>
+			</NotAuthorized>
+		</AuthorizeView>
+		
 	</MudAppBar>
 	<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
 		<NavMenu />
@@ -92,9 +72,7 @@
 		_drawerOpen = !_drawerOpen;
 	}
 
-	private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-{
-		new BreadcrumbItem("Home", href: "#")   };
+	private List<BreadcrumbItem> _items = new List<BreadcrumbItem>() { new BreadcrumbItem("Home", href: "#") };
 
 	private MudTheme currentTheme = new()
 		{
@@ -115,85 +93,9 @@
 
 			}
 		};
-}@inherits LayoutComponentBase
 
-<MudThemeProvider Theme="currentTheme" />
-<MudDialogProvider />
-<MudSnackbarProvider />
+	[Inject]
+	protected NavigationManager NavigationManager { get; set; }
 
-<MudLayout>
-	<MudAppBar Elevation="1">
-		<MudText Typo="Typo.h5" Class="ml-3">PortfolioEye</MudText>
-		<MudSpacer />
-		<MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
-	</MudAppBar>
-	<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
-		<NavMenu />
-	</MudDrawer>
-	<MudMainContent>
-		<MudToolBar DisableGutters="true">
-			<MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" Class="ml-3" />
-			<MudBreadcrumbs Items="_items"></MudBreadcrumbs>
-		</MudToolBar>
-		<MudContainer MaxWidth="MaxWidth.False" Class="mt-4">
-			@Body
-		</MudContainer>
-	</MudMainContent>
-</MudLayout>
-
-<div id="blazor-error-ui">
-	An unhandled error has occurred.
-	<a href="" class="reload">Reload</a>
-	<a class="dismiss">🗙</a>
-</div>
-
-@code {
-	bool _drawerOpen = true;
-
-	void DrawerToggle()
-	{
-		_drawerOpen = !_drawerOpen;
-	}
-
-	private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-{
-		new BreadcrumbItem("Home", href: "#")   };
-
-	private MudTheme currentTheme = new()
-		{
-			Palette = new PaletteLight()
-			{
-				Primary = "#594AE2",
-				AppbarBackground = "#594AE2",
-				Background = "#FAFAFA"
-			},
-			PaletteDark = new PaletteDark()
-			{
-				Primary = "#594AE2",
-				AppbarBackground = "#594AE2"
-			},
-			LayoutProperties = new LayoutProperties()
-			{
-				DefaultBorderRadius = "6px",
-
-			}
-		};
-}ayoutProperties()
-			{
-				DefaultBorderRadius = "4px"
-			},
-
-			Typography = new Typography()
-			{
-				Default = new Default()
-				{
-					FontFamily = new[] { "Roboto", "Helvetica", "Arial", "sans-serif" },
-					FontSize = "1rem",
-					FontWeight = 400,
-					LineHeight = 1.5,
-					LetterSpacing = ".00938em"
-				}
-
-			}
-		};
+	private void NavigateWithReload(string url) => NavigationManager.NavigateTo(url, true);
 }

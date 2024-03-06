@@ -1,0 +1,33 @@
+﻿<MudCard Elevation="0" Square="true" Class="@Class" Style="@Style">
+    <AuthorizeView>
+        <Authorized>
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudAvatar Color="Color.Secondary">
+                        PE
+                    </MudAvatar>
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.body2">Jonny Larsson</MudText>
+                    <MudText Typo="Typo.caption">IT Consultant</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+        </Authorized>
+        <NotAuthorized>
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudIcon Icon="@Icons.Material.Filled.Person" />
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.body2">Użytkownik niezalogowany</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+        </NotAuthorized>
+    </AuthorizeView>
+   
+</MudCard>
+
+@code {
+    [Parameter] public string Class { get; set; }
+    [Parameter] public string Style { get; set; }
+}

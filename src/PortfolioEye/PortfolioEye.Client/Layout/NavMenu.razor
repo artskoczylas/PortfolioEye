@@ -1,6 +1,13 @@
-﻿@implements IDisposable
+﻿@using PortfolioEye.Client.Components.Shared
+@implements IDisposable
 
 @inject NavigationManager NavigationManager
+<AuthorizeView>
+	<Authorized>
+		<PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text);" />
+		<MudDivider Style="flex-grow: 0" />
+	</Authorized>
+</AuthorizeView>
 
 <MudNavMenu>
 	<MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
