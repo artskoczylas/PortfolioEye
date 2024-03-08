@@ -1,0 +1,24 @@
+﻿@page "/Account/Logout"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using PortfolioEye.Domain.Entities
+
+@inject SignInManager<ApplicationUser> SignInManager
+<MudText>Zostałeś pomyślnie wylogowany</MudText>
+<MudLink Href="/">Przejdź na stronę główną</MudLink>
+@code {
+	[CascadingParameter]
+	private HttpContext HttpContext { get; set; } = default!;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await SignInManager.SignOutAsync();
+
+		if (HttpMethods.IsGet(HttpContext.Request.Method))
+		{
+			// Clear the existing external cookie to ensure a clean login process
+			await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+		}
+	}
+}
