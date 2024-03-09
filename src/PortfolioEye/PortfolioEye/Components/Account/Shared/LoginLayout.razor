@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
-
-<MudThemeProvider Theme="_currentTheme" />
+<MudThemeProvider Theme="currentTheme" />
+<MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="d-flex align-center" Style="height: 100vh;">
@@ -14,5 +14,5 @@
 </MudContainer>
 
 @code {
-    private MudTheme _currentTheme = new PortfolioEyeTheme();
+    private MudTheme currentTheme = new PortfolioEyeTheme();
 }
