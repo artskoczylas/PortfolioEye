@@ -1,4 +1,5 @@
 ﻿@page "/Account/ResendEmailConfirmation"
+@layout LoginLayout
 
 @using System.ComponentModel.DataAnnotations
 @using System.Text
@@ -19,7 +20,7 @@
 <hr />
 <StatusMessage Message="@message" />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <EditForm Model="Input" FormName="resend-email-confirmation" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />

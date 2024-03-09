@@ -1,4 +1,5 @@
 ﻿@page "/Account/LoginWithRecoveryCode"
+@layout LoginLayout
 
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
@@ -19,7 +20,7 @@
     an authenticator app code at log in or disable 2FA and log in again.
 </p>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <EditForm Model="Input" FormName="login-with-recovery-code" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />

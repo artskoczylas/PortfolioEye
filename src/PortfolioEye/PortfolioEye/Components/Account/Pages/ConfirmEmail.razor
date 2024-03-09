@@ -1,4 +1,5 @@
 ﻿@page "/Account/ConfirmEmail"
+@layout LoginLayout
 
 @using System.Text
 @using Microsoft.AspNetCore.Identity
@@ -12,7 +13,9 @@
 
 <h1>Confirm email</h1>
 <StatusMessage Message="@statusMessage" />
-
+<p>
+    <a href="/Account/Login">Go to login page</a>
+</p>
 @code {
     private string? statusMessage;
 
