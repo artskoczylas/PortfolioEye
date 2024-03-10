@@ -1,15 +1,16 @@
-﻿<MudCard Elevation="0" Square="true" Class="@Class" Style="@Style">
+﻿@using PortfolioEye.Client.Extensions
+
+<MudCard Elevation="0" Square="true" Class="@Class" Style="@Style">
     <AuthorizeView>
         <Authorized>
             <MudCardHeader>
                 <CardHeaderAvatar>
                     <MudAvatar Color="Color.Secondary">
-                        PE
+                        @context.User.Identity?.GetInitials()
                     </MudAvatar>
                 </CardHeaderAvatar>
                 <CardHeaderContent>
-                    <MudText Typo="Typo.body2">Jonny Larsson</MudText>
-                    <MudText Typo="Typo.caption">IT Consultant</MudText>
+                    <MudText Typo="Typo.body2">@context.User.Identity?.Name</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
         </Authorized>
