@@ -1,5 +1,6 @@
 ﻿@using PortfolioEye.Client.Components.Shared
 @using PortfolioEye.Client.Extensions
+@using PortfolioEye.Client.Services
 @inherits LayoutComponentBase
 
 <MudThemeProvider Theme="currentTheme" />
@@ -65,11 +66,24 @@
 </div>
 
 @code {
-	bool _drawerOpen = true;
-
-	void DrawerToggle()
+	private bool _drawerOpen = true;
+	// private string currentUrl;
+	private void DrawerToggle()
 	{
 		_drawerOpen = !_drawerOpen;
+	}
+
+	protected override void OnInitialized()
+	{
+		// currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+		NavigationManager.LocationChanged += OnLocationChanged;
+		_items = BreadcrumbService.GetBreadcrumbs();
+	}
+	private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+	{
+		// currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+		_items = BreadcrumbService.GetBreadcrumbs();
+		StateHasChanged();
 	}
 
 	private List<BreadcrumbItem> _items = new List<BreadcrumbItem>() { new BreadcrumbItem("Home", href: "#") };
@@ -78,6 +92,9 @@
 
 	[Inject]
 	protected NavigationManager NavigationManager { get; set; }
+
+	[Inject]
+	protected BreadcrumbService BreadcrumbService { get; set; }
 
 	private void NavigateWithReload(string url) => NavigationManager.NavigateTo(url, true);
 }

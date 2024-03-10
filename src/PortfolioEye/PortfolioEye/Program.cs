@@ -6,6 +6,7 @@ using PortfolioEye.Components;
 using PortfolioEye.Components.Account;
 using PortfolioEye.Domain.Entities;
 using MudBlazor.Services;
+using PortfolioEye.Client.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 	.AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
+builder.Services.AddTransient<BreadcrumbService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
