@@ -62,35 +62,15 @@ namespace PortfolioEye.Client.Pages
 		MudForm form;
 		MudTextField<string> pwField1;
 
-		private IEnumerable<string> PasswordStrength(string pw)
-		{
-			if (string.IsNullOrWhiteSpace(pw))
-			{
-				yield return "Password is required!";
-				yield break;
-			}
-			if (pw.Length < 8)
-				yield return "Password must be at least of length 8";
-			if (!Regex.IsMatch(pw, @"[A-Z]"))
-				yield return "Password must contain at least one capital letter";
-			if (!Regex.IsMatch(pw, @"[a-z]"))
-				yield return "Password must contain at least one lowercase letter";
-			if (!Regex.IsMatch(pw, @"[0-9]"))
-				yield return "Password must contain at least one digit";
-		}
-
-		private string PasswordMatch(string arg)
-		{
-			if (pwField1.Value != arg)
-				return "Passwords don't match";
-			return null;
-		}
 
 		[CascadingParameter]
 		private Task<AuthenticationState> authenticationStateTask { get; set; }
 
 		[Inject]
-		ISnackbar Snackbar { get; set; }
+		public ISnackbar Snackbar { get; set; }
+
+		[Inject]
+		public NavigationManager NavigationManager { get; set; }
 
 		public AuthenticationState State { get; set; }
 
@@ -98,5 +78,7 @@ namespace PortfolioEye.Client.Pages
 		{
 			State = await authenticationStateTask;
 		}
+
+		private void NavigateWithReload(string url) => NavigationManager.NavigateTo(url, true);
 	}
 }
