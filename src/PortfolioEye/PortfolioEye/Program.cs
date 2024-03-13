@@ -8,6 +8,8 @@ using PortfolioEye.Domain.Entities;
 using MudBlazor.Services;
 using PortfolioEye.Client.Services;
 using PortfolioEye.Infrastructure;
+using PortfolioEye.Interfaces;
+using PortfolioEye.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +46,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddTransient<BreadcrumbService>();
+builder.Services.AddTransient<ICurrentUserAccessor, CurrentUserAccessor>();
 
 builder.Services.AddInfrastructureLayer();
 
