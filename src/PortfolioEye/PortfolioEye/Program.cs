@@ -7,12 +7,15 @@ using PortfolioEye.Components.Account;
 using PortfolioEye.Domain.Entities;
 using MudBlazor.Services;
 using PortfolioEye.Client.Services;
+using PortfolioEye.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
 	.AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddControllers();
 
 builder.Services.AddMudServices();
 
@@ -41,6 +44,9 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddTransient<BreadcrumbService>();
+
+builder.Services.AddInfrastructureLayer();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,5 +73,5 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
-
+app.MapControllers();
 app.Run();
