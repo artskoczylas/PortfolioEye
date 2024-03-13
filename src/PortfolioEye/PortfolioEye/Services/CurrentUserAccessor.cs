@@ -8,7 +8,7 @@ public class CurrentUserAccessor(IHttpContextAccessor contextAccessor) : ICurren
 {
     public CurrentUser? Get()
     {
-        if (contextAccessor?.HttpContext?.User == null)
+        if (contextAccessor.HttpContext?.User == null)
             return null;
         
         var principal = contextAccessor.HttpContext.User;
