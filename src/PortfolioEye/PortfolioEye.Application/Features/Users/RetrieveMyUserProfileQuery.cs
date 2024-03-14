@@ -3,6 +3,4 @@ using MediatR;
 
 namespace PortfolioEye.Application.Features.Users;
 
-public record RetrieveUserProfileByIdQuery(Guid Id) : IRequest<IResult<UserProfileResponse>>
-{
-}
+public class RetrieveMyUserProfileQuery: IRequest<IResult<UserProfileResponse>>;

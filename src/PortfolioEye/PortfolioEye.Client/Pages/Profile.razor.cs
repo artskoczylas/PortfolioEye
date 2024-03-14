@@ -4,15 +4,18 @@ using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using System.Net;
 using System.Text.RegularExpressions;
+using MediatR;
+using PortfolioEye.Application.Features.Users;
 
 namespace PortfolioEye.Client.Pages
 {
 	public partial class Profile
 	{
-		public string AvatarImageLink { get; set; }
+		
+		public string? AvatarImageLink { get; set; }
 		public string AvatarButtonText
 		{
-			get { return (AvatarImageLink == null) ? "Dodaj zdjêcie" : "Usuñ zdjêcie"; }
+			get { return (AvatarImageLink == null) ? "Dodaj zdjÄ™cie" : "UsuÅ„ zdjÄ™cie"; }
 		}
 		public Color AvatarButtonColor
 		{
@@ -71,11 +74,14 @@ namespace PortfolioEye.Client.Pages
 
 		[Inject]
 		public NavigationManager NavigationManager { get; set; }
+		[Inject]
+		public IMediator Mediator { get; set; }
 
 		public AuthenticationState State { get; set; }
 
-		protected async override Task OnInitializedAsync()
+		protected override async Task OnInitializedAsync()
 		{
+			var result = await Mediator.Send(new RetrieveMyUserProfileQuery());
 			State = await authenticationStateTask;
 		}
 

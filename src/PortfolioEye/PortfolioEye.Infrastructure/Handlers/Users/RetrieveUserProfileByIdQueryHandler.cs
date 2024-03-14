@@ -8,15 +8,15 @@ using Mapster;
 namespace PortfolioEye.Infrastructure.Handlers.Users;
 
 public class RetrieveUserProfileByIdQueryHandler(ApplicationDbContext context)
-    : IRequestHandler<RetrieveUserProfileByIdQuery, IResult<RetrieveUserProfileByIdQuery.Response>>
+    : IRequestHandler<RetrieveUserProfileByIdQuery, IResult<UserProfileResponse>>
 {
-    public async Task<IResult<RetrieveUserProfileByIdQuery.Response>> Handle(RetrieveUserProfileByIdQuery request, CancellationToken cancellationToken)
+    public async Task<IResult<UserProfileResponse>> Handle(RetrieveUserProfileByIdQuery request, CancellationToken cancellationToken)
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Id == request.Id.ToString(), cancellationToken: cancellationToken);
         if (user == null)
-            return await Result<RetrieveUserProfileByIdQuery.Response>.FailAsync(404);
+            return await Result<UserProfileResponse>.FailAsync(404);
 
-        var response = user.Adapt<RetrieveUserProfileByIdQuery.Response>();
-        return await Result<RetrieveUserProfileByIdQuery.Response>.SuccessAsync(response);
+        var response = user.Adapt<UserProfileResponse>();
+        return await Result<UserProfileResponse>.SuccessAsync(response);
     }
 }

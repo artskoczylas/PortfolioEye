@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using PortfolioEye.Client.Infrastructure.Managers;
 
 namespace PortfolioEye.Client.Infrastructure
@@ -28,6 +29,16 @@ namespace PortfolioEye.Client.Infrastructure
 				}
 			}
 
+			return services;
+		}
+
+		public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services)
+		{
+			ArgumentNullException.ThrowIfNull(services);
+
+			services.AddManagers();
+			
+			services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 			return services;
 		}
 	}

@@ -13,6 +13,6 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
 builder.Services.AddTransient<BreadcrumbService>();
-builder.Services.AddManagers();
+builder.Services.AddInfrastructureLayer();
 
 await builder.Build().RunAsync();
