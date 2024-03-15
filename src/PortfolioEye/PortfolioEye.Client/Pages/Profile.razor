@@ -1,5 +1,5 @@
 ﻿@page "/profile"
-
+@rendermode MyRenderMode.InteractiveWasmWithoutPrerendering
 
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
@@ -21,7 +21,7 @@
 							<MudAvatar Image="@AvatarImageLink" Style="height:100px; width:100px;">
 								@if (AvatarImageLink == null)
 								{
-									@State.User.Identity?.GetInitials()
+									@State?.User?.Identity?.GetInitials()
 								}
 							</MudAvatar>
 
