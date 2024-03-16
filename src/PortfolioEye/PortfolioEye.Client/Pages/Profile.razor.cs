@@ -6,6 +6,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using MediatR;
 using PortfolioEye.Application.Features.Users;
+using PortfolioEye.Client.Infrastructure.Managers;
 
 namespace PortfolioEye.Client.Pages
 {
@@ -74,15 +75,17 @@ namespace PortfolioEye.Client.Pages
 
 		[Inject]
 		public NavigationManager NavigationManager { get; set; }
+		
 		[Inject]
-		public IMediator Mediator { get; set; }
+		public ICurrentUserManager CurrentUserManager { get; set; }
 
 		public AuthenticationState State { get; set; }
 
 		protected override async Task OnInitializedAsync()
 		{
-			var result = await Mediator.Send(new RetrieveMyUserProfileQuery());
 			State = await authenticationStateTask;
+
+			var aaa = await CurrentUserManager.RetrieveMyProfile();
 		}
 
 		private void NavigateWithReload(string url) => NavigationManager.NavigateTo(url, true);

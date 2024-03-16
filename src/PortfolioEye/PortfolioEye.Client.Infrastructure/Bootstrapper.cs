@@ -37,8 +37,6 @@ namespace PortfolioEye.Client.Infrastructure
 			ArgumentNullException.ThrowIfNull(services);
 
 			services.AddManagers();
-			var asada = Assembly.GetExecutingAssembly();
-			services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 			return services;
 		}
 	}

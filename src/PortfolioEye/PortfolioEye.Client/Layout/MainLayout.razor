@@ -22,7 +22,7 @@
 					<ChildContent>
 						<PersonCard Class="mt-n2" />
 						<MudDivider Class="mb-2" />
-						<MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" OnClick="@(() => NavigateWithReload("Account/Manage"))" />
+						<MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" OnClick="@(() => NavigationManager.NavigateTo("Profile"))" />
 						<MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Logout" OnClick="@(() => NavigateWithReload("Account/Logout"))" />
 					</ChildContent>
 				</MudMenu>
