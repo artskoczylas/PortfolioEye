@@ -11,11 +11,11 @@ using PortfolioEye.Application.Features.Users;
 
 namespace PortfolioEye.Client.Infrastructure.Managers
 {
-	public class CurrentUserManager(HttpClient httpClient) : ICurrentUserManager
+	public class CurrentUserManager(IHttpClientFactory factory) : ICurrentUserManager
 	{
 		public async Task<IResult<UserProfileResponse>> RetrieveMyProfile()
 		{
-			var response = await httpClient.GetAsync($"/api/Me/Profile");
+			var response = await factory.MainApiClient().GetAsync($"/api/Me/Profile");
 			return await response.ToResult<UserProfileResponse>();
 		}
 	}

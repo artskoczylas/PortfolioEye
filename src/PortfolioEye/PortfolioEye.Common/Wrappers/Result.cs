@@ -2,11 +2,14 @@
 {
 	public class Result : IResult
 	{
-		public IEnumerable<string> Messages { get; private set; }
-		public bool IsSuccess { get; }
-		public int? ErrorCode { get; }
+		public IEnumerable<string> Messages { get; set; }
+		public bool IsSuccess { get; set; }
+		public int? ErrorCode { get; set; }
+		public Result()
+		{
 
-		protected Result(bool isSuccess, IEnumerable<string> messages, int? errorCode)
+		}
+		public Result(bool isSuccess, IEnumerable<string> messages, int? errorCode)
 		{
 			IsSuccess = isSuccess;
 			ErrorCode = errorCode;
@@ -30,9 +33,13 @@
 
 	public class Result<T> : Result, IResult<T>
 	{
-		public T? Data { get; }
+		public T? Data { get; set; }
+		public Result()
+		{
 
-		protected Result(bool isSuccess, List<string> messages, int? errorCode, T? data)
+		}
+
+		public Result(bool isSuccess, List<string> messages, int? errorCode, T? data)
 			: base(isSuccess, messages, errorCode)
 		{
 			if (isSuccess)

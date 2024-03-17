@@ -14,5 +14,5 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticationStateProvider>();
 builder.Services.AddTransient<BreadcrumbService>();
 builder.Services.AddInfrastructureLayer();
-builder.Services.AddHttpClient<HttpClient>(c => c.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+builder.Services.AddHttpClient("MainApi", c => c.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
 await builder.Build().RunAsync();
