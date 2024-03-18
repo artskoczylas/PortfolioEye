@@ -9,28 +9,28 @@ using eastsoft.RCP.Shared.Wrappers;
 
 namespace PortfolioEye.Client.Infrastructure.Extensions
 {
-	internal static class ResultExtensions
+	public static class ResultExtensions
 	{
 		private static readonly JsonSerializerOptions defaultOptions = new()
 		{
 			PropertyNameCaseInsensitive = true,
 			ReferenceHandler = ReferenceHandler.Preserve
 		};
-		internal static async Task<IResult<T>> ToResult<T>(this HttpResponseMessage response)
+		public static async Task<IResult<T>> ToResult<T>(this HttpResponseMessage response)
 		{
 			var responseAsString = await response.Content.ReadAsStringAsync();
 			var responseObject = JsonSerializer.Deserialize<Result<T>>(responseAsString, defaultOptions);
 			return responseObject ?? Result<T>.Fail((int)response.StatusCode);
 		}
 
-		internal static async Task<IResult> ToResult(this HttpResponseMessage response)
+		public static async Task<IResult> ToResult(this HttpResponseMessage response)
 		{
 			var responseAsString = await response.Content.ReadAsStringAsync();
 			var responseObject = JsonSerializer.Deserialize<Result>(responseAsString, defaultOptions);
 			return responseObject ?? Result.Fail((int)response.StatusCode);
 		}
 
-		internal static async Task<PaginatedResult<T>> ToPaginatedResult<T>(this HttpResponseMessage response)
+		public static async Task<PaginatedResult<T>> ToPaginatedResult<T>(this HttpResponseMessage response)
 		{
 			var responseAsString = await response.Content.ReadAsStringAsync();
 			var responseObject = JsonSerializer.Deserialize<PaginatedResult<T>>(responseAsString, defaultOptions);

@@ -36,7 +36,7 @@
 		public T? Data { get; set; }
 		public Result()
 		{
-
+		
 		}
 
 		public Result(bool isSuccess, List<string> messages, int? errorCode, T? data)
