@@ -1,20 +1,11 @@
-﻿namespace eastsoft.RCP.Shared.Wrappers
+﻿namespace PortfolioEye.Common.Wrappers
 {
-	public class Result : IResult
+	public class Result(bool isSuccess, IEnumerable<string> messages, int? errorCode)
+		: IResult
 	{
-		public IEnumerable<string> Messages { get; set; }
-		public bool IsSuccess { get; set; }
-		public int? ErrorCode { get; set; }
-		public Result()
-		{
-
-		}
-		public Result(bool isSuccess, IEnumerable<string> messages, int? errorCode)
-		{
-			IsSuccess = isSuccess;
-			ErrorCode = errorCode;
-			Messages = messages;
-		}
+		public bool IsSuccess { get; } = isSuccess;
+		public IEnumerable<string> Messages { get; } = messages;
+		public int? ErrorCode { get; } = errorCode;
 
 		public static IResult Fail(int errorCode) => new Result(false, [], errorCode);
 		public static IResult Fail(int errorCode, string message) => new Result(false, [message], errorCode);
@@ -33,18 +24,13 @@
 
 	public class Result<T> : Result, IResult<T>
 	{
-		public T? Data { get; set; }
-		public Result()
-		{
-		
-		}
+		public T? Data { get; }
 
-		public Result(bool isSuccess, List<string> messages, int? errorCode, T? data)
-			: base(isSuccess, messages, errorCode)
+		public Result(bool isSuccess, IEnumerable<string> messages, int? errorCode, T? data)
+			:base(isSuccess, messages, errorCode)
 		{
 			if (isSuccess)
 				ArgumentNullException.ThrowIfNull(nameof(data));
-
 			Data = data;
 		}
 

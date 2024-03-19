@@ -1,5 +1,4 @@
-﻿using eastsoft.RCP.Shared.Wrappers;
-using PortfolioEye.Application.Features.Portfolios.Queries;
+﻿using PortfolioEye.Application.Features.Portfolios.Queries;
 using PortfolioEye.Client.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using PortfolioEye.Common.Wrappers;
 
 namespace PortfolioEye.Client.Infrastructure.Managers
 {

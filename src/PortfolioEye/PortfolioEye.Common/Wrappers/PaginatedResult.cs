@@ -1,4 +1,4 @@
-﻿namespace eastsoft.RCP.Shared.Wrappers
+﻿namespace PortfolioEye.Common.Wrappers
 {
 	public class PaginatedResult<T> : Result
 	{

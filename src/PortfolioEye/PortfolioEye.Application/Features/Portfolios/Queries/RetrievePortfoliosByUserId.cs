@@ -1,5 +1,5 @@
-﻿using eastsoft.RCP.Shared.Wrappers;
-using MediatR;
+﻿using MediatR;
+using PortfolioEye.Common.Wrappers;
 using static PortfolioEye.Application.Features.Portfolios.Queries.RetrievePortfoliosByUserId;
 
 namespace PortfolioEye.Application.Features.Portfolios.Queries
