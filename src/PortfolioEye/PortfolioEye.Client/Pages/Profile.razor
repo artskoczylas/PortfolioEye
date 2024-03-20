@@ -1,10 +1,10 @@
 ﻿@page "/profile"
-@rendermode MyRenderMode.InteractiveWasmWithoutPrerendering
 
-@using System.Text.RegularExpressions
-@using System.ComponentModel.DataAnnotations
 @using PortfolioEye.Client.Extensions
+@using System.Runtime.CompilerServices
 
+@if (_profile != null)
+{
 <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Account</MudText>
 <MudTabs Elevation="25" Color="Color.Transparent" Rounded="true" PanelClass="mt-6">
 	<MudTabPanel Text="Dane podstawowe">
@@ -21,14 +21,14 @@
 							<MudAvatar Image="@AvatarImageLink" Style="height:100px; width:100px;">
 								@if (AvatarImageLink == null)
 								{
-									@State?.User?.Identity?.GetInitials()
+									@_profile.GetInitials()
 								}
 							</MudAvatar>
 
 						</div>
 					</MudCardContent>
 					<MudCardActions Class="d-flex justify-center">
-						@if (AvatarImageLink == null)
+						@if (_profile.PhotoUrl == null)
 						{
 							<MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
 								<ButtonTemplate>
@@ -64,19 +64,7 @@
 								<MudTextField @bind-Value="LastName" Label="First Name" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem xs="12" md="6">
-								<MudTextField @bind-Value="JobTitle" Label="Job Title" Variant="Variant.Outlined" />
-							</MudItem>
-							<MudItem xs="12" md="6">
-								<MudTextField @bind-Value="Email" Label="Email" Variant="Variant.Outlined" HelperText="Dont worry, we shall not spam!" InputType="InputType.Email" />
-							</MudItem>
-							<MudItem xs="12">
-								<MudText>
-									<b>Visible Only To Friends</b>
-								</MudText>
-								<MudText Typo="Typo.body2">
-									Means that only your friends will be able to see your contact details.
-								</MudText>
-								<MudSwitch @bind-Checked="@FriendSwitch" Color="Color.Secondary" />
+								<MudTextField Value="Email" Disabled="true" Label="Email" Variant="Variant.Outlined" InputType="InputType.Email" />
 							</MudItem>
 						</MudGrid>
 					</MudCardContent>
@@ -87,7 +75,7 @@
 			</MudItem>
 		</MudGrid>
 	</MudTabPanel>
-	<MudTabPanel Text="Powiadomienia">
+	<MudTabPanel Text="Powiadomienia" Disabled="true">
 		<MudCard>
 			<MudCardHeader>
 				<CardHeaderContent>
@@ -104,10 +92,10 @@
 							What type of system notifications you want to recieve to your email.
 						</MudText>
 						<div class="d-flex flex-column mt-6">
-							<MudCheckBox @bind-Value="@NotificationEmail_1" Label="Threat Detection" Color="Color.Primary"></MudCheckBox>
-							<MudCheckBox @bind-Value="@NotificationEmail_2" Label="Server Errors" Color="Color.Error"></MudCheckBox>
-							<MudCheckBox @bind-Value="@NotificationEmail_3" Label="Server Warnings" Color="Color.Warning"></MudCheckBox>
-							<MudCheckBox @bind-Value="@NotificationEmail_4" Label="Spam" Color="Color.Success"></MudCheckBox>
+							@* <MudCheckBox Label="Threat Detection" Color="Color.Primary"></MudCheckBox> *@
+							@* <MudCheckBox Label="Server Errors" Color="Color.Error"></MudCheckBox> *@
+							@* <MudCheckBox Label="Server Warnings" Color="Color.Warning"></MudCheckBox> *@
+							@* <MudCheckBox Label="Spam" Color="Color.Success"></MudCheckBox> *@
 						</div>
 					</MudItem>
 					<MudItem xs="12" sm="8">
@@ -118,10 +106,10 @@
 							What type of system notifications you want to recieve in the phone application.
 						</MudText>
 						<div class="d-flex flex-column mt-6">
-							<MudCheckBox @bind-Value="@NotificationChat_1" Label="Threat Detection" Color="Color.Primary"></MudCheckBox>
-							<MudCheckBox @bind-Value="@NotificationChat_2" Label="Server Errors" Color="Color.Error"></MudCheckBox>
-							<MudCheckBox @bind-Value="@NotificationChat_3" Label="Server Warnings" Color="Color.Warning"></MudCheckBox>
-							<MudCheckBox @bind-Value="@NotificationChat_4" Label="Spam" Color="Color.Success"></MudCheckBox>
+							@* <MudCheckBox Label="Threat Detection" Color="Color.Primary"></MudCheckBox> *@
+							@* <MudCheckBox Label="Server Errors" Color="Color.Error"></MudCheckBox> *@
+							@* <MudCheckBox Label="Server Warnings" Color="Color.Warning"></MudCheckBox> *@
+							@* <MudCheckBox Label="Spam" Color="Color.Success"></MudCheckBox> *@
 						</div>
 					</MudItem>
 				</MudGrid>
@@ -132,7 +120,6 @@
 		</MudCard>
 	</MudTabPanel>
 	<MudTabPanel Text="Bezpieczeństwo">
-		<MudForm @ref="form">
 			<MudCard>
 				<MudCardHeader>
 					<CardHeaderContent>
@@ -147,7 +134,7 @@
 					</MudGrid>
 				</MudCardContent>
 			</MudCard>
-		</MudForm>
 	</MudTabPanel>
 </MudTabs>
+}
 
