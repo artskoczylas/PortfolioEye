@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioEye.Application;
 using PortfolioEye.Application.Features.Users;
 using PortfolioEye.Application.Features.Users.Commands;
 using PortfolioEye.Application.Features.Users.Queries;
@@ -25,25 +26,25 @@ public class MeController(IMediator mediator) : ControllerBase
             return Ok(user);
         return user.ErrorCode switch
         {
-            404 => NotFound(user),
+            WellKnown.ErrorCodes.NotFound => NotFound(user),
             _ => BadRequest(user)
         };
     }
     
     [HttpPut("Profile")]
-    public async Task<IActionResult> UpdateProfile([FromServices] ICurrentUserAccessor userAccessor, UpdateProfileCommand command)
+    public async Task<IActionResult> UpdateProfile([FromServices] ICurrentUserAccessor userAccessor, [FromBody] UpdateProfileCommand command)
     {
         var currentUser = userAccessor.Get();
         if (currentUser == null)
             return Unauthorized();
 
-        var user = await mediator.Send(new UpdateUserProfileByIdCommand(currentUser.Id, command));
-        if (user.IsSuccess)
-            return Ok();
-        return user.ErrorCode switch
+        var result = await mediator.Send(new UpdateUserProfileByIdCommand(currentUser.Id, command));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
         {
-            404 => NotFound(user),
-            _ => BadRequest(user)
+            WellKnown.ErrorCodes.NotFound => NotFound(result),
+            _ => BadRequest(result)
         };
     }
 }

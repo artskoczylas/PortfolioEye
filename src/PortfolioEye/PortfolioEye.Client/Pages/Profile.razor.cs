@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using PortfolioEye.Application.Features.Users;
+using PortfolioEye.Application.Features.Users.Commands;
 using PortfolioEye.Application.Features.Users.Queries;
 using PortfolioEye.Client.Infrastructure.Managers;
 
@@ -32,13 +33,7 @@ namespace PortfolioEye.Client.Pages
 			//TODO upload the files to the server
 		}
 
-		private void SaveChanges(string message, Severity severity)
-		{
-			Snackbar.Add(message, severity, config =>
-			{
-				config.ShowCloseIcon = false;
-			});
-		}
+
 		
 		[Inject]
 		public ISnackbar? Snackbar { get; set; }
@@ -64,6 +59,16 @@ namespace PortfolioEye.Client.Pages
 			}
 			else
 				Snackbar?.Add("Nie udało się pobrać profilu", Severity.Warning);
+		}
+		
+		private async Task SaveChanges()
+		{
+			var profileCommand = new UpdateProfileCommand(FirstName, LastName);
+			var result = await CurrentUserManager!.UpdateMyProfile(profileCommand);
+			if(result.IsSuccess)
+				Snackbar?.Add("Zapisano dane profilu", Severity.Info);
+			else
+				Snackbar?.Add("Nie udało się zapisać profilu", Severity.Warning);
 		}
 
 		private void NavigateWithReload(string url) => NavigationManager!.NavigateTo(url, true);

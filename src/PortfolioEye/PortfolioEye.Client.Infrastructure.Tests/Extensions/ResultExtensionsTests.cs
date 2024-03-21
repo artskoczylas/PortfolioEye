@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using FluentAssertions;
+using PortfolioEye.Application;
 using PortfolioEye.Client.Infrastructure.Extensions;
 using PortfolioEye.Common.Wrappers;
 
@@ -70,7 +71,7 @@ public class HttpClientFactoryExtensionsTests
 
         var result = await response.ToResult<TestDataRecord>();
 
-        result.ErrorCode.Should().Be(404);
+        result.ErrorCode.Should().Be(WellKnown.ErrorCodes.NotFound);
     }
 
     [Test]

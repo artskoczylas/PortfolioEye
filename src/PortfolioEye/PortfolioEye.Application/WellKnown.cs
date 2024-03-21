@@ -2,6 +2,10 @@
 
 public static class WellKnown
 {
+    public static class  ErrorCodes
+    {
+        public const int NotFound = 404;
+    }
     public static class Claims
     {
         public static string Id => "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";

@@ -69,7 +69,7 @@
 						</MudGrid>
 					</MudCardContent>
 					<MudCardActions Class="pb-4 pl-4">
-						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" @onclick="@(() => SaveChanges("Profile details saved", Severity.Success))">Save Changes</MudButton>
+						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" @onclick="SaveChanges">Save Changes</MudButton>
 					</MudCardActions>
 				</MudCard>
 			</MudItem>
@@ -115,7 +115,7 @@
 				</MudGrid>
 			</MudCardContent>
 			<MudCardActions Class="pb-4 pl-4">
-				<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" @onclick="@(() => SaveChanges("Notification settings saved", Severity.Success))">Save Changes</MudButton>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" >Save Changes</MudButton>
 			</MudCardActions>
 		</MudCard>
 	</MudTabPanel>
