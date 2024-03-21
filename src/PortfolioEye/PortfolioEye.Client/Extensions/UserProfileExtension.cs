@@ -1,4 +1,5 @@
 ﻿using PortfolioEye.Application.Features.Users;
+using PortfolioEye.Application.Features.Users.Queries;
 
 namespace PortfolioEye.Client.Extensions;
 

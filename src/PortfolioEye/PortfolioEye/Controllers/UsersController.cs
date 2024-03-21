@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioEye.Application.Features.Users;
+using PortfolioEye.Application.Features.Users.Queries;
 
 namespace PortfolioEye.Controllers;
 

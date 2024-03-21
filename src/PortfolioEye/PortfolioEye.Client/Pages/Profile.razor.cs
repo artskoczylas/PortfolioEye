@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using PortfolioEye.Application.Features.Users;
+using PortfolioEye.Application.Features.Users.Queries;
 using PortfolioEye.Client.Infrastructure.Managers;
 
 namespace PortfolioEye.Client.Pages

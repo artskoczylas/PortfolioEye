@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using PortfolioEye.Application.Features.Users;
+using PortfolioEye.Application.Features.Users.Queries;
 using PortfolioEye.Common.Wrappers;
 
 namespace PortfolioEye.Client.Infrastructure.Managers
