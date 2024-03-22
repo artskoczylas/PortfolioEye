@@ -1,4 +1,5 @@
 ﻿@using PortfolioEye.Client.Extensions
+@using PortfolioEye.Application.Features.Users.Queries
 
 <MudCard Elevation="0" Square="true" Class="@Class" Style="@Style">
     <AuthorizeView>
@@ -6,7 +7,14 @@
             <MudCardHeader>
                 <CardHeaderAvatar>
                     <MudAvatar Color="Color.Secondary">
+                        @if (UserProfile != null)
+                        {
+                            @UserProfile.GetInitials()
+                        }
+                        else
+                        {
                         @context.User.Identity?.GetInitials()
+                        }
                     </MudAvatar>
                 </CardHeaderAvatar>
                 <CardHeaderContent>
@@ -29,6 +37,13 @@
 </MudCard>
 
 @code {
+    [CascadingParameter]
+    public UserProfileResponse?  UserProfile { get;set; }
     [Parameter] public string Class { get; set; }
     [Parameter] public string Style { get; set; }
+
+    public void Refresh()
+    {
+        StateHasChanged();
+    }
 }
