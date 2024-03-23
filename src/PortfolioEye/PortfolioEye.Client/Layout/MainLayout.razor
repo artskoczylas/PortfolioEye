@@ -25,10 +25,12 @@
                             </MudAvatar>
                         </ActivatorContent>
                         <ChildContent>
-                            <PersonCard Class="mt-n2"/>
-                            <MudDivider Class="mb-2"/>
-                            <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" OnClick="@(() => NavigationManager.NavigateTo("Profile"))"/>
-                            <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Logout" OnClick="@(() => NavigateWithReload("Account/Logout"))"/>
+                            <CascadingValue Value="@_profile">
+                                <PersonCard Class="mt-n2"/>
+                                <MudDivider Class="mb-2"/>
+                                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" OnClick="@(() => NavigationManager.NavigateTo("Profile"))"/>
+                                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Logout" OnClick="@(() => NavigateWithReload("Account/Logout"))"/>
+                            </CascadingValue>
                         </ChildContent>
                     </MudMenu>
                 </Authorized>
@@ -81,7 +83,7 @@
     }
 
     private UserProfileResponse? _profile;
-    private PersonCard _personCard;
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -92,8 +94,8 @@
         }
         catch
         {
-            
         }
+
         NavigationManager.LocationChanged += OnLocationChanged;
         _items = BreadcrumbService.GetBreadcrumbs();
         await base.OnInitializedAsync();
