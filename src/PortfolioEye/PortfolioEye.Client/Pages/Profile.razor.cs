@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using PortfolioEye.Application.Features.Users;
 using PortfolioEye.Application.Features.Users.Commands;
@@ -11,6 +12,8 @@ namespace PortfolioEye.Client.Pages
 {
 	public partial class Profile
 	{
+		[Inject] protected IStringLocalizer<Profile>? Localizer { get; set; }
+		
 		private string? AvatarImageLink { get; set; }
 		private string AvatarButtonText => (AvatarImageLink == null) ? "Dodaj zdjęcie" : "Usuń zdjęcie";
 		private Color AvatarButtonColor => (AvatarImageLink == null) ? Color.Primary : Color.Error;

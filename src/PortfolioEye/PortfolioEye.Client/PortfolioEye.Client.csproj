@@ -18,4 +18,28 @@
     <ProjectReference Include="..\PortfolioEye.Client.Infrastructure\PortfolioEye.Client.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Pages.Profile.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Pages.Profile.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages.Profile.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Pages.Profile.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Pages.Profile.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Pages.Profile.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Pages.Profile.en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Pages.Profile.en.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

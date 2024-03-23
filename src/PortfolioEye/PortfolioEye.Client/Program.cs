@@ -15,4 +15,8 @@ builder.Services.AddSingleton<AuthenticationStateProvider, PersistentAuthenticat
 builder.Services.AddTransient<BreadcrumbService>();
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddHttpClient("MainApi", c => c.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
 await builder.Build().RunAsync();

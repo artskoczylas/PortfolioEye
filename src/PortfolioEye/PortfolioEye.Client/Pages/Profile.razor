@@ -2,12 +2,13 @@
 
 @using PortfolioEye.Client.Extensions
 @using System.Runtime.CompilerServices
+@using Microsoft.Extensions.Localization
 
-@if (_profile != null)
+@if (_profile != null && Localizer != null)
 {
 <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Account</MudText>
 <MudTabs Elevation="25" Color="Color.Transparent" Rounded="true" PanelClass="mt-6">
-	<MudTabPanel Text="Dane podstawowe">
+	<MudTabPanel Text="@Localizer.GetString("BasicData")">
 		<MudGrid>
 			<MudItem xs="12" sm="4" md="3">
 				<MudCard Elevation="25">
