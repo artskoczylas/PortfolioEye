@@ -3,6 +3,7 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Localization
 @using PortfolioEye.Domain.Entities
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -10,11 +11,11 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
-<PageTitle>Log in</PageTitle>
+<PageTitle>@Localizer?.GetString("LogIn")</PageTitle>
 
 @layout LoginLayout
 
-<h1>Log in</h1>
+<h1>@Localizer?.GetString("LogIn")</h1>
 <div class="row">
     <div class="col-md-12">
             <StatusMessage Message="@errorMessage" />
@@ -59,7 +60,7 @@
 
 @code {
     private string? errorMessage;
-
+    [Inject] protected IStringLocalizer<Login>? Localizer { get; set; }
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 

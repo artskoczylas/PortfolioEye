@@ -49,7 +49,10 @@ builder.Services.AddTransient<BreadcrumbService>();
 builder.Services.AddTransient<ICurrentUserAccessor, CurrentUserAccessor>();
 
 builder.Services.AddInfrastructureLayer();
-
+builder.Services.AddLocalization(options =>
+{
+	options.ResourcesPath = "Resources";
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

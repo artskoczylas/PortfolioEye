@@ -21,4 +21,28 @@
     <PackageReference Include="MudBlazor" Version="6.17.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Components.Account.Pages.Login.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.Account.Pages.Login.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components.Account.Pages.Login.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.Account.Pages.Login.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Components.Account.Pages.Login.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.Account.Pages.Login.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components.Account.Pages.Login.en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.Account.Pages.Login.en.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
