@@ -21,4 +21,49 @@
     <data name="BasicData" xml:space="preserve">
         <value>Basic data</value>
     </data>
+    <data name="Profile" xml:space="preserve">
+        <value>Profile</value>
+    </data>
+    <data name="Photo" xml:space="preserve">
+        <value>Photo</value>
+    </data>
+    <data name="AddPhoto" xml:space="preserve">
+        <value>Add photo</value>
+    </data>
+    <data name="DeletePhoto" xml:space="preserve">
+        <value>Delete photo</value>
+    </data>
+    <data name="ProfileDetails" xml:space="preserve">
+        <value>Profile details</value>
+    </data>
+    <data name="FirstName" xml:space="preserve">
+        <value>First name</value>
+    </data>
+    <data name="LastName" xml:space="preserve">
+        <value>Last Name</value>
+    </data>
+    <data name="Email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="SaveChanges" xml:space="preserve">
+        <value>Save changes</value>
+    </data>
+    <data name="Notifications" xml:space="preserve">
+        <value>Notifications</value>
+    </data>
+    <data name="Security" xml:space="preserve">
+        <value>Security</value>
+    </data>
+    <data name="AvailableActions" xml:space="preserve">
+        <value>Available actions</value>
+    </data>
+    <data name="FailedToGetProfile" xml:space="preserve">
+        <value>Failed to get profile</value>
+    </data>
+    <data name="ProfileSaved" xml:space="preserve">
+        <value>Profile saved</value>
+    </data>
+    <data name="FailedToSaveProfile" xml:space="preserve">
+        <value>Failed to save profile</value>
+    </data>
 </root>

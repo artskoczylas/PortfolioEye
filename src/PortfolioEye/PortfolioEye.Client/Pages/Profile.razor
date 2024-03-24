@@ -6,7 +6,7 @@
 
 @if (_profile != null && Localizer != null)
 {
-<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Account</MudText>
+<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">@Localizer.GetString("Profile")</MudText>
 <MudTabs Elevation="25" Color="Color.Transparent" Rounded="true" PanelClass="mt-6">
 	<MudTabPanel Text="@Localizer.GetString("BasicData")">
 		<MudGrid>
@@ -14,7 +14,7 @@
 				<MudCard Elevation="25">
 					<MudCardHeader>
 						<CardHeaderContent>
-							<MudText>Zdjęcie</MudText>
+							<MudText>@Localizer.GetString("Photo")</MudText>
 						</CardHeaderContent>
 					</MudCardHeader>
 					<MudCardContent>
@@ -37,14 +37,14 @@
 											   Color="Color.Primary"
 											   StartIcon="@Icons.Material.Filled.CloudUpload"
 											   for="@context.Id">
-										Dodaj zdjęcie
+										@Localizer.GetString("AddPhoto")
 									</MudButton>
 								</ButtonTemplate>
 							</MudFileUpload>
 						}
 						else
 						{
-							<MudButton OnClick="DeletePicture" Color="Color.Error">Usuń zdjęcie</MudButton>
+							<MudButton OnClick="DeletePicture" Color="Color.Error">@Localizer.GetString("DeletePhoto")</MudButton>
 						}
 					</MudCardActions>
 				</MudCard>
@@ -53,34 +53,34 @@
 				<MudCard Elevation="25">
 					<MudCardHeader>
 						<CardHeaderContent>
-							<MudText>Szczegóły profilu</MudText>
+							<MudText>@Localizer.GetString("ProfileDetails")</MudText>
 						</CardHeaderContent>
 					</MudCardHeader>
 					<MudCardContent>
 						<MudGrid>
 							<MudItem xs="12" md="6">
-								<MudTextField @bind-Value="FirstName" Label="First Name" Variant="Variant.Outlined" />
+								<MudTextField @bind-Value="FirstName" Label="@Localizer.GetString("FirstName")" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem xs="12" md="6">
-								<MudTextField @bind-Value="LastName" Label="First Name" Variant="Variant.Outlined" />
+								<MudTextField @bind-Value="LastName" Label="@Localizer.GetString("LastName")" Variant="Variant.Outlined" />
 							</MudItem>
 							<MudItem xs="12" md="6">
-								<MudTextField Value="Email" Disabled="true" Label="Email" Variant="Variant.Outlined" InputType="InputType.Email" />
+								<MudTextField Value="Email" Disabled="true" Label="@Localizer.GetString("Email")" Variant="Variant.Outlined" InputType="InputType.Email" />
 							</MudItem>
 						</MudGrid>
 					</MudCardContent>
 					<MudCardActions Class="pb-4 pl-4">
-						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" @onclick="SaveChanges">Save Changes</MudButton>
+						<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" @onclick="SaveChanges">@Localizer.GetString("SaveChanges")</MudButton>
 					</MudCardActions>
 				</MudCard>
 			</MudItem>
 		</MudGrid>
 	</MudTabPanel>
-	<MudTabPanel Text="Powiadomienia" Disabled="true">
+	<MudTabPanel Text="@Localizer.GetString("Notifications")" Disabled="true">
 		<MudCard>
 			<MudCardHeader>
 				<CardHeaderContent>
-					<MudText>Preferencje</MudText>
+					<MudText>@Localizer.GetString("Notifications")</MudText>
 				</CardHeaderContent>
 			</MudCardHeader>
 			<MudCardContent>
@@ -120,11 +120,11 @@
 			</MudCardActions>
 		</MudCard>
 	</MudTabPanel>
-	<MudTabPanel Text="Bezpieczeństwo">
+	<MudTabPanel Text="@Localizer.GetString("Security")">
 			<MudCard>
 				<MudCardHeader>
 					<CardHeaderContent>
-						<MudText>Dostępne akcje</MudText>
+						<MudText>@Localizer.GetString("AvailableActions")</MudText>
 					</CardHeaderContent>
 				</MudCardHeader>
 				<MudCardContent>

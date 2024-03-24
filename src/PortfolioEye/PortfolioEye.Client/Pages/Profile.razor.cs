@@ -15,7 +15,7 @@ namespace PortfolioEye.Client.Pages
 		[Inject] protected IStringLocalizer<Profile>? Localizer { get; set; }
 		
 		private string? AvatarImageLink { get; set; }
-		private string AvatarButtonText => (AvatarImageLink == null) ? "Dodaj zdjęcie" : "Usuń zdjęcie";
+		private string AvatarButtonText => (AvatarImageLink == null) ? Localizer?.GetString("AddPhoto") : Localizer?.GetString("DeletePhoto");
 		private Color AvatarButtonColor => (AvatarImageLink == null) ? Color.Primary : Color.Error;
 		private string? FirstName { get; set; }
 		private string? LastName { get; set; }
@@ -61,7 +61,7 @@ namespace PortfolioEye.Client.Pages
 				AvatarImageLink = result.Data!.PhotoUrl;
 			}
 			else
-				Snackbar?.Add("Nie udało się pobrać profilu", Severity.Warning);
+				Snackbar?.Add(Localizer?.GetString("FailedToGetProfile"), Severity.Warning);
 		}
 		
 		private async Task SaveChanges()
@@ -69,9 +69,9 @@ namespace PortfolioEye.Client.Pages
 			var profileCommand = new UpdateProfileCommand(FirstName, LastName);
 			var result = await CurrentUserManager!.UpdateMyProfile(profileCommand);
 			if(result.IsSuccess)
-				Snackbar?.Add("Zapisano dane profilu", Severity.Info);
+				Snackbar?.Add(Localizer?.GetString("ProfileSaved"), Severity.Info);
 			else
-				Snackbar?.Add("Nie udało się zapisać profilu", Severity.Warning);
+				Snackbar?.Add(Localizer?.GetString("FailedToSaveProfile"), Severity.Warning);
 		}
 
 		private void NavigateWithReload(string url) => NavigationManager!.NavigateTo(url, true);

@@ -60,11 +60,146 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dodaj zdjęcie.
+        /// </summary>
+        internal static string AddPhoto {
+            get {
+                return ResourceManager.GetString("AddPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dostępne akcje.
+        /// </summary>
+        internal static string AvailableActions {
+            get {
+                return ResourceManager.GetString("AvailableActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dane podstawowe.
         /// </summary>
         internal static string BasicData {
             get {
                 return ResourceManager.GetString("BasicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuń zdjęcie.
+        /// </summary>
+        internal static string DeletePhoto {
+            get {
+                return ResourceManager.GetString("DeletePhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adres email.
+        /// </summary>
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie udało się pobrać profilu.
+        /// </summary>
+        internal static string FailedToGetProfile {
+            get {
+                return ResourceManager.GetString("FailedToGetProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie udało sie zapisać profilu.
+        /// </summary>
+        internal static string FailedToSaveProfile {
+            get {
+                return ResourceManager.GetString("FailedToSaveProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imie.
+        /// </summary>
+        internal static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nazwisko.
+        /// </summary>
+        internal static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powiadomienia.
+        /// </summary>
+        internal static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zdjęcie.
+        /// </summary>
+        internal static string Photo {
+            get {
+                return ResourceManager.GetString("Photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profil.
+        /// </summary>
+        internal static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Szczegóły profilu.
+        /// </summary>
+        internal static string ProfileDetails {
+            get {
+                return ResourceManager.GetString("ProfileDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapisano profil.
+        /// </summary>
+        internal static string ProfileSaved {
+            get {
+                return ResourceManager.GetString("ProfileSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapisz zmiany.
+        /// </summary>
+        internal static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bezpieczeństwo.
+        /// </summary>
+        internal static string Security {
+            get {
+                return ResourceManager.GetString("Security", resourceCulture);
             }
         }
     }
