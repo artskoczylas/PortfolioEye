@@ -1,5 +1,6 @@
 ﻿@using PortfolioEye.Client.Extensions
 @using PortfolioEye.Application.Features.Users.Queries
+@using Microsoft.Extensions.Localization
 
 <MudCard Elevation="0" Square="true" Class="@Class" Style="@Style">
     <AuthorizeView>
@@ -10,10 +11,6 @@
                         @if (UserProfile != null)
                         {
                             @UserProfile.GetInitials()
-                        }
-                        else
-                        {
-                        @context.User.Identity?.GetInitials()
                         }
                     </MudAvatar>
                 </CardHeaderAvatar>
@@ -28,7 +25,7 @@
                     <MudIcon Icon="@Icons.Material.Filled.Person" />
                 </CardHeaderAvatar>
                 <CardHeaderContent>
-                    <MudText Typo="Typo.body2">Użytkownik niezalogowany</MudText>
+                    <MudText Typo="Typo.body2">@Localizer.GetString("UserNotLoggedIn")</MudText>
                 </CardHeaderContent>
             </MudCardHeader>
         </NotAuthorized>
@@ -41,7 +38,8 @@
     public UserProfileResponse?  UserProfile { get;set; }
     [Parameter] public string Class { get; set; }
     [Parameter] public string Style { get; set; }
-
+    
+    [Inject] public IStringLocalizer<PersonCard> Localizer { get; set; }
     public void Refresh()
     {
         StateHasChanged();

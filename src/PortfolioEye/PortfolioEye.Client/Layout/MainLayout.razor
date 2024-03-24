@@ -3,9 +3,10 @@
 @using PortfolioEye.Client.Infrastructure.Managers
 @using PortfolioEye.Client.Services
 @using PortfolioEye.Application.Features.Users.Queries
+@using Microsoft.Extensions.Localization
 @inherits LayoutComponentBase
 
-<MudThemeProvider Theme="currentTheme"/>
+<MudThemeProvider Theme="_currentTheme"/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 <CascadingValue Value="@_profile">
@@ -28,8 +29,8 @@
                             <CascadingValue Value="@_profile">
                                 <PersonCard Class="mt-n2"/>
                                 <MudDivider Class="mb-2"/>
-                                <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" OnClick="@(() => NavigationManager.NavigateTo("Profile"))"/>
-                                <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Logout" OnClick="@(() => NavigateWithReload("Account/Logout"))"/>
+                                <MudListItem Text="@Localizer?.GetString("Profile")" Icon="@Icons.Material.Outlined.Person" OnClick="@(() => NavigationManager?.NavigateTo("Profile"))"/>
+                                <MudListItem Text="@Localizer?.GetString("Logout")" Icon="@Icons.Material.Outlined.Logout" OnClick="@(() => NavigateWithReload("Account/Logout"))"/>
                             </CascadingValue>
                         </ChildContent>
                     </MudMenu>
@@ -44,8 +45,8 @@
                         <ChildContent>
                             <PersonCard Class="mt-n2"/>
                             <MudDivider Class="mb-2"/>
-                            <MudListItem Text="Zarejestruj konto" Icon="@Icons.Material.Outlined.PersonAdd" OnClick="@(() => NavigateWithReload("Account/Register"))"/>
-                            <MudListItem Text="Zaloguj się" Icon="@Icons.Material.Outlined.Login" OnClick="@(() => NavigateWithReload("Account/Login"))"/>
+                            <MudListItem Text="@Localizer?.GetString("Register")" Icon="@Icons.Material.Outlined.PersonAdd" OnClick="@(() => NavigateWithReload("Account/Register"))"/>
+                            <MudListItem Text="@Localizer?.GetString("Login")" Icon="@Icons.Material.Outlined.Login" OnClick="@(() => NavigateWithReload("Account/Login"))"/>
                         </ChildContent>
                     </MudMenu>
                 </NotAuthorized>
@@ -67,13 +68,14 @@
     </MudLayout>
 </CascadingValue>
 <div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
+    @Localizer?.GetString("ErrorOccurred")
+    <a href="" class="reload">@Localizer?.GetString("Reload")</a>
     <a class="dismiss">🗙</a>
 </div>
 
 @code {
-
+    [Inject]
+    public IStringLocalizer<MainLayout>? Localizer { get; set; }
     private bool _drawerOpen = true;
 
     // private string currentUrl;
@@ -94,29 +96,30 @@
         }
         catch
         {
+            //Error when not logged in
         }
 
-        NavigationManager.LocationChanged += OnLocationChanged;
-        _items = BreadcrumbService.GetBreadcrumbs();
+        NavigationManager!.LocationChanged += OnLocationChanged;
+        _items = BreadcrumbService!.GetBreadcrumbs();
         await base.OnInitializedAsync();
     }
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         // currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-        _items = BreadcrumbService.GetBreadcrumbs();
+        _items = BreadcrumbService!.GetBreadcrumbs();
         StateHasChanged();
     }
 
-    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>() { new BreadcrumbItem("Home", href: "#") };
+    private List<BreadcrumbItem> _items = [new BreadcrumbItem("Home", href: "#")];
 
-    private MudTheme currentTheme = new PortfolioEyeTheme();
+    private readonly MudTheme _currentTheme = new PortfolioEyeTheme();
 
-    [Inject] protected NavigationManager NavigationManager { get; set; }
+    [Inject] protected NavigationManager? NavigationManager { get; set; }
 
-    [Inject] protected BreadcrumbService BreadcrumbService { get; set; }
+    [Inject] protected BreadcrumbService? BreadcrumbService { get; set; }
 
     [Inject] public ICurrentUserManager? CurrentUserManager { get; set; }
 
-    private void NavigateWithReload(string url) => NavigationManager.NavigateTo(url, true);
+    private void NavigateWithReload(string url) => NavigationManager?.NavigateTo(url, true);
 }

@@ -27,6 +27,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Pages.Profile.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components.Shared.PersonCard.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.Shared.PersonCard.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components.Shared.PersonCard.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.Shared.PersonCard.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Layout.MainLayout.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Layout.MainLayout.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Layout.MainLayout.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Layout.MainLayout.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +55,26 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Pages.Profile.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components.Shared.PersonCard.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.Shared.PersonCard.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components.Shared.PersonCard.en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.Shared.PersonCard.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Layout.MainLayout.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Layout.MainLayout.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Layout.MainLayout.en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Layout.MainLayout.en.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
