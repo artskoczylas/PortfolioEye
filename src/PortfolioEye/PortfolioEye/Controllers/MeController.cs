@@ -47,4 +47,39 @@ public class MeController(IMediator mediator) : ControllerBase
             _ => BadRequest(result)
         };
     }
+
+    [HttpPost("Profile/Photo")]
+    public async Task<IActionResult> UploadProfilePhoto([FromServices] ICurrentUserAccessor userAccessor, [FromBody] UploadProfilePhotoCommand command)
+    {
+        var currentUser = userAccessor.Get();
+        if (currentUser == null)
+            return Unauthorized();
+
+        var result = await mediator.Send(new UploadProfilePhotoByUserIdCommand(currentUser.Id, command));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
+        {
+            WellKnown.ErrorCodes.NotFound => NotFound(result),
+            _ => BadRequest(result)
+        };
+    }
+
+    [HttpDelete("Profile/Photo")]
+    public async Task<IActionResult> DeleteProfilePhoto([FromServices] ICurrentUserAccessor userAccessor)
+    {
+        var currentUser = userAccessor.Get();
+        if (currentUser == null)
+            return Unauthorized();
+
+        var result = await mediator.Send(new DeleteProfilePhotoByUserIdCommand(currentUser.Id));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
+        {
+            WellKnown.ErrorCodes.NotFound => NotFound(result),
+            _ => BadRequest(result)
+        };
+    }
+    
 }

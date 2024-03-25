@@ -27,11 +27,18 @@ namespace PortfolioEye.Client.Infrastructure.Managers
 			var response = await factory.MainApiClient().PutAsJsonAsync($"/api/Me/Profile", profile);
 			return await response.ToResult();
 		}
+		
+		public async Task<IResult> UploadPhoto(string base64)
+		{
+			var response = await factory.MainApiClient().PostAsJsonAsync("/api/Me/Profile/Photo", new UploadProfilePhotoCommand(base64));
+			return await response.ToResult();
+		}
 	}
 
 	public interface ICurrentUserManager : IManager
 	{
 		Task<IResult<UserProfileResponse>> RetrieveMyProfile();
 		Task<IResult> UpdateMyProfile(UpdateProfileCommand profile);
+		Task<IResult> UploadPhoto(string base64);
 	}
 }
