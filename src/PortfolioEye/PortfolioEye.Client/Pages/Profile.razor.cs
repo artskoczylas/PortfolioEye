@@ -62,7 +62,7 @@ namespace PortfolioEye.Client.Pages
                 FirstName = result.Data!.FirstName;
                 LastName = result.Data!.LastName;
                 Email = result.Data!.Email;
-                AvatarImageLink = result.Data!.PhotoUrl;
+                AvatarImageLink = result.Data!.PhotoUri;
             }
             else
                 Snackbar?.Add(Localizer?.GetString("FailedToGetProfile"), Severity.Warning);

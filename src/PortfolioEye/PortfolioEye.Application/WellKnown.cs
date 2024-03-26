@@ -4,6 +4,7 @@ public static class WellKnown
 {
     public static class  ErrorCodes
     {
+        public const int Unauthorized = 401;
         public const int NotFound = 404;
     }
     public static class Claims

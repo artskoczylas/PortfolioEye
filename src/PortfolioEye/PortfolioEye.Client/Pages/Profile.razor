@@ -29,7 +29,7 @@
 						</div>
 					</MudCardContent>
 					<MudCardActions Class="d-flex justify-center">
-						@if (_profile.PhotoUrl == null)
+						@if (_profile.PhotoUri == null)
 						{
 							<MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
 								<ButtonTemplate>
