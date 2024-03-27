@@ -25,12 +25,20 @@ namespace PortfolioEye.Client.Pages
         private string? LastName { get; set; }
         private string? Email { get; set; }
 
-        private void DeletePicture()
+        private async Task DeletePicture()
         {
-            if (!string.IsNullOrEmpty(AvatarImageLink))
+            if (string.IsNullOrEmpty(AvatarImageLink) || CurrentUserManager == null)
+                return;
+
+            var result = await CurrentUserManager.DeletePhoto();
+            if (result.IsSuccess)
             {
                 AvatarImageLink = null;
+                Snackbar?.Add(Localizer?.GetString("PhotoDeleted"), Severity.Success);
             }
+            else
+                Snackbar?.Add(Localizer?.GetString("CannotDeletePhoto"), Severity.Warning);
+            StateHasChanged();
         }
 
         IList<IBrowserFile> files = new List<IBrowserFile>();
@@ -42,6 +50,16 @@ namespace PortfolioEye.Client.Pages
             await stream.CopyToAsync(ms);
             var base64 = Convert.ToBase64String(ms.ToArray());
             var result = await CurrentUserManager.UploadPhoto(base64);
+            if (result.IsSuccess)
+            {
+                Snackbar?.Add(Localizer?.GetString("PhotoUploaded"), Severity.Success);
+                await LoadProfile();
+            }
+            else
+            {
+                Snackbar?.Add(Localizer?.GetString("CannotUploadPhoto"), Severity.Success);
+            }
+            StateHasChanged();
         }
 
 
@@ -55,6 +73,11 @@ namespace PortfolioEye.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadProfile();
+        }
+
+        private async Task LoadProfile()
+        {
             var result = await CurrentUserManager!.RetrieveMyProfile();
             if (result.IsSuccess)
             {
@@ -67,7 +90,7 @@ namespace PortfolioEye.Client.Pages
             else
                 Snackbar?.Add(Localizer?.GetString("FailedToGetProfile"), Severity.Warning);
         }
-
+        
         private async Task SaveChanges()
         {
             var profileCommand = new UpdateProfileCommand(FirstName, LastName);

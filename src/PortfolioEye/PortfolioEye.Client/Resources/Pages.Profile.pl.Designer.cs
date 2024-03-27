@@ -87,6 +87,24 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można usunąć zdjęcia profilowego.
+        /// </summary>
+        internal static string CannotDeletePhoto {
+            get {
+                return ResourceManager.GetString("CannotDeletePhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można przesłać zdjęcia profilowego.
+        /// </summary>
+        internal static string CannotUploadPhoto {
+            get {
+                return ResourceManager.GetString("CannotUploadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usuń zdjęcie.
         /// </summary>
         internal static string DeletePhoto {
@@ -155,6 +173,24 @@ namespace PortfolioEye.Client.Resources {
         internal static string Photo {
             get {
                 return ResourceManager.GetString("Photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zdjęcie profilowe usunięte.
+        /// </summary>
+        internal static string PhotoDeleted {
+            get {
+                return ResourceManager.GetString("PhotoDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Przesłano zdjęcie profilowe.
+        /// </summary>
+        internal static string PhotoUploaded {
+            get {
+                return ResourceManager.GetString("PhotoUploaded", resourceCulture);
             }
         }
         

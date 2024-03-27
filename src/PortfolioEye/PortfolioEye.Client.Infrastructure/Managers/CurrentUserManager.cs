@@ -33,6 +33,12 @@ namespace PortfolioEye.Client.Infrastructure.Managers
 			var response = await factory.MainApiClient().PostAsJsonAsync("/api/Me/Profile/Photo", new UploadProfilePhotoCommand(base64));
 			return await response.ToResult();
 		}
+
+		public async Task<IResult> DeletePhoto()
+		{
+			var response = await factory.MainApiClient().DeleteAsync("/api/Me/Profile/Photo");
+			return await response.ToResult();
+		}
 	}
 
 	public interface ICurrentUserManager : IManager
@@ -40,5 +46,6 @@ namespace PortfolioEye.Client.Infrastructure.Managers
 		Task<IResult<UserProfileResponse>> RetrieveMyProfile();
 		Task<IResult> UpdateMyProfile(UpdateProfileCommand profile);
 		Task<IResult> UploadPhoto(string base64);
+		Task<IResult> DeletePhoto();
 	}
 }

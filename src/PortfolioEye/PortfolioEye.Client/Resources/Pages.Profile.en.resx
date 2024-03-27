@@ -66,4 +66,16 @@
     <data name="FailedToSaveProfile" xml:space="preserve">
         <value>Failed to save profile</value>
     </data>
+    <data name="PhotoDeleted" xml:space="preserve">
+        <value>Profile photo deleted</value>
+    </data>
+    <data name="CannotDeletePhoto" xml:space="preserve">
+        <value>Profile picture cannot be deleted</value>
+    </data>
+    <data name="PhotoUploaded" xml:space="preserve">
+        <value>Profile photo uploaded</value>
+    </data>
+    <data name="CannotUploadPhoto" xml:space="preserve">
+        <value>Profile photo cannot be uploaded</value>
+    </data>
 </root>

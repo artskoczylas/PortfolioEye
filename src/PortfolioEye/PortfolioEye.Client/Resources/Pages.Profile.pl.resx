@@ -66,4 +66,16 @@
     <data name="ProfileSaved" xml:space="preserve">
         <value>Zapisano profil</value>
     </data>
+    <data name="CannotDeletePhoto" xml:space="preserve">
+        <value>Nie można usunąć zdjęcia profilowego</value>
+    </data>
+    <data name="PhotoDeleted" xml:space="preserve">
+        <value>Zdjęcie profilowe usunięte</value>
+    </data>
+    <data name="PhotoUploaded" xml:space="preserve">
+        <value>Przesłano zdjęcie profilowe</value>
+    </data>
+    <data name="CannotUploadPhoto" xml:space="preserve">
+        <value>Nie można przesłać zdjęcia profilowego</value>
+    </data>
 </root>
