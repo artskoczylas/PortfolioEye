@@ -22,4 +22,14 @@ public class UsersController(IMediator mediator) : ControllerBase
             _ => BadRequest(user)
         };
     }
+    [HttpGet("{id:guid}/Photo")]
+    public IActionResult GetProfilePhoto(Guid id)
+    {
+        var photosDirectory = new DirectoryInfo("Data/ProfilePhotos");
+        var photo = Path.Combine(photosDirectory.ToString(), $"{id}");
+        var stream = new FileStream(photo, FileMode.Open);
+        var result = new FileStreamResult(stream, "image/png");
+        result.FileDownloadName = $"{id}";
+        return result;
+    }
 }
