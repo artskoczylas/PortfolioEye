@@ -21,4 +21,31 @@
     <data name="LogIn" xml:space="preserve">
         <value>Zaloguj się</value>
     </data>
+    <data name="Email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Hasło</value>
+    </data>
+    <data name="RememberMe" xml:space="preserve">
+        <value>Zapamiętaj mnie</value>
+    </data>
+    <data name="ForgotPassword" xml:space="preserve">
+        <value>Zapomniałem hasła</value>
+    </data>
+    <data name="Register" xml:space="preserve">
+        <value>Zarejestruj nowe konto</value>
+    </data>
+    <data name="ResendEmail" xml:space="preserve">
+        <value>Wyślij ponownie potwierdzenie e-mail</value>
+    </data>
+    <data name="LoggedIn" xml:space="preserve">
+        <value>Zalogowano</value>
+    </data>
+    <data name="LockedOut" xml:space="preserve">
+        <value>Konto zablokowane</value>
+    </data>
+    <data name="Invalid" xml:space="preserve">
+        <value>Błąd: Nieprawidłowe dane logowania</value>
+    </data>
 </root>

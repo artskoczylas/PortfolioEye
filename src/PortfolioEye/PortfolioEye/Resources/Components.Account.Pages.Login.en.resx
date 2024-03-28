@@ -21,4 +21,31 @@
     <data name="LogIn" xml:space="preserve">
         <value>Log in</value>
     </data>
+    <data name="ResendEmail" xml:space="preserve">
+        <value>Resend email confirmation</value>
+    </data>
+    <data name="LockedOut" xml:space="preserve">
+        <value>User account locked out.</value>
+    </data>
+    <data name="LoggedIn" xml:space="preserve">
+        <value>User logged in.</value>
+    </data>
+    <data name="Invalid" xml:space="preserve">
+        <value>Error: Invalid login attempt.</value>
+    </data>
+    <data name="Email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="ForgotPassword" xml:space="preserve">
+        <value>Forgot my password</value>
+    </data>
+    <data name="Register" xml:space="preserve">
+        <value>Register new account</value>
+    </data>
+    <data name="Password" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="RememberMe" xml:space="preserve">
+        <value>Remember me</value>
+    </data>
 </root>
