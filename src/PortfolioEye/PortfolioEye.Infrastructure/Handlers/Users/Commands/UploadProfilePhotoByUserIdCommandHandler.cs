@@ -3,6 +3,7 @@ using PortfolioEye.Application;
 using PortfolioEye.Application.Features.Users.Commands;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Domain.Entities;
+using SkiaSharp;
 
 namespace PortfolioEye.Infrastructure.Handlers.Users.Commands;
 
@@ -11,16 +12,18 @@ public class UploadProfilePhotoByUserIdCommandHandler(ApplicationDbContext dbCon
 {
     public async Task<IResult> Handle(UploadProfilePhotoByUserIdCommand request, CancellationToken cancellationToken)
     {
+        SKBitmap bitmap = SKBitmap.Decode(request.Content);
+        SKImage image = SKImage.FromEncodedData(Convert.FromBase64String(request.Content));
+        SKData png = image.Encode(SKEncodedImageFormat.Png, 95);
+
         var photosDirectory = new DirectoryInfo("Data/ProfilePhotos");
         if (!photosDirectory.Exists)
             photosDirectory.Create();
 
-        var fi = new FileInfo(Path.Combine(photosDirectory.ToString(), request.UserId.ToString()));
-        await using (var writer = fi.OpenWrite())
+        await using (var filestream =
+                     File.OpenWrite(Path.Combine(photosDirectory.ToString(), request.UserId.ToString() + ".png")))
         {
-            var content = Convert.FromBase64String(request.Content);
-            await writer.WriteAsync(content, cancellationToken);
-            await writer.FlushAsync(cancellationToken);
+            png.SaveTo(filestream);
         }
 
         var user = await dbContext.Users.FindAsync(request.UserId.ToString());

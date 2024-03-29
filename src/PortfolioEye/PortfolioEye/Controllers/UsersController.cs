@@ -26,7 +26,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     public IActionResult GetProfilePhoto(Guid id)
     {
         var photosDirectory = new DirectoryInfo("Data/ProfilePhotos");
-        var photo = Path.Combine(photosDirectory.ToString(), $"{id}");
+        var photo = Path.Combine(photosDirectory.ToString(), $"{id}.png");
         var stream = new FileStream(photo, FileMode.Open);
         var result = new FileStreamResult(stream, "image/png");
         result.FileDownloadName = $"{id}";
