@@ -13,9 +13,10 @@ public class UploadProfilePhotoByUserIdCommandHandler(ApplicationDbContext dbCon
     public async Task<IResult> Handle(UploadProfilePhotoByUserIdCommand request, CancellationToken cancellationToken)
     {
         SKImage image = SKImage.FromEncodedData(Convert.FromBase64String(request.Content));
-
-        var png = CropImage(image);
-
+        SKBitmap bitmap = SKBitmap.FromImage(image);
+        bitmap = CropImageIfNeeded(bitmap);
+        bitmap = ResizeImageIfNeeded(bitmap);
+        var png = bitmap.Encode(SKEncodedImageFormat.Png, 95);
         var photosDirectory = new DirectoryInfo("Data/ProfilePhotos");
         if (!photosDirectory.Exists)
             photosDirectory.Create();
@@ -36,11 +37,11 @@ public class UploadProfilePhotoByUserIdCommandHandler(ApplicationDbContext dbCon
         return await Result.SuccessAsync();
     }
 
-    private SKData CropImage(SKImage image)
+    private SKBitmap CropImageIfNeeded(SKBitmap bitmap)
     {
-        SKBitmap bitmap = SKBitmap.FromImage(image);
-
-        using var pixmap =  new SKPixmap(bitmap.Info, bitmap.GetPixels());
+        if (bitmap.Height == bitmap.Width)
+            return bitmap;
+        using var pixmap = new SKPixmap(bitmap.Info, bitmap.GetPixels());
         int left = 0;
         int top = 0;
         int right = 0;
@@ -60,9 +61,16 @@ public class UploadProfilePhotoByUserIdCommandHandler(ApplicationDbContext dbCon
             left = 0;
             right = bitmap.Width;
         }
-        SkiaSharp.SKRectI rectI = new SkiaSharp.SKRectI(0, 0, 105, 105);
+
+        var rectI = new SkiaSharp.SKRectI(left, top, right, bottom);
         var subset = pixmap.ExtractSubset(rectI);
-        SKData png = subset.Encode(SKEncodedImageFormat.Png, 95);
-        return png;
+        return SKBitmap.FromImage(SKImage.FromPixels(subset));
+    }
+
+    private SKBitmap ResizeImageIfNeeded(SKBitmap source)
+    {
+        if (source.Width < 400)
+            return source;
+        return source.Resize(new SKImageInfo(400, 400), SKFilterQuality.High);
     }
 }
