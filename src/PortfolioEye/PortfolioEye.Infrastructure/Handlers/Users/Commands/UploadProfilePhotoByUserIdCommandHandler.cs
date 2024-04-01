@@ -51,13 +51,13 @@ public class UploadProfilePhotoByUserIdCommandHandler(ApplicationDbContext dbCon
         {
             top = 0;
             bottom = bitmap.Height;
-            left = (bitmap.Height - bitmap.Width) / 2;
-            right = left + bitmap.Width;
+            left = (bitmap.Width - bitmap.Height) / 2;
+            right = left + bitmap.Height;
         }
         else
         {
-            top = (bitmap.Width - bitmap.Height) / 2;
-            bottom = top + bitmap.Height;
+            top = (bitmap.Height - bitmap.Width) / 2;
+            bottom = top + bitmap.Width;
             left = 0;
             right = bitmap.Width;
         }
