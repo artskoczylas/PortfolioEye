@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime jsRuntime;
 
 <MudThemeProvider Theme="currentTheme" />
 <MudDialogProvider />
@@ -15,4 +16,11 @@
 
 @code {
     private MudTheme currentTheme = new PortfolioEyeTheme();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await jsRuntime.InvokeVoidAsync("deleteElementById", "loading");
+        }
+    }
 }
