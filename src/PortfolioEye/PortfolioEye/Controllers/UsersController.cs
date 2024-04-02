@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioEye.Application.Features.Users;
 using PortfolioEye.Application.Features.Users.Queries;
+using PortfolioEye.Services;
 
 namespace PortfolioEye.Controllers;
 
 [Authorize]
 [Route("api/[controller]")]
-public class UsersController(IMediator mediator) : ControllerBase
+public class UsersController(IMediator mediator, IHostingInformationProvider hostingInformationProvider) : ControllerBase
 {
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id)
@@ -25,8 +26,7 @@ public class UsersController(IMediator mediator) : ControllerBase
     [HttpGet("{id:guid}/Photo")]
     public IActionResult GetProfilePhoto(Guid id)
     {
-        var photosDirectory = new DirectoryInfo("Data/ProfilePhotos");
-        var photo = Path.Combine(photosDirectory.ToString(), $"{id}.png");
+        var photo = Path.Combine(hostingInformationProvider.ProfilePhotosDirectory.ToString(), $"{id}.png");
         var stream = new FileStream(photo, FileMode.Open);
         var result = new FileStreamResult(stream, "image/png");
         result.FileDownloadName = $"{id}";

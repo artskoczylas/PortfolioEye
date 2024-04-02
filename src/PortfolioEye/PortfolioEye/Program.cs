@@ -47,6 +47,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddTransient<BreadcrumbService>();
 builder.Services.AddTransient<ICurrentUserAccessor, CurrentUserAccessor>();
+builder.Services.AddTransient<IHostingInformationProvider, HostingInformationProvider>();
 
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddLocalization(options =>
