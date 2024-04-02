@@ -8,15 +8,36 @@ namespace PortfolioEye.Client
 		{
 			Palette = new PaletteLight()
 			{
-				Primary = Colors.Blue.Darken1,
-				Secondary = Colors.DeepPurple.Accent2,
-				Background = Colors.Grey.Lighten5,
-				AppbarBackground = Colors.Blue.Darken1,
-				DrawerBackground = "#FFF",
-				DrawerText = "rgba(0,0,0, 0.7)",
-				Success = "#06d79c"
+				Primary = "#0A2342", 
+				Secondary = "#3498DB", 
+				Tertiary = "#8E44AD",
+				Info = "#17A2B8",
+				Success = "#27AE60", 
+				Warning = "#F39C12",
+				Error = "#E74C3C", 
+				Background = "#F2F2F2", 
+				AppbarBackground = "#0A2342", 
+				TextPrimary = "#4F4F4F", 
+				TextSecondary = "#828282", 
+				DrawerBackground = "#FFFFFF", 
+				DrawerText = "#4F4F4F" 
 			};
-
+			PaletteDark = new PaletteDark()
+			{
+				Primary = "#3498DB", 
+				Secondary = "#27AE60", 
+				Tertiary = "#8E44AD",
+				Info = "#17A2B8",
+				Success = "#27AE60", 
+				Warning = "#F39C12",
+				Error = "#E74C3C", 
+				Background = "#1A1A1A", 
+				AppbarBackground = "#0A2342", 
+				TextPrimary = "#FFFFFF", 
+				TextSecondary = "#B3B3B3", 
+				DrawerBackground = "#333333", 
+				DrawerText = "#FFFFFF" 
+			};
 			LayoutProperties = new LayoutProperties()
 			{
 				DefaultBorderRadius = "3px"
