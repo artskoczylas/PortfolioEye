@@ -19,7 +19,11 @@
                     <MudMenu Dense="true" Class="mt-1 ml-4">
                         <ActivatorContent>
                             <MudAvatar Color="Color.Secondary">
-                                @if (_profile != null)
+                                @if (_profile?.PhotoUri != null)
+                                {
+                                    <MudImage Src="@_profile?.PhotoUri"/>
+                                }
+                                else if (_profile != null)
                                 {
                                     @_profile.GetInitials()
                                 }
@@ -74,8 +78,7 @@
 </div>
 
 @code {
-    [Inject]
-    public IStringLocalizer<MainLayout>? Localizer { get; set; }
+    [Inject] public IStringLocalizer<MainLayout>? Localizer { get; set; }
     private bool _drawerOpen = true;
 
     // private string currentUrl;

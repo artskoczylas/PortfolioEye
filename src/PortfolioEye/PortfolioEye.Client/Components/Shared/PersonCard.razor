@@ -7,8 +7,12 @@
         <Authorized>
             <MudCardHeader>
                 <CardHeaderAvatar>
-                    <MudAvatar Color="Color.Secondary">
-                        @if (UserProfile != null)
+                    <MudAvatar Color="Color.Secondary" href="">
+                        @if (UserProfile?.PhotoUri != null)
+                        {
+                            <MudImage Src="@UserProfile?.PhotoUri"/>
+                        }
+                        else if (UserProfile != null)
                         {
                             @UserProfile.GetInitials()
                         }
@@ -22,7 +26,7 @@
         <NotAuthorized>
             <MudCardHeader>
                 <CardHeaderAvatar>
-                    <MudIcon Icon="@Icons.Material.Filled.Person" />
+                    <MudIcon Icon="@Icons.Material.Filled.Person"/>
                 </CardHeaderAvatar>
                 <CardHeaderContent>
                     <MudText Typo="Typo.body2">@Localizer.GetString("UserNotLoggedIn")</MudText>
@@ -30,18 +34,13 @@
             </MudCardHeader>
         </NotAuthorized>
     </AuthorizeView>
-   
+
 </MudCard>
 
 @code {
-    [CascadingParameter]
-    public UserProfileResponse?  UserProfile { get;set; }
+    [CascadingParameter] public UserProfileResponse? UserProfile { get; set; }
     [Parameter] public string Class { get; set; }
     [Parameter] public string Style { get; set; }
-    
+
     [Inject] public IStringLocalizer<PersonCard> Localizer { get; set; }
-    public void Refresh()
-    {
-        StateHasChanged();
-    }
 }
