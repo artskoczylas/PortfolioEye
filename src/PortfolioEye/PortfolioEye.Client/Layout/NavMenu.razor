@@ -4,26 +4,15 @@
 
 @inject NavigationManager NavigationManager
 <AuthorizeView>
-	<Authorized>
-		<PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text);" />
-		<MudDivider Style="flex-grow: 0" />
-	</Authorized>
+    <Authorized>
+        <PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text);"/>
+        <MudDivider Style="flex-grow: 0"/>
+    </Authorized>
 </AuthorizeView>
 
 <MudNavMenu>
-	<MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-	<MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-	<MudNavLink Href="weather" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Weather</MudNavLink>
-	<MudNavLink Href="auth" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Auth Required</MudNavLink>
-
-	<AuthorizeView>
-		<Authorized>
-			<MudNavLink Href="Account/Manage" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">@context.User.Identity?.Name</MudNavLink>
-			</Authorized>
-			<NotAuthorized>
-				<MudNavLink Href="Account/Register" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Register</MudNavLink>
-				<MudNavLink Href="Account/Login" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Login</MudNavLink>
-			</NotAuthorized>
-		</AuthorizeView>
-
-	</MudNavMenu>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">@Localizer?.GetString("Dashboard")</MudNavLink>
+    <MudNavLink Href="portfolios" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">@Localizer?.GetString("Portfolios")</MudNavLink>
+    <MudNavLink Href="accounts" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">@Localizer?.GetString("Accounts")</MudNavLink>
+    <MudNavLink Href="transactions" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">@Localizer?.GetString("Transactions")</MudNavLink>
+</MudNavMenu>
