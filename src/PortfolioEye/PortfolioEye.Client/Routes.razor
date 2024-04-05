@@ -1,4 +1,4 @@
-﻿@inject IJSRuntime jsRuntime;
+﻿@inject IJSRuntime JsRuntime;
 
 <Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
@@ -16,7 +16,7 @@
     {
         if (firstRender)
         {
-            await jsRuntime.InvokeVoidAsync("deleteElementById", "loading");
+            await JsRuntime.InvokeVoidAsync("deleteElementById", "loading");
         }
     }
 }

@@ -1,0 +1,8 @@
+﻿@using PortfolioEye.Client.Pages
+@using Microsoft.Extensions.Localization
+<MudTablePager RowsPerPageString="@Localizer?["RowsPerPageString"]" InfoFormat="@Localizer?["InfoFormat"]" />
+
+@code
+{
+    [Inject] public IStringLocalizer<TablePager>? Localizer { get; set; }
+}

@@ -47,6 +47,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Layout.NavMenu.pl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components.TablePager.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.TablePager.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages.Portfolios.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Pages.Portfolios.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages.Accounts.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Pages.Accounts.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -84,6 +96,21 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Layout.NavMenu.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components.TablePager.en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.TablePager.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Pages.Portfolios.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Pages.Portfolios.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Pages.Accounts.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Pages.Accounts.pl.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
