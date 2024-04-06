@@ -26,6 +26,7 @@ The project was created as my participation in the 100 commits competition. Due 
 - [X] User accounts
 - [ ] Portfolio management
 - [ ] Account management
+- [ ] Fetching exchange rates from NBP
 - [ ] Adding stock purchases
 - [ ] Fetching current stock prices (possibly using Yahoo API)
 - [ ] Calculating current stock values
