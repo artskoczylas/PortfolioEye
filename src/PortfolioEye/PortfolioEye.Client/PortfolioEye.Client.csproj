@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.FluentValidation" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.3" />
     <PackageReference Include="MudBlazor" Version="6.17.0" />
@@ -58,6 +59,10 @@
     <EmbeddedResource Update="Resources\Pages.Accounts.pl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Pages.Accounts.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components.Dialogs.AddEditPortfolioDialog.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.Dialogs.AddEditPortfolioDialog.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
@@ -111,6 +116,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Pages.Accounts.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components.Dialogs.AddEditPortfolioDialog.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.Dialogs.AddEditPortfolioDialog.pl.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
+using PortfolioEye.Application.Features.Portfolios.Commands;
 using PortfolioEye.Application.Features.Portfolios.Queries;
+using PortfolioEye.Client.Components.Dialogs;
 
 namespace PortfolioEye.Client.Pages
 {
@@ -11,7 +14,7 @@ namespace PortfolioEye.Client.Pages
         private List<RetrievePortfoliosByUserId.Response>? _portfolios;
         private RetrievePortfoliosByUserId.Response? _portfolio;
         [Inject] public IStringLocalizer<Portfolios>? Localizer { get; set; }
-
+        [Inject] public IDialogService DialogService { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await Task.Delay(400);
@@ -24,6 +27,11 @@ namespace PortfolioEye.Client.Pages
             _loaded = true;
         }
 
+        public async Task Refresh()
+        {
+            await Task.Delay(10);
+        }
+        
         private bool Search(RetrievePortfoliosByUserId.Response portfolio)
         {
             if (string.IsNullOrWhiteSpace(_searchString)) return true;
@@ -33,6 +41,7 @@ namespace PortfolioEye.Client.Pages
         private async Task CreateNew()
         {
             await Task.Delay(10);
+            await ShowDialog();
         }
         private async Task Edit(RetrievePortfoliosByUserId.Response portfolio)
         {
@@ -43,5 +52,29 @@ namespace PortfolioEye.Client.Pages
             await Task.Delay(10);
         }
         
+        private async Task ShowDialog(Guid? id = null)
+        {
+            var parameters = new DialogParameters();
+            if (id != null)
+            {
+                _portfolio = _portfolios?.FirstOrDefault(c => c.Id == id);
+                if (_portfolio != null)
+                {
+                    parameters.Add(nameof(AddEditPortfolioDialog.AddEditBrandModel), new AddEditPortfolioCommand()
+                    {
+                        Id = _portfolio.Id,
+                        Name = _portfolio.Name,
+                        //Description = _portfolio.Description,
+                    });
+                }
+            }
+            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+            var dialog = DialogService.Show<AddEditPortfolioDialog>(id == null ? Localizer!["Create"] : Localizer!["Edit"], parameters, options);
+            var result = await dialog.Result;
+            if (!result.Canceled)
+            {
+                await Refresh();
+            }
+        }
     }
 }

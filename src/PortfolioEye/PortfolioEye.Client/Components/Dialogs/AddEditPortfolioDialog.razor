@@ -1,0 +1,67 @@
+﻿@using PortfolioEye.Application.Features.Portfolios.Commands
+@using Blazored.FluentValidation
+@inject Microsoft.Extensions.Localization.IStringLocalizer<AddEditPortfolioDialog>? Localizer
+
+<EditForm Model="@AddEditBrandModel" OnValidSubmit="SaveAsync">
+    <FluentValidationValidator @ref="_fluentValidationValidator"/>
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (AddEditBrandModel.Id == null)
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/>
+                        @Localizer?["NewPortfolio"]
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1"/>
+                        @Localizer?["EditPortfolio"]
+                    </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem xs="12" md="6">
+                    <MudTextField For="@(() => AddEditBrandModel.Name)" @bind-Value="AddEditBrandModel.Name" Label="@Localizer?["Name"]"/>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudTextField For="@(() => AddEditBrandModel.Description)" @bind-Value="AddEditBrandModel.Description" Label="@Localizer?["Description"]"/>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">@Localizer?["Cancel"]</MudButton>
+            @if (AddEditBrandModel.Id != null)
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit" Disabled="@(!Validated)" Color="Color.Secondary">@Localizer?["Edit"]</MudButton>
+            }
+            else
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit" Disabled="@(!Validated)" Color="Color.Success">@Localizer?["Save"]</MudButton>
+            }
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code{
+
+    private FluentValidationValidator? _fluentValidationValidator;
+    private bool Validated => _fluentValidationValidator?.Validate(options => { options.IncludeAllRuleSets(); }) ?? false;
+    [Parameter] public AddEditPortfolioCommand AddEditBrandModel { get; set; } = new();
+    [CascadingParameter] private MudDialogInstance? MudDialog { get; set; }
+
+    public async Task SaveAsync()
+    {
+        await Task.Delay(10);
+    }
+
+    public async Task Cancel()
+    {
+        await Task.Delay(10);
+    }
+}
+
