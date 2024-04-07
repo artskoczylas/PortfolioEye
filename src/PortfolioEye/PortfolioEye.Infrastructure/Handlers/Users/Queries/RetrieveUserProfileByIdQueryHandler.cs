@@ -6,6 +6,7 @@ using PortfolioEye.Application.Features.Users;
 using PortfolioEye.Application.Features.Users.Queries;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Domain.Entities;
+using PortfolioEye.Infrastructure.Data;
 
 namespace PortfolioEye.Infrastructure.Handlers.Users.Queries;
 

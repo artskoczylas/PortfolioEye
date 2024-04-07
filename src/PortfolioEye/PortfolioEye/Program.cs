@@ -8,6 +8,7 @@ using PortfolioEye.Domain.Entities;
 using MudBlazor.Services;
 using PortfolioEye.Client.Services;
 using PortfolioEye.Infrastructure;
+using PortfolioEye.Infrastructure.Data;
 using PortfolioEye.Interfaces;
 using PortfolioEye.Services;
 
