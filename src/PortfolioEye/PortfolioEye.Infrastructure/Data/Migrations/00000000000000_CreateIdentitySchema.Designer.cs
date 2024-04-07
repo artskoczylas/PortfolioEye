@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortfolioEye.Domain.Entities;
 using System;
+using PortfolioEye.Infrastructure.Data;
 
 #nullable disable
 

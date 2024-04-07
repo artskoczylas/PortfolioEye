@@ -6,6 +6,6 @@ namespace PortfolioEye.Infrastructure.Data
 {
 	public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
 	{
-		
+		public DbSet<Currency> Currencies { get; set; }
 	}
 }
