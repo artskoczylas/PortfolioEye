@@ -23,6 +23,10 @@ namespace PortfolioEye.Migrations
                 {
                     table.PrimaryKey("PK_Currencies", x => x.Id);
                 });
+            
+            InserCurrency(migrationBuilder,"PLN");
+            InserCurrency(migrationBuilder,"EUR");
+            InserCurrency(migrationBuilder,"USD");
         }
 
         /// <inheritdoc />
@@ -30,6 +34,14 @@ namespace PortfolioEye.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Currencies");
+        }
+        
+        private void InserCurrency(MigrationBuilder migrationBuilder, string code)
+        {
+            migrationBuilder.InsertData(
+                table: "Currencies",
+                columns: new[] { "Code", "IsActive" },
+                values: new object[] { code, true });
         }
     }
 }
