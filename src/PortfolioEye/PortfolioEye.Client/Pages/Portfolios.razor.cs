@@ -20,9 +20,7 @@ namespace PortfolioEye.Client.Pages
             await Task.Delay(400);
             _portfolios =
             [
-                new RetrievePortfoliosByUserId.Response(Guid.NewGuid(), "Test1"),
-                new RetrievePortfoliosByUserId.Response(Guid.NewGuid(), "Test2"),
-                new RetrievePortfoliosByUserId.Response(Guid.NewGuid(), "Test3")
+                
             ];
             _loaded = true;
         }

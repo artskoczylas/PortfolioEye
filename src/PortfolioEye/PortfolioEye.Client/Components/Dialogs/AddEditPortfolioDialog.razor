@@ -33,8 +33,8 @@
                     <MudTextField For="@(() => AddEditBrandModel.Description)" @bind-Value="AddEditBrandModel.Description" Label="@Localizer?["Description"]"/>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudSelect T="string" Label="Currency" AnchorOrigin="Origin.BottomCenter">
-                        @foreach (var item in currencies)
+                    <MudSelect Disabled="@(AddEditBrandModel.Id != null)" For="@(() => AddEditBrandModel.Currency)" @bind-Value="AddEditBrandModel.Currency" T="string" Label="@Localizer?["Currency"]" AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var item in _currencies)
                         {
                         <MudSelectItem Value="@item"/>
                         }
@@ -64,7 +64,7 @@
     [CascadingParameter] private MudDialogInstance? MudDialog { get; set; }
 
     [Inject] public ICurrenciesManager? CurrenciesManager { get; set; }
-    private IEnumerable<string> currencies = new List<string>();
+    private IEnumerable<string> _currencies = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,7 +73,7 @@
         
         var currenciesResult = await CurrenciesManager.RetrieveActive();
         if (currenciesResult.IsSuccess)
-            currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
+            _currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
     }
 
     public async Task SaveAsync()

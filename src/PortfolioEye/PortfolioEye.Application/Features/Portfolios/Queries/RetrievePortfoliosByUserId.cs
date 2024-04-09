@@ -6,6 +6,6 @@ namespace PortfolioEye.Application.Features.Portfolios.Queries
 {
 	public record RetrievePortfoliosByUserId(Guid UserId) : IRequest<IResult<Response>>
 	{
-		public record Response(Guid Id, string Name);
+		public record Response(Guid Id, string Name, string Currency, decimal Balance);
 	}
 }
