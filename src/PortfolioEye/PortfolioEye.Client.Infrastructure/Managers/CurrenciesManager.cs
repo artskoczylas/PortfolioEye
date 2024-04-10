@@ -12,19 +12,19 @@ public class CurrenciesManager(IHttpClientFactory factory) : ICurrenciesManager
     public async Task<IResult<RetrieveAllCurrenciesQuery.Response>> RetrieveAll()
     {
         var response = await factory.MainApiClient().GetAsync($"/api/currencies/");
-        return await response.ToResult<RetrieveAllCurrenciesQuery.Response>();
+        return await response.ToResultAsync<RetrieveAllCurrenciesQuery.Response>();
     }
 
     public async Task<IResult<RetrieveActiveCurrenciesQuery.Response>> RetrieveActive()
     {
         var response = await factory.MainApiClient().GetAsync($"/api/currencies/active/");
-        return await response.ToResult<RetrieveActiveCurrenciesQuery.Response>();
+        return await response.ToResultAsync<RetrieveActiveCurrenciesQuery.Response>();
     }
 
     public async Task<IResult> AddNewCurrency(string code)
     {
         var response = await factory.MainApiClient().PostAsJsonAsync($"/api/currencies/", new AddCurrencyCommand(code, true));
-        return await response.ToResult();
+        return await response.ToResultAsync();
     }
 }
 

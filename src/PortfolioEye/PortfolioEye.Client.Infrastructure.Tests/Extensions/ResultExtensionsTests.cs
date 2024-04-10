@@ -16,7 +16,7 @@ public class HttpClientFactoryExtensionsTests
     {
         var response = await PrepareSuccessResponse(new TestDataRecord("Valid data"));
 
-        var result = await response.ToResult<TestDataRecord>();
+        var result = await response.ToResultAsync<TestDataRecord>();
 
         result.IsSuccess.Should().BeTrue();
     }
@@ -26,7 +26,7 @@ public class HttpClientFactoryExtensionsTests
     {
         var response = await PrepareSuccessResponse(new TestDataRecord("Valid data"));
 
-        var result = await response.ToResult<TestDataRecord>();
+        var result = await response.ToResultAsync<TestDataRecord>();
 
         result.Messages.Should().NotBeNull();
         result.Messages.Should().BeEmpty();
@@ -37,7 +37,7 @@ public class HttpClientFactoryExtensionsTests
     {
         var response = await PrepareSuccessResponse(new TestDataRecord("Valid data"));
 
-        var result = await response.ToResult<TestDataRecord>();
+        var result = await response.ToResultAsync<TestDataRecord>();
 
         result.Data.Should().NotBeNull();
         result.Data!.Abc.Should().Be("Valid data");
@@ -48,7 +48,7 @@ public class HttpClientFactoryExtensionsTests
     {
         var response = await PrepareFailResponse(HttpStatusCode.NotFound,"Some error");
 
-        var result = await response.ToResult<TestDataRecord>();
+        var result = await response.ToResultAsync<TestDataRecord>();
 
         result.IsSuccess.Should().BeFalse();
     }
@@ -58,7 +58,7 @@ public class HttpClientFactoryExtensionsTests
     {
         var response = await PrepareFailResponse(HttpStatusCode.NotFound,"Some error");
 
-        var result = await response.ToResult<TestDataRecord>();
+        var result = await response.ToResultAsync<TestDataRecord>();
 
         result.Messages.Should().HaveCount(1);
         result.Messages.First().Should().Be("Some error");
@@ -69,7 +69,7 @@ public class HttpClientFactoryExtensionsTests
     {
         var response = await PrepareFailResponse(HttpStatusCode.NotFound,"Some error");
 
-        var result = await response.ToResult<TestDataRecord>();
+        var result = await response.ToResultAsync<TestDataRecord>();
 
         result.ErrorCode.Should().Be(WellKnown.ErrorCodes.NotFound);
     }
@@ -79,7 +79,7 @@ public class HttpClientFactoryExtensionsTests
     {
         var response = await PrepareFailResponse(HttpStatusCode.NotFound,"Some error");
 
-        var result = await response.ToResult<TestDataRecord>();
+        var result = await response.ToResultAsync<TestDataRecord>();
 
         result.Data.Should().BeNull();
     }

@@ -11,14 +11,14 @@ namespace PortfolioEye.Client.Infrastructure.Extensions
 			PropertyNameCaseInsensitive = true,
 			ReferenceHandler = ReferenceHandler.Preserve
 		};
-		public static async Task<IResult<T>> ToResult<T>(this HttpResponseMessage response)
+		public static async Task<IResult<T>> ToResultAsync<T>(this HttpResponseMessage response)
 		{
 			var responseAsString = await response.Content.ReadAsStringAsync();
 			var responseObject = JsonSerializer.Deserialize<Result<T>>(responseAsString, DefaultOptions);
 			return responseObject ?? Result<T>.Fail((int)response.StatusCode);
 		}
 
-		public static async Task<IResult> ToResult(this HttpResponseMessage response)
+		public static async Task<IResult> ToResultAsync(this HttpResponseMessage response)
 		{
 			var responseAsString = await response.Content.ReadAsStringAsync();
 			var responseObject = JsonSerializer.Deserialize<Result>(responseAsString, DefaultOptions);

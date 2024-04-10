@@ -11,7 +11,7 @@ namespace PortfolioEye.Controllers;
 [Route("api/[controller]")]
 public class PortfoliosController (IMediator mediator) : ControllerBase
 {
-    [HttpGet("Active")]
+    [HttpGet("My")]
     public async Task<IActionResult> RetrieveAll([FromServices] ICurrentUserAccessor userAccessor)
     {
         var currentUser = userAccessor.Get();
@@ -26,15 +26,33 @@ public class PortfoliosController (IMediator mediator) : ControllerBase
             _ => BadRequest(result)
         };
     }
-
+    
+    [HttpPost("My")]
     public async Task<IActionResult> CreateNew([FromServices] ICurrentUserAccessor userAccessor,
-        [FromBody] AddEditPortfolioCommand command)
+        [FromBody] AddPortfolioCommand command)
     {
         var currentUser = userAccessor.Get();
         if (currentUser == null)
             return Unauthorized();
         
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new AddPortfolioForUserCommand(currentUser.Id, command));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
+        {
+            _ => BadRequest(result)
+        };
+    }
+    
+    [HttpPut("My")]
+    public async Task<IActionResult> Update([FromServices] ICurrentUserAccessor userAccessor,
+        [FromBody] EditPortfolioCommand command)
+    {
+        var currentUser = userAccessor.Get();
+        if (currentUser == null)
+            return Unauthorized();
+        
+        var result = await mediator.Send(new EditPortfolioForUserCommand(currentUser.Id, command));
         if (result.IsSuccess)
             return Ok(result);
         return result.ErrorCode switch

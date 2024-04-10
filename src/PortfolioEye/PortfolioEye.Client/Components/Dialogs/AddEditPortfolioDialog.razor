@@ -1,14 +1,15 @@
 ﻿@using PortfolioEye.Application.Features.Portfolios.Commands
 @using Blazored.FluentValidation
 @using PortfolioEye.Client.Infrastructure.Managers
+@using PortfolioEye.Common.Wrappers
 @inject Microsoft.Extensions.Localization.IStringLocalizer<AddEditPortfolioDialog>? Localizer
 
-<EditForm Model="@AddEditBrandModel" OnValidSubmit="SaveAsync">
+<EditForm Model="@Model" OnValidSubmit="SaveAsync">
     <FluentValidationValidator @ref="_fluentValidationValidator"/>
     <MudDialog>
         <TitleContent>
             @{
-                if (AddEditBrandModel.Id == null)
+                if (PortfolioId == null)
                 {
                     <MudText Typo="Typo.h6">
                         <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/>
@@ -27,16 +28,16 @@
         <DialogContent>
             <MudGrid>
                 <MudItem xs="12" md="6">
-                    <MudTextField For="@(() => AddEditBrandModel.Name)" @bind-Value="AddEditBrandModel.Name" Label="@Localizer?["Name"]"/>
+                    <MudTextField For="@(() => Model.Name)" @bind-Value="Model.Name" Label="@Localizer?["Name"]"/>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudTextField For="@(() => AddEditBrandModel.Description)" @bind-Value="AddEditBrandModel.Description" Label="@Localizer?["Description"]"/>
+                    <MudTextField For="@(() => Model.Description)" @bind-Value="Model.Description" Label="@Localizer?["Description"]"/>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudSelect Disabled="@(AddEditBrandModel.Id != null)" For="@(() => AddEditBrandModel.Currency)" @bind-Value="AddEditBrandModel.Currency" T="string" Label="@Localizer?["Currency"]" AnchorOrigin="Origin.BottomCenter">
+                    <MudSelect Disabled="@(PortfolioId != null)" For="@(() => Model.Currency)" @bind-Value="Model.Currency" T="string" Label="@Localizer?["Currency"]" AnchorOrigin="Origin.BottomCenter">
                         @foreach (var item in _currencies)
                         {
-                        <MudSelectItem Value="@item"/>
+                            <MudSelectItem Value="@item"/>
                         }
                     </MudSelect>
                 </MudItem>
@@ -44,7 +45,7 @@
         </DialogContent>
         <DialogActions>
             <MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">@Localizer?["Cancel"]</MudButton>
-            @if (AddEditBrandModel.Id != null)
+            @if (PortfolioId != null)
             {
                 <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit" Disabled="@(!Validated)" Color="Color.Secondary">@Localizer?["Edit"]</MudButton>
             }
@@ -60,30 +61,58 @@
 
     private FluentValidationValidator? _fluentValidationValidator;
     private bool Validated => _fluentValidationValidator?.Validate(options => { options.IncludeAllRuleSets(); }) ?? false;
-    [Parameter] public AddEditPortfolioCommand AddEditBrandModel { get; set; } = new();
+    private ViewModel Model { get; set; } = new ViewModel();
+    [Parameter] public Guid? PortfolioId { get; set; }
     [CascadingParameter] private MudDialogInstance? MudDialog { get; set; }
 
     [Inject] public ICurrenciesManager? CurrenciesManager { get; set; }
+    [Inject] public IPortfoliosManager? PortfoliosManager { get; set; }
+    [Inject] public IDialogService? DialogService { get; set; }
     private IEnumerable<string> _currencies = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {
-        if(CurrenciesManager == null)
+        if (CurrenciesManager == null)
             return;
-        
+
         var currenciesResult = await CurrenciesManager.RetrieveActive();
         if (currenciesResult.IsSuccess)
             _currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
+        
+        if(PortfolioId == null)
+            return;
+        
+        // var portfolioResult = await PortfoliosManager.Retrieve
     }
 
     public async Task SaveAsync()
     {
-        await Task.Delay(10);
+         IResult? result = null;
+        if (PortfolioId != null)
+        {
+            var command = new EditPortfolioCommand(PortfolioId.Value, new AddPortfolioCommand(Model.Name, Model.Description, Model.Currency));
+            result = await PortfoliosManager!.Edit(command);
+        }
+        else
+        {
+            var command = new AddPortfolioCommand(Model.Name, Model.Description, Model.Currency);
+            result =await PortfoliosManager!.CreateNew(command);
+        }
+
+        if (!result!.IsSuccess)
+            await DialogService!.ShowMessageBox(new MessageBoxOptions() { Message = Localizer!["ContentCannotSavePortfolio"], Title = Localizer!["TitleCannotSavePortfolio"] });
     }
 
     public async Task Cancel()
     {
         await Task.Delay(10);
     }
-}
 
+    public class ViewModel
+    {
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? Currency { get; set; }
+    }
+
+}

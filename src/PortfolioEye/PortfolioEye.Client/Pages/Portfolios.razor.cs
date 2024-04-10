@@ -4,6 +4,7 @@ using MudBlazor;
 using PortfolioEye.Application.Features.Portfolios.Commands;
 using PortfolioEye.Application.Features.Portfolios.Queries;
 using PortfolioEye.Client.Components.Dialogs;
+using PortfolioEye.Client.Infrastructure.Managers;
 
 namespace PortfolioEye.Client.Pages
 {
@@ -11,17 +12,17 @@ namespace PortfolioEye.Client.Pages
     {
         private string _searchString = "";
         private bool _loaded = false;
-        private List<RetrievePortfoliosByUserId.Response>? _portfolios;
+        private IEnumerable<RetrievePortfoliosByUserId.Response>? _portfolios;
         private RetrievePortfoliosByUserId.Response? _portfolio;
         [Inject] public IStringLocalizer<Portfolios>? Localizer { get; set; }
         [Inject] public IDialogService DialogService { get; set; }
+        [Inject] public IPortfoliosManager PortfoliosManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
-            await Task.Delay(400);
-            _portfolios =
-            [
-                
-            ];
+            var result = await PortfoliosManager.RetrieveAllMy();
+            if (result.IsSuccess)
+                _portfolios = result.Data;
             _loaded = true;
         }
 
@@ -29,7 +30,7 @@ namespace PortfolioEye.Client.Pages
         {
             await Task.Delay(10);
         }
-        
+
         private bool Search(RetrievePortfoliosByUserId.Response portfolio)
         {
             if (string.IsNullOrWhiteSpace(_searchString)) return true;
@@ -38,36 +39,32 @@ namespace PortfolioEye.Client.Pages
 
         private async Task CreateNew()
         {
-            await Task.Delay(10);
             await ShowDialog();
         }
+
         private async Task Edit(RetrievePortfoliosByUserId.Response portfolio)
         {
-            await Task.Delay(10);
+            await ShowDialog(portfolio.Id);
         }
+
         private async Task Delete(RetrievePortfoliosByUserId.Response portfolio)
         {
             await Task.Delay(10);
         }
-        
+
         private async Task ShowDialog(Guid? id = null)
         {
             var parameters = new DialogParameters();
-            if (id != null)
+            if (id != null && _portfolios?.FirstOrDefault(c => c.Id == id) != null)
             {
-                _portfolio = _portfolios?.FirstOrDefault(c => c.Id == id);
-                if (_portfolio != null)
-                {
-                    parameters.Add(nameof(AddEditPortfolioDialog.AddEditBrandModel), new AddEditPortfolioCommand()
-                    {
-                        Id = _portfolio.Id,
-                        Name = _portfolio.Name,
-                        //Description = _portfolio.Description,
-                    });
-                }
+                parameters.Add(nameof(AddEditPortfolioDialog.PortfolioId), id);
             }
-            var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
-            var dialog = DialogService.Show<AddEditPortfolioDialog>(id == null ? Localizer!["Create"] : Localizer!["Edit"], parameters, options);
+
+            var options = new DialogOptions
+                { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+            var dialog =
+                await DialogService.ShowAsync<AddEditPortfolioDialog>(id == null ? Localizer!["Create"] : Localizer!["Edit"],
+                    parameters, options);
             var result = await dialog.Result;
             if (!result.Canceled)
             {
