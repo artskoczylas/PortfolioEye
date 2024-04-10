@@ -49,7 +49,7 @@ namespace PortfolioEye.Client.Pages
 
         private async Task Delete(RetrievePortfoliosByUserId.Response portfolio)
         {
-            await Task.Delay(10);
+            await PortfoliosManager!.Delete(portfolio.Id);
         }
 
         private async Task ShowDialog(Guid? id = null)

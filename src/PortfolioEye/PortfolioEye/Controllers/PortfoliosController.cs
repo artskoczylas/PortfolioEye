@@ -11,6 +11,30 @@ namespace PortfolioEye.Controllers;
 [Route("api/[controller]")]
 public class PortfoliosController (IMediator mediator) : ControllerBase
 {
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Retrieve(Guid id)
+    {
+        var result = await mediator.Send(new RetrievePortfolioById(id));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
+        {
+            _ => BadRequest(result)
+        };
+    }
+    
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var result = await mediator.Send(new DeletePortfolioByIdCommand(id));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
+        {
+            _ => BadRequest(result)
+        };
+    }
+    
     [HttpGet("My")]
     public async Task<IActionResult> RetrieveAll([FromServices] ICurrentUserAccessor userAccessor)
     {

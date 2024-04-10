@@ -81,8 +81,21 @@
         
         if(PortfolioId == null)
             return;
-        
-        // var portfolioResult = await PortfoliosManager.Retrieve
+
+        var portfolioResult = await PortfoliosManager!.GetById(PortfolioId.Value);
+        if (!portfolioResult.IsSuccess || portfolioResult.Data == null)
+        {
+            await DialogService!.ShowMessageBox(new MessageBoxOptions() { Message = Localizer!["ContentCannotGetPortfolio"], Title = Localizer!["TitleCannotGetPortfolio"] });
+            PortfolioId = null;
+            return;
+        }
+
+        Model = new ViewModel
+        {
+            Name = portfolioResult.Data!.Name,
+            Description = portfolioResult.Data!.Description,
+            Currency = portfolioResult.Data!.Currency
+        };
     }
 
     public async Task SaveAsync()
