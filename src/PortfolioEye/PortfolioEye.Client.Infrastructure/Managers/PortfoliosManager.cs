@@ -10,10 +10,10 @@ namespace PortfolioEye.Client.Infrastructure.Managers;
 
 public class PortfoliosManager(IHttpClientFactory factory) : IPortfoliosManager
 {
-    public async Task<IResult<IEnumerable<RetrievePortfoliosByUserId.Response>>> RetrieveAllMy()
+    public async Task<IResult<RetrievePortfoliosByUserId.Response>> RetrieveAllMy()
     {
         var response = await factory.MainApiClient().GetAsync($"/api/portfolios/my");
-        return await response.ToResultAsync<IEnumerable<RetrievePortfoliosByUserId.Response>>();
+        return await response.ToResultAsync<RetrievePortfoliosByUserId.Response>();
     }
 
     public async Task<IResult> CreateNew(AddPortfolioCommand command)
@@ -43,7 +43,7 @@ public class PortfoliosManager(IHttpClientFactory factory) : IPortfoliosManager
 
 public interface IPortfoliosManager : IManager
 {
-    Task<IResult<IEnumerable<RetrievePortfoliosByUserId.Response>>> RetrieveAllMy();
+    Task<IResult<RetrievePortfoliosByUserId.Response>> RetrieveAllMy();
     Task<IResult> CreateNew(AddPortfolioCommand command);
     Task<IResult> Edit(EditPortfolioCommand command);
     Task<IResult> Delete(Guid id);

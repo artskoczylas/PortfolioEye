@@ -12,8 +12,8 @@ namespace PortfolioEye.Client.Pages
     {
         private string _searchString = "";
         private bool _loaded = false;
-        private IEnumerable<RetrievePortfoliosByUserId.Response>? _portfolios;
-        private RetrievePortfoliosByUserId.Response? _portfolio;
+        private IEnumerable<RetrievePortfoliosByUserId.Portfolio>? _portfolios;
+        private RetrievePortfoliosByUserId.Portfolio? _portfolio;
         [Inject] public IStringLocalizer<Portfolios> Localizer { get; set; } = null!;
         [Inject] public IDialogService DialogService { get; set; } = null!;
         [Inject] public IPortfoliosManager PortfoliosManager { get; set; } = null!;
@@ -23,7 +23,7 @@ namespace PortfolioEye.Client.Pages
         {
             var result = await PortfoliosManager.RetrieveAllMy();
             if (result.IsSuccess)
-                _portfolios = result.Data;
+                _portfolios = result.Data.Portfolios;
             _loaded = true;
         }
 
@@ -32,7 +32,7 @@ namespace PortfolioEye.Client.Pages
             await Task.Delay(10);
         }
 
-        private bool Search(RetrievePortfoliosByUserId.Response portfolio)
+        private bool Search(RetrievePortfoliosByUserId.Portfolio portfolio)
         {
             if (string.IsNullOrWhiteSpace(_searchString)) return true;
             return portfolio.Name?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true;
@@ -43,12 +43,12 @@ namespace PortfolioEye.Client.Pages
             await ShowDialog();
         }
 
-        private async Task Edit(RetrievePortfoliosByUserId.Response portfolio)
+        private async Task Edit(RetrievePortfoliosByUserId.Portfolio portfolio)
         {
             await ShowDialog(portfolio.Id);
         }
 
-        private async Task Delete(RetrievePortfoliosByUserId.Response portfolio)
+        private async Task Delete(RetrievePortfoliosByUserId.Portfolio portfolio)
         {
             var dialogResult = await DialogService.ShowMessageBox(Localizer["TitleDeletePortfolio"]
                 , Localizer["ContentDeletePortfolio"]

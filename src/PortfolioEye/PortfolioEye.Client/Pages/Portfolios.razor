@@ -26,13 +26,13 @@ else
         </MudItem>
     </MudPaper>
 
-    <MudTable Hover="true" Elevation="1" Items="_portfolios" Filter="new Func<RetrievePortfoliosByUserId.Response, bool>(Search)" @bind-portfolio="_portfolio">
+    <MudTable Hover="true" Elevation="1" Items="_portfolios" Filter="new Func<RetrievePortfoliosByUserId.Portfolio, bool>(Search)" @bind-portfolio="_portfolio">
         <HeaderContent>
             <MudTh>
-                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Response, object>(x => x.Id)">@Localizer?["Id"]</MudTableSortLabel>
+                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Portfolio, object>(x => x.Id)">@Localizer?["Id"]</MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Response, object>(x => x.Name)">@Localizer?["Name"]</MudTableSortLabel>
+                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Portfolio, object>(x => x.Name)">@Localizer?["Name"]</MudTableSortLabel>
             </MudTh>
             <MudTh Style="text-align:right">@Localizer?["Actions"]</MudTh>
         </HeaderContent>
