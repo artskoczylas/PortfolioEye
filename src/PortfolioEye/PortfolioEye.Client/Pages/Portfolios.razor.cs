@@ -14,9 +14,10 @@ namespace PortfolioEye.Client.Pages
         private bool _loaded = false;
         private IEnumerable<RetrievePortfoliosByUserId.Response>? _portfolios;
         private RetrievePortfoliosByUserId.Response? _portfolio;
-        [Inject] public IStringLocalizer<Portfolios>? Localizer { get; set; }
-        [Inject] public IDialogService DialogService { get; set; }
-        [Inject] public IPortfoliosManager PortfoliosManager { get; set; }
+        [Inject] public IStringLocalizer<Portfolios> Localizer { get; set; } = null!;
+        [Inject] public IDialogService DialogService { get; set; } = null!;
+        [Inject] public IPortfoliosManager PortfoliosManager { get; set; } = null!;
+        [Inject] public ISnackbar Snackbar { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -49,7 +50,17 @@ namespace PortfolioEye.Client.Pages
 
         private async Task Delete(RetrievePortfoliosByUserId.Response portfolio)
         {
-            await PortfoliosManager!.Delete(portfolio.Id);
+            var dialogResult = await DialogService.ShowMessageBox(Localizer["TitleDeletePortfolio"]
+                , Localizer["ContentDeletePortfolio"]
+                , Localizer["Yes"]
+                , Localizer["No"]);
+            if (!dialogResult.HasValue || !dialogResult.Value)
+                return;
+            var deleteResult = await PortfoliosManager!.Delete(portfolio.Id);
+            if (deleteResult.IsSuccess)
+                Snackbar.Add(Localizer["PortfolioDeleted"], Severity.Success);
+            else
+                Snackbar.Add(Localizer["CannotDeletePortfolio"], Severity.Warning);
         }
 
         private async Task ShowDialog(Guid? id = null)
@@ -63,7 +74,8 @@ namespace PortfolioEye.Client.Pages
             var options = new DialogOptions
                 { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
             var dialog =
-                await DialogService.ShowAsync<AddEditPortfolioDialog>(id == null ? Localizer!["Create"] : Localizer!["Edit"],
+                await DialogService.ShowAsync<AddEditPortfolioDialog>(
+                    id == null ? Localizer!["Create"] : Localizer!["Edit"],
                     parameters, options);
             var result = await dialog.Result;
             if (!result.Canceled)
