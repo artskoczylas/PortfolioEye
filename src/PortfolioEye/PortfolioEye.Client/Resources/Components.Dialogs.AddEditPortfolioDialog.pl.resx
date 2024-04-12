@@ -39,4 +39,19 @@
     <data name="NewPortfolio" xml:space="preserve">
         <value>Nowy portfel</value>
     </data>
+    <data name="TitleCannotGetPortfolio" xml:space="preserve">
+        <value>Wystąpił błąd</value>
+    </data>
+    <data name="ContentCannotGetPortfolio" xml:space="preserve">
+        <value>Wystąpił błąd podczas pobierania portfela.</value>
+    </data>
+    <data name="ContentCannotSavePortfolio" xml:space="preserve">
+        <value>Wystąpił błąd podczas zapisywania portfela</value>
+    </data>
+    <data name="TitleCannotSavePortfolio" xml:space="preserve">
+        <value>Wystąpił błąd</value>
+    </data>
+    <data name="Currency" xml:space="preserve">
+        <value>Waluta</value>
+    </data>
 </root>

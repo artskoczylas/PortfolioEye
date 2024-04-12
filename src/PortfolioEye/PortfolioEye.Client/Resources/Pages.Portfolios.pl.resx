@@ -39,4 +39,28 @@
     <data name="Delete" xml:space="preserve">
         <value>Usuń</value>
     </data>
+    <data name="ContentDeletePortfolio" xml:space="preserve">
+        <value>Czy na pewno chcesz usunąć portfel {0}</value>
+    </data>
+    <data name="TitleDeletePortfolio" xml:space="preserve">
+        <value>Usuwanie portfela</value>
+    </data>
+    <data name="PortfolioDeleted" xml:space="preserve">
+        <value>Portfel został usunięty</value>
+    </data>
+    <data name="CannotDeletePortfolio" xml:space="preserve">
+        <value>Nie można usunąć portfela</value>
+    </data>
+    <data name="No" xml:space="preserve">
+        <value>Nie</value>
+    </data>
+    <data name="Yes" xml:space="preserve">
+        <value>Tak</value>
+    </data>
+    <data name="Description" xml:space="preserve">
+        <value>Opis</value>
+    </data>
+    <data name="Currency" xml:space="preserve">
+        <value>Waluta</value>
+    </data>
 </root>

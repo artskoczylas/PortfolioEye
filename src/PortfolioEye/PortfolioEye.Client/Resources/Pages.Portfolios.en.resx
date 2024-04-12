@@ -32,4 +32,28 @@
     <data name="SearchForPortfolios" xml:space="preserve">
         <value>Search for portfolios</value>
     </data>
+    <data name="TitleDeletePortfolio" xml:space="preserve">
+        <value>Removing portfolio</value>
+    </data>
+    <data name="ContentDeletePortfolio" xml:space="preserve">
+        <value>Are you sure you want to delete the portfolio {0}</value>
+    </data>
+    <data name="PortfolioDeleted" xml:space="preserve">
+        <value>Portfolio deleted</value>
+    </data>
+    <data name="CannotDeletePortfolio" xml:space="preserve">
+        <value>Cannot delete portfolio</value>
+    </data>
+    <data name="Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="No" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="Description" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="Currency" xml:space="preserve">
+        <value>Currency</value>
+    </data>
 </root>

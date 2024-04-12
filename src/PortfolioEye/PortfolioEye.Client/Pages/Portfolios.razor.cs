@@ -21,21 +21,35 @@ namespace PortfolioEye.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var result = await PortfoliosManager.RetrieveAllMy();
-            if (result.IsSuccess)
-                _portfolios = result.Data.Portfolios;
-            _loaded = true;
+            await LoadData();
         }
 
-        public async Task Refresh()
+        public async Task LoadData()
         {
-            await Task.Delay(10);
+            try
+            {
+                _loaded = false;
+                var result = await PortfoliosManager.RetrieveAllMy();
+                if (result.IsSuccess && result.Data != null)
+                    _portfolios = result.Data.Portfolios;
+            }
+            finally
+            {
+                _loaded = true;
+            }
+        }
+
+        private async Task Refresh()
+        {
+            await LoadData();
         }
 
         private bool Search(RetrievePortfoliosByUserId.Portfolio portfolio)
         {
             if (string.IsNullOrWhiteSpace(_searchString)) return true;
-            return portfolio.Name?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true;
+            return portfolio.Name?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true
+                || portfolio.Description?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true
+                || portfolio.Currency?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true;
         }
 
         private async Task CreateNew()
@@ -51,7 +65,7 @@ namespace PortfolioEye.Client.Pages
         private async Task Delete(RetrievePortfoliosByUserId.Portfolio portfolio)
         {
             var dialogResult = await DialogService.ShowMessageBox(Localizer["TitleDeletePortfolio"]
-                , Localizer["ContentDeletePortfolio"]
+                , Localizer["ContentDeletePortfolio", portfolio.Name]
                 , Localizer["Yes"]
                 , Localizer["No"]);
             if (!dialogResult.HasValue || !dialogResult.Value)
@@ -61,6 +75,8 @@ namespace PortfolioEye.Client.Pages
                 Snackbar.Add(Localizer["PortfolioDeleted"], Severity.Success);
             else
                 Snackbar.Add(Localizer["CannotDeletePortfolio"], Severity.Warning);
+
+            await LoadData();
         }
 
         private async Task ShowDialog(Guid? id = null)

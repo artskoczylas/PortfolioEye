@@ -32,4 +32,19 @@
     <data name="EditPortfolio" xml:space="preserve">
         <value>Edit portfolio</value>
     </data>
+    <data name="TitleCannotGetPortfolio" xml:space="preserve">
+        <value>Error occurred</value>
+    </data>
+    <data name="ContentCannotGetPortfolio" xml:space="preserve">
+        <value>An error occurred while getting portfolio.</value>
+    </data>
+    <data name="ContentCannotSavePortfolio" xml:space="preserve">
+        <value>An error occurred while saving portfolio.</value>
+    </data>
+    <data name="TitleCannotSavePortfolio" xml:space="preserve">
+        <value>Error occurred</value>
+    </data>
+    <data name="Currency" xml:space="preserve">
+        <value>Currency</value>
+    </data>
 </root>

@@ -14,7 +14,7 @@ public class PortfoliosController (IMediator mediator) : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Retrieve(Guid id)
     {
-        var result = await mediator.Send(new RetrievePortfolioById(id));
+        var result = await mediator.Send(new RetrievePortfolioByIdQuery(id));
         if (result.IsSuccess)
             return Ok(result);
         return result.ErrorCode switch

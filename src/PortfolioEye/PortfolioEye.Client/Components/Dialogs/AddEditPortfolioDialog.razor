@@ -63,18 +63,15 @@
     private bool Validated => _fluentValidationValidator?.Validate(options => { options.IncludeAllRuleSets(); }) ?? false;
     private ViewModel Model { get; set; } = new ViewModel();
     [Parameter] public Guid? PortfolioId { get; set; }
-    [CascadingParameter] private MudDialogInstance? MudDialog { get; set; }
+    [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = null!;
 
-    [Inject] public ICurrenciesManager? CurrenciesManager { get; set; }
-    [Inject] public IPortfoliosManager? PortfoliosManager { get; set; }
-    [Inject] public IDialogService? DialogService { get; set; }
+    [Inject] public ICurrenciesManager CurrenciesManager { get; set; } = null!;
+    [Inject] public IPortfoliosManager PortfoliosManager { get; set; } = null!;
+    [Inject] public IDialogService DialogService { get; set; } = null!;
     private IEnumerable<string> _currencies = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {
-        if (CurrenciesManager == null)
-            return;
-
         var currenciesResult = await CurrenciesManager.RetrieveActive();
         if (currenciesResult.IsSuccess)
             _currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
@@ -103,7 +100,7 @@
          IResult? result = null;
         if (PortfolioId != null)
         {
-            var command = new EditPortfolioCommand(PortfolioId.Value, new AddPortfolioCommand(Model.Name, Model.Description, Model.Currency));
+            var command = new EditPortfolioCommand(PortfolioId.Value, Model.Name, Model.Description);
             result = await PortfoliosManager!.Edit(command);
         }
         else
@@ -114,11 +111,13 @@
 
         if (!result!.IsSuccess)
             await DialogService!.ShowMessageBox(new MessageBoxOptions() { Message = Localizer!["ContentCannotSavePortfolio"], Title = Localizer!["TitleCannotSavePortfolio"] });
+        
+        MudDialog.Close();
     }
 
-    public async Task Cancel()
+    public void Cancel()
     {
-        await Task.Delay(10);
+        MudDialog.Cancel();
     }
 
     public class ViewModel

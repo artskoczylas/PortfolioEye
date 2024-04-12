@@ -69,11 +69,47 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie można usunąć portfela.
+        /// </summary>
+        internal static string CannotDeletePortfolio {
+            get {
+                return ResourceManager.GetString("CannotDeletePortfolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czy na pewno chcesz usunąć portfel {0}.
+        /// </summary>
+        internal static string ContentDeletePortfolio {
+            get {
+                return ResourceManager.GetString("ContentDeletePortfolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waluta.
+        /// </summary>
+        internal static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usuń.
         /// </summary>
         internal static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opis.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -105,6 +141,24 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portfel został usunięty.
+        /// </summary>
+        internal static string PortfolioDeleted {
+            get {
+                return ResourceManager.GetString("PortfolioDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Moje portfele.
         /// </summary>
         internal static string Portfolios {
@@ -119,6 +173,24 @@ namespace PortfolioEye.Client.Resources {
         internal static string SearchForPortfolios {
             get {
                 return ResourceManager.GetString("SearchForPortfolios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuwanie portfela.
+        /// </summary>
+        internal static string TitleDeletePortfolio {
+            get {
+                return ResourceManager.GetString("TitleDeletePortfolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tak.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

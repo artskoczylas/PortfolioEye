@@ -2,7 +2,7 @@
 @using Microsoft.Extensions.Localization
 @using PortfolioEye.Application.Features.Portfolios.Queries
 
-<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">@Localizer?["Portfolios"]</MudText>
+<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">@Localizer["Portfolios"]</MudText>
 
 @if (!_loaded)
 {
@@ -15,12 +15,12 @@ else
             <MudButton OnClick="CreateNew" DisableElevation Variant="Variant.Filled"
                        Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
                        IconColor="Color.Surface">
-                @Localizer?["NewPortfolio"]
+                @Localizer["NewPortfolio"]
             </MudButton>
         </MudItem>
         <MudItem>
             <MudTextField @bind-Value="_searchString" Immediate="true" Style="min-width: 30vw; margin-top: 0"
-                          Placeholder="@Localizer?["SearchForPortfolios"]"
+                          Placeholder="@Localizer["SearchForPortfolios"]"
                           Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
                           IconSize="Size.Medium"/>
         </MudItem>
@@ -29,22 +29,30 @@ else
     <MudTable Hover="true" Elevation="1" Items="_portfolios" Filter="new Func<RetrievePortfoliosByUserId.Portfolio, bool>(Search)" @bind-portfolio="_portfolio">
         <HeaderContent>
             <MudTh>
-                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Portfolio, object>(x => x.Id)">@Localizer?["Id"]</MudTableSortLabel>
+                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Portfolio, object>(x => x.Name)">@Localizer["Name"]</MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Portfolio, object>(x => x.Name)">@Localizer?["Name"]</MudTableSortLabel>
+                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Portfolio, object>(x => x.Description)">@Localizer["Description"]</MudTableSortLabel>
             </MudTh>
-            <MudTh Style="text-align:right">@Localizer?["Actions"]</MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrievePortfoliosByUserId.Portfolio, object>(x => x.Currency)">@Localizer["Currency"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh Style="text-align:right">@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Id">@context.Id</MudTd>
             <MudTd DataLabel="Name">
                 <MudHighlighter Text="@context.Name" HighlightedText="@_searchString"/>
             </MudTd>
+            <MudTd DataLabel="Description">
+                <MudHighlighter Text="@context.Description" HighlightedText="@_searchString"/>
+            </MudTd>
+            <MudTd DataLabel="Currency">
+                <MudHighlighter Text="@context.Currency" HighlightedText="@_searchString"/>
+            </MudTd>
             <MudTd DataLabel="Actions" Style="text-align: right">
-                <MudMenu Label="@Localizer?["Actions"]" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
-                    <MudMenuItem @onclick="@(() => Edit(@context))">@Localizer?["Edit"]</MudMenuItem>
-                    <MudMenuItem @onclick="@(() => Delete(@context))">@Localizer?["Delete"]</MudMenuItem>
+                <MudMenu Label="@Localizer["Actions"]" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
+                    <MudMenuItem @onclick="@(() => Edit(@context))">@Localizer["Edit"]</MudMenuItem>
+                    <MudMenuItem @onclick="@(() => Delete(@context))">@Localizer["Delete"]</MudMenuItem>
                 </MudMenu>
             </MudTd>
         </RowTemplate>

@@ -34,10 +34,10 @@ public class PortfoliosManager(IHttpClientFactory factory) : IPortfoliosManager
         return await response.ToResultAsync();
     }
     
-    public async Task<IResult<RetrievePortfolioById.Response>> GetById(Guid id)
+    public async Task<IResult<RetrievePortfolioByIdQuery.Response>> GetById(Guid id)
     {
-        var response = await factory.MainApiClient().DeleteAsync($"/api/portfolios/{id}");
-        return await response.ToResultAsync<RetrievePortfolioById.Response>();
+        var response = await factory.MainApiClient().GetAsync($"/api/portfolios/{id}");
+        return await response.ToResultAsync<RetrievePortfolioByIdQuery.Response>();
     }
 }
 
@@ -47,5 +47,5 @@ public interface IPortfoliosManager : IManager
     Task<IResult> CreateNew(AddPortfolioCommand command);
     Task<IResult> Edit(EditPortfolioCommand command);
     Task<IResult> Delete(Guid id);
-    Task<IResult<RetrievePortfolioById.Response>> GetById(Guid id);
+    Task<IResult<RetrievePortfolioByIdQuery.Response>> GetById(Guid id);
 }
