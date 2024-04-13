@@ -25,7 +25,7 @@ The project was created as my participation in the 100 commits competition. Due 
 - [X] Basic application layout
 - [X] User accounts
 - [X] Portfolio management
-- [ ] Account management
+- [X] Account management
 - [ ] Fetching exchange rates from NBP
 - [ ] Adding stock purchases
 - [ ] Fetching current stock prices (possibly using Yahoo API)
