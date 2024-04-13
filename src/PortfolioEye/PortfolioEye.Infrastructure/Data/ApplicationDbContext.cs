@@ -8,5 +8,7 @@ namespace PortfolioEye.Infrastructure.Data
 	{
 		public DbSet<Currency> Currencies { get; set; }
 		public DbSet<Potfolio> Portfotfolios { get; set; }
+		
+		public DbSet<Account> Accounts { get; set; }
 	}
 }
