@@ -6,7 +6,7 @@ namespace PortfolioEye.Application.Features.Accounts.Queries;
 
 public record RetrieveAccountsByUserId(Guid UserId) : IRequest<IResult<RetrieveAccountsByUserId.Response>>
 {
-    public record Response(List<Portfolio> Portfolios);
+    public record Response(List<Account> Accounts);
 
-    public record Portfolio(Guid Id, string Name, string Description, string Currency, AccountType Type, decimal Balance);
+    public record Account(Guid Id, string Name, string Description, string Currency, AccountType Type, decimal Balance);
 }
