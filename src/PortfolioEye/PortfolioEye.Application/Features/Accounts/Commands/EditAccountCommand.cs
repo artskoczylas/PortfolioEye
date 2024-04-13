@@ -10,9 +10,9 @@ public record AddAccountCommand(string Name, string Description, string Currency
 public record EditAccountCommand(Guid Id, string Name, string Description)
     : IRequest<IResult>;
 
-public record AddPortfolioForUserCommand(Guid UserId, AddAccountCommand BaseCommand)
+public record AddAccountForUserCommand(Guid UserId, AddAccountCommand BaseCommand)
     : AddAccountCommand(BaseCommand);
 
-public record EditPortfolioForUserCommand(Guid UserId, EditAccountCommand BaseEditCommand)
+public record EditAccountForUserCommand(Guid UserId, EditAccountCommand BaseEditCommand)
     : EditAccountCommand(BaseEditCommand);
 

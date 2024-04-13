@@ -4,7 +4,7 @@ using PortfolioEye.Common.Wrappers;
 
 namespace PortfolioEye.Application.Features.Accounts.Queries;
 
-public record RetrievePortfoliosByUserId(Guid UserId) : IRequest<IResult<RetrievePortfoliosByUserId.Response>>
+public record RetrieveAccountsByUserId(Guid UserId) : IRequest<IResult<RetrieveAccountsByUserId.Response>>
 {
     public record Response(List<Portfolio> Portfolios);
 

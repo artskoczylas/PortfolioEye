@@ -3,4 +3,4 @@ using PortfolioEye.Common.Wrappers;
 
 namespace PortfolioEye.Application.Features.Accounts.Commands;
 
-public record DeletePortfolioByIdCommand(Guid Id) : IRequest<IResult>;
+public record DeleteAccountByIdCommand(Guid Id) : IRequest<IResult>;
