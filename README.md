@@ -24,7 +24,7 @@ The project was created as my participation in the 100 commits competition. Due 
 
 - [X] Basic application layout
 - [X] User accounts
-- [ ] Portfolio management
+- [X] Portfolio management
 - [ ] Account management
 - [ ] Fetching exchange rates from NBP
 - [ ] Adding stock purchases
