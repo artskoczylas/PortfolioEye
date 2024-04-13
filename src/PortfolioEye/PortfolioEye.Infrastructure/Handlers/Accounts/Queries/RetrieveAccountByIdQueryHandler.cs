@@ -13,7 +13,7 @@ public class RetrieveAccountByIdQueryHandler(ApplicationDbContext dbContext)
     public async Task<IResult<RetrieveAccountByIdQuery.Response>> Handle(RetrieveAccountByIdQuery request,
         CancellationToken cancellationToken)
     {
-        var account = (await dbContext.Portfotfolios
+        var account = (await dbContext.Accounts
                 .FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken))
                 .Adapt<RetrieveAccountByIdQuery.Response>();
 

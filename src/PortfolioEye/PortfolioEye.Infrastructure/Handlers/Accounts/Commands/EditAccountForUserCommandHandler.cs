@@ -11,7 +11,7 @@ public class EditAccountCommandHandler(ApplicationDbContext dbContext)
 {
     public async Task<IResult> Handle(EditAccountForUserCommand request, CancellationToken cancellationToken)
     {
-        var existingAccount = await dbContext.Portfotfolios.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
+        var existingAccount = await dbContext.Accounts.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
 
         if (existingAccount == null)
             return await Result.FailAsync(WellKnown.ErrorCodes.NotFound);
@@ -21,7 +21,7 @@ public class EditAccountCommandHandler(ApplicationDbContext dbContext)
         
         existingAccount.Name = request.Name;
         existingAccount.Description = request.Description;
-        dbContext.Portfotfolios.Update(existingAccount);
+        dbContext.Accounts.Update(existingAccount);
         await dbContext.SaveChangesAsync(cancellationToken);
         return await Result.SuccessAsync();
     }

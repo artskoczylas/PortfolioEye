@@ -18,4 +18,46 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+    <data name="Accounts" xml:space="preserve">
+        <value>Moje konta</value>
+    </data>
+    <data name="Name" xml:space="preserve">
+        <value>Nazwa</value>
+    </data>
+    <data name="Description" xml:space="preserve">
+        <value>Opis</value>
+    </data>
+    <data name="Type" xml:space="preserve">
+        <value>Rodzaj (klasa aktywów)</value>
+    </data>
+    <data name="Actions" xml:space="preserve">
+        <value>Akcje</value>
+    </data>
+    <data name="SearchForAccounts" xml:space="preserve">
+        <value>Szukaj w kontach</value>
+    </data>
+    <data name="Bonds" xml:space="preserve">
+        <value>Obligacje</value>
+    </data>
+    <data name="Shares" xml:space="preserve">
+        <value>Akcje</value>
+    </data>
+    <data name="Cash" xml:space="preserve">
+        <value>Gotówka</value>
+    </data>
+    <data name="Deposits" xml:space="preserve">
+        <value>Lokata</value>
+    </data>
+    <data name="Savings" xml:space="preserve">
+        <value>Konto oszczędnościowe</value>
+    </data>
+    <data name="NewAccount" xml:space="preserve">
+        <value>Nowe konto</value>
+    </data>
+    <data name="Edit" xml:space="preserve">
+        <value>Edytuj</value>
+    </data>
+    <data name="Delete" xml:space="preserve">
+        <value>Usuń</value>
+    </data>
 </root>

@@ -11,8 +11,8 @@ public class AddAccountForUserCommandHandler(ApplicationDbContext dbContext)
 {
     public async Task<IResult> Handle(AddAccountForUserCommand request, CancellationToken cancellationToken)
     {
-        var account = request.Adapt<Domain.Entities.Potfolio>();
-        await dbContext.Portfotfolios.AddAsync(account, cancellationToken);
+        var account = request.Adapt<Domain.Entities.Account>();
+        await dbContext.Accounts.AddAsync(account, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
         return await Result.SuccessAsync();
     }

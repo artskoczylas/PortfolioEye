@@ -21,14 +21,14 @@ namespace PortfolioEye.Client.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Pages_Accounts_pl {
+    internal class Components_Dialogs_AddEditAccountDialog_en {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Pages_Accounts_pl() {
+        internal Components_Dialogs_AddEditAccountDialog_en() {
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace PortfolioEye.Client.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortfolioEye.Client.Resources.Pages.Accounts.pl", typeof(Pages_Accounts_pl).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PortfolioEye.Client.Resources.Components.Dialogs.AddEditAccountDialog.en", typeof(Components_Dialogs_AddEditAccountDialog_en).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,25 +60,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moje konta.
-        /// </summary>
-        internal static string Accounts {
-            get {
-                return ResourceManager.GetString("Accounts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Akcje.
-        /// </summary>
-        internal static string Actions {
-            get {
-                return ResourceManager.GetString("Actions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Obligacje.
+        ///   Looks up a localized string similar to Bonds.
         /// </summary>
         internal static string Bonds {
             get {
@@ -87,7 +69,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gotówka.
+        ///   Looks up a localized string similar to Cash.
         /// </summary>
         internal static string Cash {
             get {
@@ -96,16 +78,16 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuń.
+        ///   Looks up a localized string similar to Currency.
         /// </summary>
-        internal static string Delete {
+        internal static string Currency {
             get {
-                return ResourceManager.GetString("Delete", resourceCulture);
+                return ResourceManager.GetString("Currency", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lokata.
+        ///   Looks up a localized string similar to Deposits.
         /// </summary>
         internal static string Deposits {
             get {
@@ -114,7 +96,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opis.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Description {
             get {
@@ -123,16 +105,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edytuj.
-        /// </summary>
-        internal static string Edit {
-            get {
-                return ResourceManager.GetString("Edit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nazwa.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
             get {
@@ -141,7 +114,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nowe konto.
+        ///   Looks up a localized string similar to New account.
         /// </summary>
         internal static string NewAccount {
             get {
@@ -150,7 +123,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Konto oszczędnościowe.
+        ///   Looks up a localized string similar to Savings.
         /// </summary>
         internal static string Savings {
             get {
@@ -159,16 +132,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Szukaj w kontach.
-        /// </summary>
-        internal static string SearchForAccounts {
-            get {
-                return ResourceManager.GetString("SearchForAccounts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Akcje.
+        ///   Looks up a localized string similar to Shares.
         /// </summary>
         internal static string Shares {
             get {
@@ -177,7 +141,7 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rodzaj (klasa aktywów).
+        ///   Looks up a localized string similar to Type (asset class).
         /// </summary>
         internal static string Type {
             get {

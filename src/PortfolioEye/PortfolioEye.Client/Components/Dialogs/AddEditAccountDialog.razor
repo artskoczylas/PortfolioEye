@@ -1,0 +1,160 @@
+﻿@using PortfolioEye.Application.Features.Accounts.Commands
+@using Blazored.FluentValidation
+@using Microsoft.Extensions.Localization
+@using PortfolioEye.Client.Infrastructure.Managers
+@using PortfolioEye.Common.Wrappers
+@using AccountEye.Client.Infrastructure.Managers
+@using PortfolioEye.Application.Features.Accounts.Common
+
+<EditForm Model="@Model" OnValidSubmit="SaveAsync">
+    <FluentValidationValidator @ref="_fluentValidationValidator"/>
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (AccountId == null)
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/>
+                        @Localizer["NewAccount"]
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1"/>
+                        @Localizer["EditAccount"]
+                    </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem xs="12" md="6">
+                    <MudTextField For="@(() => Model.Name)" @bind-Value="Model.Name" Label="@Localizer["Name"]"/>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudTextField For="@(() => Model.Description)" @bind-Value="Model.Description"
+                                  Label="@Localizer["Description"]"/>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudSelect Disabled="@(AccountId != null)" For="@(() => Model.Currency)"
+                               @bind-Value="Model.Currency" T="string" Label="@Localizer["Currency"]"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var item in _currencies)
+                        {
+                            <MudSelectItem Value="@item"/>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudSelect Disabled="@(AccountId != null)" For="@(() => Model.Type)"
+                               @bind-Value="Model.Type" T="AccountType" Label="@Localizer["Type"]"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (AccountType item in Enum.GetValues(typeof(AccountType)))
+                        {
+                            <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">@Localizer["Cancel"]</MudButton>
+            @if (AccountId != null)
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                           Disabled="@(!Validated)" Color="Color.Secondary">
+                    @Localizer["Edit"]
+                </MudButton>
+            }
+            else
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                           Disabled="@(!Validated)" Color="Color.Success">
+                    @Localizer["Save"]
+                </MudButton>
+            }
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code{
+
+    private FluentValidationValidator? _fluentValidationValidator;
+    private bool Validated => _fluentValidationValidator?.Validate(options => { options.IncludeAllRuleSets(); }) ?? false;
+    private ViewModel Model { get; set; } = new ViewModel();
+    [Parameter] public Guid? AccountId { get; set; }
+    [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Inject] public ICurrenciesManager CurrenciesManager { get; set; } = null!;
+    [Inject] public IAccountsManager AccountsManager { get; set; } = null!;
+    [Inject] public IDialogService DialogService { get; set; } = null!;
+    [Inject] IStringLocalizer<AddEditAccountDialog> Localizer { get; set; } = null!;
+    private IEnumerable<string> _currencies = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var currenciesResult = await CurrenciesManager.RetrieveActive();
+        if (currenciesResult.IsSuccess)
+            _currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
+
+        if (AccountId == null)
+            return;
+
+        var accountResult = await AccountsManager.GetById(AccountId.Value);
+        if (!accountResult.IsSuccess || accountResult.Data == null)
+        {
+            await DialogService.ShowMessageBox(new MessageBoxOptions()
+            {
+                Message = Localizer["ContentCannotGetAccount"],
+                Title = Localizer["TitleCannotGetAccount"]
+            });
+            AccountId = null;
+            return;
+        }
+
+        Model = new ViewModel
+        {
+            Name = accountResult.Data!.Name,
+            Description = accountResult.Data!.Description,
+            Currency = accountResult.Data!.Currency
+        };
+    }
+
+    public async Task SaveAsync()
+    {
+        IResult? result = null;
+        if (AccountId != null)
+        {
+            var command = new EditAccountCommand(AccountId.Value, Model.Name, Model.Description);
+            result = await AccountsManager.Edit(command);
+        }
+        else
+        {
+            var command = new AddAccountCommand(Model.Name, Model.Description, Model.Currency, Model.Type);
+            result = await AccountsManager.CreateNew(command);
+        }
+
+        if (!result!.IsSuccess)
+            await DialogService!.ShowMessageBox(new MessageBoxOptions()
+            {
+                Message = Localizer["ContentCannotSaveAccount"], Title = Localizer["TitleCannotSaveAccount"]
+            });
+
+        MudDialog.Close();
+    }
+
+    public void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    public class ViewModel
+    {
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? Currency { get; set; }
+        public AccountType Type { get; set; }
+    }
+
+}

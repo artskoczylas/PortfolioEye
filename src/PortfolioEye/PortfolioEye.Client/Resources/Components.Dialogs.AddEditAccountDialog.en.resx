@@ -1,4 +1,11 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -11,46 +18,34 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Accounts" xml:space="preserve">
-        <value>My accounts</value>
-    </data>
-    <data name="Actions" xml:space="preserve">
-        <value>Actions</value>
-    </data>
-    <data name="Bonds" xml:space="preserve">
-        <value>Bonds</value>
-    </data>
-    <data name="Description" xml:space="preserve">
-        <value>Description</value>
+    <data name="NewAccount" xml:space="preserve">
+        <value>New account</value>
     </data>
     <data name="Name" xml:space="preserve">
         <value>Name</value>
     </data>
-    <data name="SearchForAccounts" xml:space="preserve">
-        <value>Search for accounts</value>
+    <data name="Description" xml:space="preserve">
+        <value>Description</value>
     </data>
-    <data name="Shares" xml:space="preserve">
-        <value>Shares</value>
+    <data name="Currency" xml:space="preserve">
+        <value>Currency</value>
+    </data>
+    <data name="Cash" xml:space="preserve">
+        <value>Cash</value>
     </data>
     <data name="Type" xml:space="preserve">
         <value>Type (asset class)</value>
     </data>
-    <data name="Cash" xml:space="preserve">
-        <value>Cash</value>
+    <data name="Shares" xml:space="preserve">
+        <value>Shares</value>
+    </data>
+    <data name="Bonds" xml:space="preserve">
+        <value>Bonds</value>
     </data>
     <data name="Deposits" xml:space="preserve">
         <value>Deposits</value>
     </data>
     <data name="Savings" xml:space="preserve">
         <value>Savings</value>
-    </data>
-    <data name="Delete" xml:space="preserve">
-        <value>Delete</value>
-    </data>
-    <data name="Edit" xml:space="preserve">
-        <value>Edit</value>
-    </data>
-    <data name="NewAccount" xml:space="preserve">
-        <value>New account</value>
     </data>
 </root>

@@ -89,9 +89,9 @@ namespace PortfolioEye.Client.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Transakcje.
         /// </summary>
-        internal static string Transakcje {
+        internal static string Transactions {
             get {
-                return ResourceManager.GetString("Transakcje", resourceCulture);
+                return ResourceManager.GetString("Transactions", resourceCulture);
             }
         }
     }

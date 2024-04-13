@@ -11,12 +11,12 @@ public class DeleteAccountByIdCommandHandler(ApplicationDbContext dbContext)
 {
     public async Task<IResult> Handle(DeleteAccountByIdCommand request, CancellationToken cancellationToken)
     {
-        var accountToDelete = await dbContext.Portfotfolios.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
+        var accountToDelete = await dbContext.Accounts.FindAsync(new object?[] { request.Id }, cancellationToken: cancellationToken);
 
         if (accountToDelete == null)
             return await Result.FailAsync(WellKnown.ErrorCodes.NotFound);
         
-        dbContext.Portfotfolios.Remove(accountToDelete);
+        dbContext.Accounts.Remove(accountToDelete);
         await dbContext.SaveChangesAsync(cancellationToken);
         return await Result.SuccessAsync();
     }

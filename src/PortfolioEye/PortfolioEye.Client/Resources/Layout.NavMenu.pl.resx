@@ -24,10 +24,10 @@
     <data name="Accounts" xml:space="preserve">
         <value>Konta</value>
     </data>
-    <data name="Transakcje" xml:space="preserve">
-        <value>Transakcje</value>
-    </data>
     <data name="Dashboard" xml:space="preserve">
         <value>Dashboard</value>
+    </data>
+    <data name="Transactions" xml:space="preserve">
+        <value>Transakcje</value>
     </data>
 </root>

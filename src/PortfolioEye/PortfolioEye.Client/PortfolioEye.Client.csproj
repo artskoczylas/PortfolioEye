@@ -64,6 +64,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Components.Dialogs.AddEditPortfolioDialog.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components.Dialogs.AddEditAccountDialog.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.Dialogs.AddEditAccountDialog.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -121,6 +125,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Components.Dialogs.AddEditPortfolioDialog.pl.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components.Dialogs.AddEditAccountDialog.en.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.Dialogs.AddEditAccountDialog.en.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
