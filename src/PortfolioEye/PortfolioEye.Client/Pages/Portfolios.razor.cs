@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using PortfolioEye.Application.Features.Portfolios.Commands;
 using PortfolioEye.Application.Features.Portfolios.Queries;
 using PortfolioEye.Client.Components.Dialogs;
 using PortfolioEye.Client.Infrastructure.Managers;
 
 namespace PortfolioEye.Client.Pages
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public partial class Portfolios
     {
         private string _searchString = "";
-        private bool _loaded = false;
+        private bool _loaded;
         private IEnumerable<RetrievePortfoliosByUserId.Portfolio>? _portfolios;
         private RetrievePortfoliosByUserId.Portfolio? _portfolio;
         [Inject] public IStringLocalizer<Portfolios> Localizer { get; set; } = null!;
@@ -24,7 +24,7 @@ namespace PortfolioEye.Client.Pages
             await LoadData();
         }
 
-        public async Task LoadData()
+        private async Task LoadData()
         {
             try
             {
@@ -47,9 +47,9 @@ namespace PortfolioEye.Client.Pages
         private bool Search(RetrievePortfoliosByUserId.Portfolio portfolio)
         {
             if (string.IsNullOrWhiteSpace(_searchString)) return true;
-            return portfolio.Name?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true
-                || portfolio.Description?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true
-                || portfolio.Currency?.Contains(_searchString, StringComparison.OrdinalIgnoreCase) == true;
+            return portfolio.Name.Contains(_searchString, StringComparison.OrdinalIgnoreCase)
+                || portfolio.Description.Contains(_searchString, StringComparison.OrdinalIgnoreCase)
+                || portfolio.Currency.Contains(_searchString, StringComparison.OrdinalIgnoreCase);
         }
 
         private async Task CreateNew()
@@ -70,7 +70,7 @@ namespace PortfolioEye.Client.Pages
                 , Localizer["No"]);
             if (!dialogResult.HasValue || !dialogResult.Value)
                 return;
-            var deleteResult = await PortfoliosManager!.Delete(portfolio.Id);
+            var deleteResult = await PortfoliosManager.Delete(portfolio.Id);
             if (deleteResult.IsSuccess)
                 Snackbar.Add(Localizer["PortfolioDeleted"], Severity.Success);
             else
@@ -91,7 +91,7 @@ namespace PortfolioEye.Client.Pages
                 { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
             var dialog =
                 await DialogService.ShowAsync<AddEditPortfolioDialog>(
-                    id == null ? Localizer!["Create"] : Localizer!["Edit"],
+                    id == null ? Localizer["Create"] : Localizer["Edit"],
                     parameters, options);
             var result = await dialog.Result;
             if (!result.Canceled)

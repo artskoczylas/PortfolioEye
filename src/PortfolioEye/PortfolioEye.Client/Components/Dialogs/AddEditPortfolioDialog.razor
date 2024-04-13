@@ -1,8 +1,8 @@
 ﻿@using PortfolioEye.Application.Features.Portfolios.Commands
 @using Blazored.FluentValidation
+@using Microsoft.Extensions.Localization
 @using PortfolioEye.Client.Infrastructure.Managers
 @using PortfolioEye.Common.Wrappers
-@inject Microsoft.Extensions.Localization.IStringLocalizer<AddEditPortfolioDialog>? Localizer
 
 <EditForm Model="@Model" OnValidSubmit="SaveAsync">
     <FluentValidationValidator @ref="_fluentValidationValidator"/>
@@ -13,14 +13,14 @@
                 {
                     <MudText Typo="Typo.h6">
                         <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/>
-                        @Localizer?["NewPortfolio"]
+                        @Localizer["NewPortfolio"]
                     </MudText>
                 }
                 else
                 {
                     <MudText Typo="Typo.h6">
                         <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1"/>
-                        @Localizer?["EditPortfolio"]
+                        @Localizer["EditPortfolio"]
                     </MudText>
                 }
             }
@@ -28,13 +28,16 @@
         <DialogContent>
             <MudGrid>
                 <MudItem xs="12" md="6">
-                    <MudTextField For="@(() => Model.Name)" @bind-Value="Model.Name" Label="@Localizer?["Name"]"/>
+                    <MudTextField For="@(() => Model.Name)" @bind-Value="Model.Name" Label="@Localizer["Name"]"/>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudTextField For="@(() => Model.Description)" @bind-Value="Model.Description" Label="@Localizer?["Description"]"/>
+                    <MudTextField For="@(() => Model.Description)" @bind-Value="Model.Description"
+                                  Label="@Localizer["Description"]"/>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudSelect Disabled="@(PortfolioId != null)" For="@(() => Model.Currency)" @bind-Value="Model.Currency" T="string" Label="@Localizer?["Currency"]" AnchorOrigin="Origin.BottomCenter">
+                    <MudSelect Disabled="@(PortfolioId != null)" For="@(() => Model.Currency)"
+                               @bind-Value="Model.Currency" T="string" Label="@Localizer["Currency"]"
+                               AnchorOrigin="Origin.BottomCenter">
                         @foreach (var item in _currencies)
                         {
                             <MudSelectItem Value="@item"/>
@@ -44,14 +47,20 @@
             </MudGrid>
         </DialogContent>
         <DialogActions>
-            <MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">@Localizer?["Cancel"]</MudButton>
+            <MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">@Localizer["Cancel"]</MudButton>
             @if (PortfolioId != null)
             {
-                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit" Disabled="@(!Validated)" Color="Color.Secondary">@Localizer?["Edit"]</MudButton>
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                           Disabled="@(!Validated)" Color="Color.Secondary">
+                    @Localizer["Edit"]
+                </MudButton>
             }
             else
             {
-                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit" Disabled="@(!Validated)" Color="Color.Success">@Localizer?["Save"]</MudButton>
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                           Disabled="@(!Validated)" Color="Color.Success">
+                    @Localizer["Save"]
+                </MudButton>
             }
         </DialogActions>
     </MudDialog>
@@ -68,6 +77,7 @@
     [Inject] public ICurrenciesManager CurrenciesManager { get; set; } = null!;
     [Inject] public IPortfoliosManager PortfoliosManager { get; set; } = null!;
     [Inject] public IDialogService DialogService { get; set; } = null!;
+    [Inject] IStringLocalizer<AddEditPortfolioDialog> Localizer { get; set; } = null!;
     private IEnumerable<string> _currencies = new List<string>();
 
     protected override async Task OnInitializedAsync()
@@ -75,14 +85,18 @@
         var currenciesResult = await CurrenciesManager.RetrieveActive();
         if (currenciesResult.IsSuccess)
             _currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
-        
-        if(PortfolioId == null)
+
+        if (PortfolioId == null)
             return;
 
-        var portfolioResult = await PortfoliosManager!.GetById(PortfolioId.Value);
+        var portfolioResult = await PortfoliosManager.GetById(PortfolioId.Value);
         if (!portfolioResult.IsSuccess || portfolioResult.Data == null)
         {
-            await DialogService!.ShowMessageBox(new MessageBoxOptions() { Message = Localizer!["ContentCannotGetPortfolio"], Title = Localizer!["TitleCannotGetPortfolio"] });
+            await DialogService.ShowMessageBox(new MessageBoxOptions()
+            {
+                Message = Localizer["ContentCannotGetPortfolio"],
+                Title = Localizer["TitleCannotGetPortfolio"]
+            });
             PortfolioId = null;
             return;
         }
@@ -97,21 +111,24 @@
 
     public async Task SaveAsync()
     {
-         IResult? result = null;
+        IResult? result = null;
         if (PortfolioId != null)
         {
             var command = new EditPortfolioCommand(PortfolioId.Value, Model.Name, Model.Description);
-            result = await PortfoliosManager!.Edit(command);
+            result = await PortfoliosManager.Edit(command);
         }
         else
         {
             var command = new AddPortfolioCommand(Model.Name, Model.Description, Model.Currency);
-            result =await PortfoliosManager!.CreateNew(command);
+            result = await PortfoliosManager.CreateNew(command);
         }
 
         if (!result!.IsSuccess)
-            await DialogService!.ShowMessageBox(new MessageBoxOptions() { Message = Localizer!["ContentCannotSavePortfolio"], Title = Localizer!["TitleCannotSavePortfolio"] });
-        
+            await DialogService!.ShowMessageBox(new MessageBoxOptions()
+            {
+                Message = Localizer["ContentCannotSavePortfolio"], Title = Localizer["TitleCannotSavePortfolio"]
+            });
+
         MudDialog.Close();
     }
 
