@@ -1,63 +1,154 @@
 ﻿@page "/transactions"
+@using PortfolioEye.Application.Features.Transactions.Queries
+@using Microsoft.Extensions.Localization
+@using PortfolioEye.Client.Infrastructure.Managers
+@using PortfolioEye.Client.Components.Dialogs
+<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">@Localizer["Transactions"]</MudText>
 
-<PageTitle>Weather</PageTitle>
-
-<h1>Weather</h1>
-
-<p>This component demonstrates showing data.</p>
-
-@if (forecasts == null)
+@if (!_loaded)
 {
-    <p><em>Loading...</em></p>
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true"/>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <MudPaper Elevation="1" Class="pa-2 mb-2" Style="display: flex; justify-content: space-between; align-items: center;">
+        <MudItem >
+            <MudButton OnClick="CreateNew" DisableElevation Variant="Variant.Filled"
+                       Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add"
+                       IconColor="Color.Surface">
+                @Localizer["NewTransaction"]
+            </MudButton>
+        </MudItem>
+        <MudItem>
+            <MudTextField @bind-Value="_searchString" Immediate="true" Style="min-width: 30vw; margin-top: 0"
+                          Placeholder="@Localizer["SearchForTransactions"]"
+                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"/>
+        </MudItem>
+    </MudPaper>
+
+    <MudTable Hover="true" Elevation="1" Items="_transactions" Filter="new Func<RetrieveTransactionsByUserIdQuery.Transaction, bool>(Search)" @bind-transaction="_transaction">
+        <HeaderContent>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveTransactionsByUserIdQuery.Transaction, object>(x => x.TransactionDate)">@Localizer["TransactionDate"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveTransactionsByUserIdQuery.Transaction, object>(x => x.Value)">@Localizer["Value"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveTransactionsByUserIdQuery.Transaction, object>(x => x.Currency)">@Localizer["Currency"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh Style="text-align:right">@Localizer["Actions"]</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">
+                @context.TransactionDate
+            </MudTd>
+            <MudTd DataLabel="Description">
+                @context.Value
+            </MudTd>
+            <MudTd DataLabel="Type">
+                <MudHighlighter Text="@context.Currency" HighlightedText="@_searchString"/>
+            </MudTd>
+            <MudTd DataLabel="Actions" Style="text-align: right">
+                <MudMenu Label="@Localizer["Actions"]" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
+                    <MudMenuItem @onclick="@(() => Edit(@context))">@Localizer["Edit"]</MudMenuItem>
+                    <MudMenuItem @onclick="@(() => Delete(@context))">@Localizer["Delete"]</MudMenuItem>
+                </MudMenu>
+            </MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <TablePager/>
+        </PagerContent>
+    </MudTable>
 }
 
-@code {
-    private WeatherForecast[]? forecasts;
+@code{
+    private string _searchString = "";
+    private bool _loaded;
+    private IEnumerable<RetrieveTransactionsByUserIdQuery.Transaction>? _transactions;
+    private RetrieveTransactionsByUserIdQuery.Transaction? _transaction;
+    [Inject] public IStringLocalizer<Transactions> Localizer { get; set; } = null!;
+    [Inject] public IDialogService DialogService { get; set; } = null!;
+    [Inject] public ITransactionsManager TransactionsManager { get; set; } = null!;
+    [Inject] public ISnackbar Snackbar { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
-        // Simulate asynchronous loading to demonstrate a loading indicator
-        await Task.Delay(500);
-
-        var startDate = DateOnly.FromDateTime(DateTime.Now);
-        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
-        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = startDate.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = summaries[Random.Shared.Next(summaries.Length)]
-        }).ToArray();
+        await LoadData();
     }
 
-    private class WeatherForecast
+    private async Task LoadData()
     {
-        public DateOnly Date { get; set; }
-        public int TemperatureC { get; set; }
-        public string? Summary { get; set; }
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        try
+        {
+            _loaded = false;
+            var result = await TransactionsManager.RetrieveAllMy();
+            if (result.IsSuccess && result.Data != null)
+                _transactions = result.Data.Transactions;
+        }
+        finally
+        {
+            _loaded = true;
+        }
+    }
+
+    private async Task Refresh()
+    {
+        await LoadData();
+    }
+
+    private bool Search(RetrieveTransactionsByUserIdQuery.Transaction transaction)
+    {
+        if (string.IsNullOrWhiteSpace(_searchString)) return true;
+        return false;
+    }
+
+    private async Task CreateNew()
+    {
+        await ShowDialog();
+    }
+
+    private async Task Edit(RetrieveTransactionsByUserIdQuery.Transaction transaction)
+    {
+        await ShowDialog(transaction.Id);
+    }
+
+    private async Task Delete(RetrieveTransactionsByUserIdQuery.Transaction transaction)
+    {
+        var dialogResult = await DialogService.ShowMessageBox(Localizer["TitleDeleteTransaction"]
+            , Localizer["ContentDeleteTransaction", transaction.TransactionDate]
+            , Localizer["Yes"]
+            , Localizer["No"]);
+        if (!dialogResult.HasValue || !dialogResult.Value)
+            return;
+        var deleteResult = await TransactionsManager.Delete(transaction.Id);
+        if (deleteResult.IsSuccess)
+            Snackbar.Add(Localizer["TransactionDeleted"], Severity.Success);
+        else
+            Snackbar.Add(Localizer["CannotDeleteTransaction"], Severity.Warning);
+
+        await LoadData();
+    }
+
+    private async Task ShowDialog(Guid? id = null)
+    {
+        var parameters = new DialogParameters();
+        if (id != null && _transactions?.FirstOrDefault(c => c.Id == id) != null)
+        {
+            parameters.Add(nameof(AddEditTransactionDialog.TransactionId), id);
+        }
+
+        var options = new DialogOptions
+            { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true, DisableBackdropClick = true };
+        var dialog =
+            await DialogService.ShowAsync<AddEditTransactionDialog>(
+                id == null ? Localizer["Create"] : Localizer["Edit"],
+                parameters, options);
+        var result = await dialog.Result;
+        if (!result.Canceled)
+        {
+            await Refresh();
+        }
     }
 }

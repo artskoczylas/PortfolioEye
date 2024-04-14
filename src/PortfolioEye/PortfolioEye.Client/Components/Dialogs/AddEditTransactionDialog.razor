@@ -1,0 +1,148 @@
+﻿@using PortfolioEye.Application.Features.Transactions.Commands
+@using Blazored.FluentValidation
+@using Microsoft.Extensions.Localization
+@using PortfolioEye.Client.Infrastructure.Managers
+@using PortfolioEye.Common.Wrappers
+@using PortfolioEye.Client.Infrastructure.Managers
+
+<EditForm Model="@Model" OnValidSubmit="SaveAsync">
+    <FluentValidationValidator @ref="_fluentValidationValidator"/>
+    <MudDialog>
+        <TitleContent>
+            @{
+                if (TransactionId == null)
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/>
+                        @Localizer["NewTransaction"]
+                    </MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6">
+                        <MudIcon Icon="@Icons.Material.Filled.Update" Class="mr-3 mb-n1"/>
+                        @Localizer["EditTransaction"]
+                    </MudText>
+                }
+            }
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem xs="12" md="6">
+                    <MudTextField For="@(() => Model.TransactionDate)" @bind-Value="Model.TransactionDate" Label="@Localizer["Name"]"/>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudTextField For="@(() => Model.Value)" @bind-Value="Model.Value"
+                                  Label="@Localizer["Description"]"/>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Currency)"
+                               @bind-Value="Model.Currency" T="string" Label="@Localizer["Currency"]"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var item in _currencies)
+                        {
+                            <MudSelectItem Value="@item"/>
+                        }
+                    </MudSelect>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+        <DialogActions>
+            <MudButton DisableElevation Variant="Variant.Filled" OnClick="Cancel">@Localizer["Cancel"]</MudButton>
+            @if (TransactionId != null)
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                           Disabled="@(!Validated)" Color="Color.Secondary">
+                    @Localizer["Edit"]
+                </MudButton>
+            }
+            else
+            {
+                <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                           Disabled="@(!Validated)" Color="Color.Success">
+                    @Localizer["Save"]
+                </MudButton>
+            }
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+
+@code{
+
+    private FluentValidationValidator? _fluentValidationValidator;
+    private bool Validated => _fluentValidationValidator?.Validate(options => { options.IncludeAllRuleSets(); }) ?? false;
+    private ViewModel Model { get; set; } = new ViewModel();
+    [Parameter] public Guid? TransactionId { get; set; }
+    [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Inject] public ICurrenciesManager CurrenciesManager { get; set; } = null!;
+    [Inject] public ITransactionsManager TransactionsManager { get; set; } = null!;
+    [Inject] public IDialogService DialogService { get; set; } = null!;
+    [Inject] IStringLocalizer<AddEditTransactionDialog> Localizer { get; set; } = null!;
+    private IEnumerable<string> _currencies = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var currenciesResult = await CurrenciesManager.RetrieveActive();
+        if (currenciesResult.IsSuccess)
+            _currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
+
+        if (TransactionId == null)
+            return;
+
+        var transactionResult = await TransactionsManager.GetById(TransactionId.Value);
+        if (!transactionResult.IsSuccess || transactionResult.Data == null)
+        {
+            await DialogService.ShowMessageBox(new MessageBoxOptions()
+            {
+                Message = Localizer["ContentCannotGetTransaction"],
+                Title = Localizer["TitleCannotGetTransaction"]
+            });
+            TransactionId = null;
+            return;
+        }
+
+        Model = new ViewModel
+        {
+            Value = transactionResult.Data!.Value,
+            TransactionDate = transactionResult.Data!.TransactionDate,
+            Currency = transactionResult.Data!.Currency
+        };
+    }
+
+    public async Task SaveAsync()
+    {
+        IResult? result = null;
+        if (TransactionId != null)
+        {
+            var command = new EditTransactionCommand(TransactionId.Value, Model.Value, Model.Currency, Model.TransactionDate);
+            result = await TransactionsManager.Edit(command);
+        }
+        else
+        {
+            var command = new AddTransactionCommand(Model.Value, Model.Currency, Model.TransactionDate);
+            result = await TransactionsManager.CreateNew(command);
+        }
+
+        if (!result!.IsSuccess)
+            await DialogService!.ShowMessageBox(new MessageBoxOptions()
+            {
+                Message = Localizer["ContentCannotSaveTransaction"], Title = Localizer["TitleCannotSaveTransaction"]
+            });
+
+        MudDialog.Close();
+    }
+
+    public void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    public class ViewModel
+    {
+        public DateTime TransactionDate { get; set; }
+        public decimal Value { get; set; }
+        public string? Currency { get; set; }
+    }
+
+}
