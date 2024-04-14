@@ -2,10 +2,9 @@
 using PortfolioEye.Application.Features.Accounts.Commands;
 using PortfolioEye.Application.Features.Accounts.Queries;
 using PortfolioEye.Client.Infrastructure.Extensions;
-using PortfolioEye.Client.Infrastructure.Managers;
 using PortfolioEye.Common.Wrappers;
 
-namespace AccountEye.Client.Infrastructure.Managers;
+namespace PortfolioEye.Client.Infrastructure.Managers;
 
 public class AccountsManager(IHttpClientFactory factory) : IAccountsManager
 {
