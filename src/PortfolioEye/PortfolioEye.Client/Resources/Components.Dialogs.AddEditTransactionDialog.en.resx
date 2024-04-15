@@ -1,0 +1,86 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Account" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="Deposit" xml:space="preserve">
+        <value>Deposit</value>
+    </data>
+    <data name="Dividends" xml:space="preserve">
+        <value>Dividends</value>
+    </data>
+    <data name="Expenses" xml:space="preserve">
+        <value>Expenses</value>
+    </data>
+    <data name="Interest" xml:space="preserve">
+        <value>Interest</value>
+    </data>
+    <data name="NewTransaction" xml:space="preserve">
+        <value>New transaction</value>
+    </data>
+    <data name="Portfolio" xml:space="preserve">
+        <value>Portfolio</value>
+    </data>
+    <data name="Sale" xml:space="preserve">
+        <value>Sale</value>
+    </data>
+    <data name="TransactionDate" xml:space="preserve">
+        <value>Transaction date</value>
+    </data>
+    <data name="Type" xml:space="preserve">
+        <value>Transaction type</value>
+    </data>
+    <data name="Withdrawal" xml:space="preserve">
+        <value>Withdrawal</value>
+    </data>
+    <data name="Purchase" xml:space="preserve">
+        <value>Purchase</value>
+    </data>
+    <data name="Save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="AssetClass" xml:space="preserve">
+        <value>Asset class</value>
+    </data>
+    <data name="Bonds" xml:space="preserve">
+        <value>Bonds</value>
+    </data>
+    <data name="Currency" xml:space="preserve">
+        <value>Currency</value>
+    </data>
+    <data name="FeeCurrency" xml:space="preserve">
+        <value>Fee currency</value>
+    </data>
+    <data name="FeeValue" xml:space="preserve">
+        <value>Fee value</value>
+    </data>
+    <data name="Price" xml:space="preserve">
+        <value>Price</value>
+    </data>
+    <data name="Quantity" xml:space="preserve">
+        <value>Quantity</value>
+    </data>
+    <data name="Shares" xml:space="preserve">
+        <value>Shares</value>
+    </data>
+    <data name="Ticker" xml:space="preserve">
+        <value>Ticker</value>
+    </data>
+    <data name="Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="Value" xml:space="preserve">
+        <value>Value</value>
+    </data>
+</root>

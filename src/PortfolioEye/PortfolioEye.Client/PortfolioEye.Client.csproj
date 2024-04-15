@@ -68,6 +68,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Components.Dialogs.AddEditAccountDialog.en.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Components.Dialogs.AddEditTransactionDialog.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Components.Dialogs.AddEditTransactionDialog.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -130,6 +134,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Components.Dialogs.AddEditAccountDialog.en.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Components.Dialogs.AddEditTransactionDialog.pl.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Components.Dialogs.AddEditTransactionDialog.pl.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 

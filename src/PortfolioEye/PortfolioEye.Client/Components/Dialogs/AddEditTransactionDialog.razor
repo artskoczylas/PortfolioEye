@@ -1,6 +1,8 @@
 ﻿@using PortfolioEye.Application.Features.Transactions.Commands
 @using Blazored.FluentValidation
 @using Microsoft.Extensions.Localization
+@using PortfolioEye.Application.Features.Accounts.Queries
+@using PortfolioEye.Application.Features.Portfolios.Queries
 @using PortfolioEye.Client.Infrastructure.Managers
 @using PortfolioEye.Common.Wrappers
 @using PortfolioEye.Client.Infrastructure.Managers
@@ -29,15 +31,89 @@
         <DialogContent>
             <MudGrid>
                 <MudItem xs="12" md="6">
-                    <MudTextField For="@(() => Model.TransactionDate)" @bind-Value="Model.TransactionDate" Label="@Localizer["Name"]"/>
+                    <MudSelect Strict="true" Disabled="@(TransactionId != null)" For="@(() => Model.PortfolioId)"
+                               @bind-Value="Model.PortfolioId" T="Guid" Label="@Localizer["Portfolio"]"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var item in _portfolios)
+                        {
+                            <MudSelectItem Value="@item.Id">@item.Name</MudSelectItem>
+                        }
+                    </MudSelect>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudTextField For="@(() => Model.Value)" @bind-Value="Model.Value"
-                                  Label="@Localizer["Description"]"/>
+                    <MudSelect Strict="true" Disabled="@(TransactionId != null)" For="@(() => Model.AccountId)"
+                               @bind-Value="Model.AccountId" T="Guid" Label="@Localizer["Account"]"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (var item in _accounts)
+                        {
+                            <MudSelectItem Value="@item.Id">@item.Name</MudSelectItem>
+                        }
+                    </MudSelect>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Currency)"
-                               @bind-Value="Model.Currency" T="string" Label="@Localizer["Currency"]"
+                    <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Type)"
+                               @bind-Value="Model.Type" T="TransactionType" Label="@Localizer["Type"]"
+                               AnchorOrigin="Origin.BottomCenter">
+                        @foreach (TransactionType item in Enum.GetValues(typeof(TransactionType)))
+                        {
+                            <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudDatePicker For="@(() => Model.TransactionDate)" @bind-Date="Model.TransactionDate" Label="@Localizer["TransactionDate"]"/>
+                </MudItem>
+                @if (Model.Type == TransactionType.Sale || Model.Type == TransactionType.Purchase)
+                {
+                    <MudItem xs="12" md="6">
+                        <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Class)"
+                                   @bind-Value="Model.Class" T="AssetClass" Label="@Localizer["AssetClass"]"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (AssetClass item in Enum.GetValues(typeof(AssetClass)))
+                            {
+                                <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12" md="6">
+                        <MudTextField For="@(() => Model.Ticker)" @bind-Value="Model.Ticker"
+                                      Label="@Localizer["Ticker"]"/>
+                    </MudItem>
+                    <MudItem xs="12" md="6">
+                        <MudNumericField For="@(() => Model.Quantity)" @bind-Value="Model.Quantity"
+                                         Label="@Localizer["Quantity"]" HideSpinButtons="true"/>
+                    </MudItem>
+                    <MudItem xs="12" md="6">
+                        <MudNumericField For="@(() => Model.Price)" @bind-Value="Model.Price"
+                                         Label="@Localizer["Price"]" HideSpinButtons="true"/>
+                    </MudItem>
+                    <MudItem xs="12" md="6">
+                        <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Currency)"
+                                   @bind-Value="Model.Currency" T="string" Label="@Localizer["Currency"]"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _currencies)
+                            {
+                                <MudSelectItem Value="@item"/>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                }
+                else
+                {
+                    <MudItem xs="12" md="6">
+                        <MudNumericField For="@(() => Model.Value)" @bind-Value="Model.Value"
+                                         Label="@Localizer["Value"]" HideSpinButtons="true"/>
+                    </MudItem>
+                }
+
+                <MudItem xs="12" md="6">
+                    <MudNumericField For="@(() => Model.FeeValue)" @bind-Value="Model.FeeValue"
+                                     Label="@Localizer["FeeValue"]" HideSpinButtons="true"/>
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.FeeCurrency)"
+                               @bind-Value="Model.FeeCurrency" T="string" Label="@Localizer["FeeCurrency"]"
                                AnchorOrigin="Origin.BottomCenter">
                         @foreach (var item in _currencies)
                         {
@@ -77,9 +153,13 @@
 
     [Inject] public ICurrenciesManager CurrenciesManager { get; set; } = null!;
     [Inject] public ITransactionsManager TransactionsManager { get; set; } = null!;
+    [Inject] public IPortfoliosManager PortfoliosManager { get; set; } = null!;
+    [Inject] public IAccountsManager AccountsManager { get; set; } = null!;
     [Inject] public IDialogService DialogService { get; set; } = null!;
     [Inject] IStringLocalizer<AddEditTransactionDialog> Localizer { get; set; } = null!;
     private IEnumerable<string> _currencies = new List<string>();
+    private IEnumerable<RetrievePortfoliosByUserId.Portfolio> _portfolios = [];
+    private IEnumerable<RetrieveAccountsByUserId.Account> _accounts = [];
 
     protected override async Task OnInitializedAsync()
     {
@@ -87,27 +167,35 @@
         if (currenciesResult.IsSuccess)
             _currencies = currenciesResult.Data?.Currencies.Select(x => x.Code) ?? new List<string>();
 
+        var portfoliosResult = await PortfoliosManager.RetrieveAllMy();
+        if (portfoliosResult.IsSuccess && portfoliosResult.Data?.Portfolios != null)
+            _portfolios = portfoliosResult.Data.Portfolios;
+
+        var accountsResult = await AccountsManager.RetrieveAllMy();
+        if (accountsResult.IsSuccess && accountsResult.Data?.Accounts != null)
+            _accounts = accountsResult.Data.Accounts;
+
         if (TransactionId == null)
             return;
 
-        var transactionResult = await TransactionsManager.GetById(TransactionId.Value);
-        if (!transactionResult.IsSuccess || transactionResult.Data == null)
-        {
-            await DialogService.ShowMessageBox(new MessageBoxOptions()
-            {
-                Message = Localizer["ContentCannotGetTransaction"],
-                Title = Localizer["TitleCannotGetTransaction"]
-            });
-            TransactionId = null;
-            return;
-        }
-
-        Model = new ViewModel
-        {
-            Value = transactionResult.Data!.Value,
-            TransactionDate = transactionResult.Data!.TransactionDate,
-            Currency = transactionResult.Data!.Currency
-        };
+        // var transactionResult = await TransactionsManager.GetById(TransactionId.Value);
+        // if (!transactionResult.IsSuccess || transactionResult.Data == null)
+        // {
+        //     await DialogService.ShowMessageBox(new MessageBoxOptions()
+        //     {
+        //         Message = Localizer["ContentCannotGetTransaction"],
+        //         Title = Localizer["TitleCannotGetTransaction"]
+        //     });
+        //     TransactionId = null;
+        //     return;
+        // }
+        //
+        // Model = new ViewModel
+        // {
+        //     Value = transactionResult.Data!.Value,
+        //     TransactionDate = transactionResult.Data!.TransactionDate,
+        //     Currency = transactionResult.Data!.Currency
+        // };
     }
 
     public async Task SaveAsync()
@@ -115,12 +203,16 @@
         IResult? result = null;
         if (TransactionId != null)
         {
-            var command = new EditTransactionCommand(TransactionId.Value, Model.Value, Model.Currency, Model.TransactionDate);
-            result = await TransactionsManager.Edit(command);
+            // var command = new EditTransactionCommand(TransactionId.Value, Model.Value, Model.Currency, Model.TransactionDate);
+            // result = await TransactionsManager.Edit(command);
         }
         else
         {
-            var command = new AddTransactionCommand(Model.Value, Model.Currency, Model.TransactionDate);
+            var command = new AddTransactionCommand(
+                Model.PortfolioId, Model.AccountId,
+                Model.Type, Model.Class, Model.TransactionDate.Value,
+                Model.Ticker, Model.Quantity, Model.Price, Model.Currency,
+                Model.FeeValue, Model.FeeCurrency);
             result = await TransactionsManager.CreateNew(command);
         }
 
@@ -140,9 +232,18 @@
 
     public class ViewModel
     {
-        public DateTime TransactionDate { get; set; }
+        public Guid PortfolioId { get; set; }
+        public Guid AccountId { get; set; }
+        public TransactionType Type { get; set; }
+        public AssetClass Class { get; set; }
+        public DateTime? TransactionDate { get; set; } = DateTime.Today;
+        public string? Ticker { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal Price { get; set; }
         public decimal Value { get; set; }
         public string? Currency { get; set; }
+        public decimal FeeValue { get; set; }
+        public string? FeeCurrency { get; set; }
     }
 
 }
