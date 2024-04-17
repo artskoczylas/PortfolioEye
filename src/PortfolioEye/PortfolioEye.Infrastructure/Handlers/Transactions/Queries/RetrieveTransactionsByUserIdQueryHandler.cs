@@ -6,13 +6,11 @@ using PortfolioEye.Infrastructure.Services;
 
 namespace PortfolioEye.Infrastructure.Handlers.Transactions.Queries;
 
-public class RetrieveTransactionsByUserIdQueryHandler(CurrencyRatesService srv)
+public class RetrieveTransactionsByUserIdQueryHandler
     : IRequestHandler<RetrieveTransactionsByUserIdQuery, IResult<RetrieveTransactionsByUserIdQuery.Response>>
 {
     public async Task<IResult<RetrieveTransactionsByUserIdQuery.Response>> Handle(RetrieveTransactionsByUserIdQuery request, CancellationToken cancellationToken)
     {
-        var currencies = await srv.GetRates("EUR", new DateOnly(2024, 04, 01), new DateOnly(2024, 04, 12));
-        
         return await new RetrieveTransactionsByUserIdQuery.Response([]).ToSuccessResultAsync();
     }
 }
