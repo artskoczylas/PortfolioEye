@@ -10,5 +10,7 @@ namespace PortfolioEye.Infrastructure.Data
 		public DbSet<Potfolio> Portfotfolios { get; set; }
 		
 		public DbSet<Account> Accounts { get; set; }
+		public DbSet<Transaction> Transactions { get; set; }
+		public DbSet<StockTransaction> StockTransactions { get; set; }
 	}
 }
