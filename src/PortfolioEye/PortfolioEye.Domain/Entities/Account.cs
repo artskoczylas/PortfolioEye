@@ -30,4 +30,6 @@ public class Account
         Deposits = 3,
         Savings = 4
     }
+    
+    public ICollection<Transaction> Transactions { get; set; }
 }

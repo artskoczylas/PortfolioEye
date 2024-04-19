@@ -20,4 +20,6 @@ public class Potfolio
     [StringLength(3)]
     [Required]
     public string Currency { get; set; }
+    
+    public ICollection<Transaction> Transactions { get; set; }
 }

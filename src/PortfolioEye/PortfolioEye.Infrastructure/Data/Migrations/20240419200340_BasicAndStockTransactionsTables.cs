@@ -30,14 +30,12 @@ namespace PortfolioEye.Migrations
                         name: "FK_Transactions_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Transactions_Portfotfolios_PortfolioId",
                         column: x => x.PortfolioId,
                         principalTable: "Portfotfolios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +66,8 @@ namespace PortfolioEye.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_StockTransactions_TransactionId",
                 table: "StockTransactions",
-                column: "TransactionId");
+                column: "TransactionId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_AccountId",

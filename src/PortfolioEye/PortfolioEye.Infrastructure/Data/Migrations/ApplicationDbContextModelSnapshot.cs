@@ -359,7 +359,8 @@ namespace PortfolioEye.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TransactionId");
+                    b.HasIndex("TransactionId")
+                        .IsUnique();
 
                     b.ToTable("StockTransactions");
                 });
@@ -476,8 +477,8 @@ namespace PortfolioEye.Migrations
             modelBuilder.Entity("PortfolioEye.Domain.Entities.StockTransaction", b =>
                 {
                     b.HasOne("PortfolioEye.Domain.Entities.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId")
+                        .WithOne()
+                        .HasForeignKey("PortfolioEye.Domain.Entities.StockTransaction", "TransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -487,20 +488,30 @@ namespace PortfolioEye.Migrations
             modelBuilder.Entity("PortfolioEye.Domain.Entities.Transaction", b =>
                 {
                     b.HasOne("PortfolioEye.Domain.Entities.Account", "Account")
-                        .WithMany()
+                        .WithMany("Transactions")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PortfolioEye.Domain.Entities.Potfolio", "Portfolio")
-                        .WithMany()
+                        .WithMany("Transactions")
                         .HasForeignKey("PortfolioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Account");
 
                     b.Navigation("Portfolio");
+                });
+
+            modelBuilder.Entity("PortfolioEye.Domain.Entities.Account", b =>
+                {
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("PortfolioEye.Domain.Entities.Potfolio", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
