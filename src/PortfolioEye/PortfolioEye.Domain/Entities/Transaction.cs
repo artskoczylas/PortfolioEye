@@ -6,6 +6,8 @@ namespace PortfolioEye.Domain.Entities;
 public class Transaction
 {
     public Guid Id { get; set; }
+    [StringLength(450)]
+    public string UserId { get; set; }
     public Guid PortfolioId { get; set; }
     public virtual Potfolio? Portfolio { get; set; }
     public Guid AccountId { get; set; }
