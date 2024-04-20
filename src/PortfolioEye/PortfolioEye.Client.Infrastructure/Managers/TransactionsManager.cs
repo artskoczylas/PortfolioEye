@@ -19,6 +19,12 @@ public class TransactionsManager(IHttpClientFactory factory) : ITransactionsMana
         var response = await factory.MainApiClient().PostAsJsonAsync($"/api/transactions/my", command);
         return await response.ToResultAsync();
     }
+    
+    public async Task<IResult> CreateNewStock(AddStockTransactionCommand command)
+    {
+        var response = await factory.MainApiClient().PostAsJsonAsync($"/api/transactions/my/Stocks", command);
+        return await response.ToResultAsync();
+    }
 
     public async Task<IResult> Edit(EditTransactionCommand command)
     {
@@ -46,4 +52,5 @@ public interface ITransactionsManager : IManager
     Task<IResult> Edit(EditTransactionCommand command);
     Task<IResult> Delete(Guid id);
     Task<IResult<RetrieveTransactionByIdQuery.Response>> GetById(Guid id);
+    Task<IResult> CreateNewStock(AddStockTransactionCommand command);
 }

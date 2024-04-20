@@ -17,6 +17,7 @@ public class RetrieveTransactionsByUserIdQueryHandler(ApplicationDbContext dbCon
     {
         var transactions = await dbContext.Transactions
             .Where(c => c.UserId == request.UserId.ToString())
+            .OrderByDescending(t => t.TransactionDate)
             .ProjectToType<RetrieveTransactionsByUserIdQuery.Transaction>()
             .ToListAsync(cancellationToken);
 

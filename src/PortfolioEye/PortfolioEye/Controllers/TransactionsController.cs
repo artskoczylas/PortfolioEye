@@ -51,15 +51,15 @@ public class TransactionsController (IMediator mediator) : ControllerBase
         };
     }
     
-    [HttpPost("My")]
+    [HttpPost("My/Stocks")]
     public async Task<IActionResult> CreateNew([FromServices] ICurrentUserAccessor userAccessor,
-        [FromBody] AddTransactionCommand command)
+        [FromBody] AddStockTransactionCommand command)
     {
         var currentUser = userAccessor.Get();
         if (currentUser == null)
             return Unauthorized();
         
-        var result = await mediator.Send(new AddTransactionForUserCommand(currentUser.Id, command));
+        var result = await mediator.Send(new AddStockTransactionForUserCommand(currentUser.Id, command));
         if (result.IsSuccess)
             return Ok(result);
         return result.ErrorCode switch

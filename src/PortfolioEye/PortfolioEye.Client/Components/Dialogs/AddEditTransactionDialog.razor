@@ -208,15 +208,36 @@
         }
         else
         {
-            var command = new AddTransactionCommand(
-                Model.PortfolioId, Model.AccountId,
-                Model.Type, Model.Class, Model.TransactionDate.Value,
-                Model.Ticker, Model.Quantity, Model.Price, Model.Currency,
-                Model.FeeValue, Model.FeeCurrency);
-            result = await TransactionsManager.CreateNew(command);
+            if (Model is { Class: AssetClass.Shares, Type: TransactionType.Purchase or TransactionType.Sale })
+            {
+                var command = new AddStockTransactionCommand(
+                    Model.PortfolioId, Model.AccountId,
+                    Model.Type == TransactionType.Purchase ? StockTransactionSide.Purchase : StockTransactionSide.Sale,
+                    DateOnly.FromDateTime(Model.TransactionDate!.Value), Model.Ticker!, Model.Quantity, Model.Price, Model.Currency!,
+                    Model.FeeValue, Model.FeeCurrency!);
+                result = await TransactionsManager.CreateNewStock(command);
+            }
+            else
+            {
+                var command = new AddTransactionCommand(
+                    Model.PortfolioId, Model.AccountId,
+                    Model.Type, Model.Class, Model.TransactionDate.Value,
+                    Model.Ticker, Model.Quantity, Model.Price, Model.Currency,
+                    Model.FeeValue, Model.FeeCurrency);
+                result = await TransactionsManager.CreateNew(command);
+            }
         }
 
-        if (!result!.IsSuccess)
+        if (result == null)
+        {
+            await DialogService!.ShowMessageBox(new MessageBoxOptions()
+            {
+                Message = Localizer["NotImplemented"], Title = Localizer["NotImplemented"]
+            });
+            return;
+        }
+
+        if (!result.IsSuccess)
             await DialogService!.ShowMessageBox(new MessageBoxOptions()
             {
                 Message = Localizer["ContentCannotSaveTransaction"], Title = Localizer["TitleCannotSaveTransaction"]
