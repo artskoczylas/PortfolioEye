@@ -39,5 +39,9 @@ public class AddStockTransactionForUserCommandHandler(ApplicationDbContext dbCon
         await dbContext.StockTransactions.AddAsync(stockTransaction, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
         return await Result.SuccessAsync();
+        
+        //Po zapisaniu rzuć event, że dodano transakcje i pewnie że transakcję stock
+        //Handler eventu pobierze kursy od tej daty do końca (jeśli nie ma), pewnie trzeba na to metodę w currencyRateService
+        //Kolejny handler będzie mógł ogarnąć pobranie kursów akcji
     }
 }
