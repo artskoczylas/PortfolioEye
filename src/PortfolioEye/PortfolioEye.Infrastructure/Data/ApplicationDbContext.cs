@@ -33,6 +33,14 @@ namespace PortfolioEye.Infrastructure.Data
 
             modelBuilder.Entity<CurrencyRate>()
                 .HasKey(x => new { x.FromCurrencyId, x.ToCurrencyId, x.Date });
+            
+            modelBuilder.Entity<CurrencyRate>()
+                .HasOne(st => st.FromCurrency)
+                .WithMany().OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<CurrencyRate>()
+                .HasOne(st => st.ToCurrency)
+                .WithMany().OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

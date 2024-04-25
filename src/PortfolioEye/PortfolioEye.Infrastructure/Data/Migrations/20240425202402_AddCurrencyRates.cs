@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PortfolioEye.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCurrencyRateTable : Migration
+    public partial class AddCurrencyRates : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,14 +27,12 @@ namespace PortfolioEye.Migrations
                         name: "FK_CurrencyRates_Currencies_FromCurrencyId",
                         column: x => x.FromCurrencyId,
                         principalTable: "Currencies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_CurrencyRates_Currencies_ToCurrencyId",
                         column: x => x.ToCurrencyId,
                         principalTable: "Currencies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

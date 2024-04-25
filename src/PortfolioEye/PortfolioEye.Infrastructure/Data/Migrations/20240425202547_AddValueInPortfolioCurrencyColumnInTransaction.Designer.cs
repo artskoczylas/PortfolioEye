@@ -12,8 +12,8 @@ using PortfolioEye.Infrastructure.Data;
 namespace PortfolioEye.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240422202929_AddCurrencyRateTable")]
-    partial class AddCurrencyRateTable
+    [Migration("20240425202547_AddValueInPortfolioCurrencyColumnInTransaction")]
+    partial class AddValueInPortfolioCurrencyColumnInTransaction
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -422,6 +422,10 @@ namespace PortfolioEye.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("ValueInPortfolioCurrency")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -498,13 +502,13 @@ namespace PortfolioEye.Migrations
                     b.HasOne("PortfolioEye.Domain.Entities.Currency", "FromCurrency")
                         .WithMany()
                         .HasForeignKey("FromCurrencyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PortfolioEye.Domain.Entities.Currency", "ToCurrency")
                         .WithMany()
                         .HasForeignKey("ToCurrencyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("FromCurrency");
