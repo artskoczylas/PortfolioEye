@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PortfolioEye.Application;
 using PortfolioEye.Application.Features.Currencies.Queries;
 using PortfolioEye.Application.Features.CurrencyRates.Queries;
 using PortfolioEye.Common.Extensions;
@@ -31,8 +32,10 @@ public class GetDayRateForCurrenciesHandler(ApplicationDbContext context, IMedia
                 .FirstOrDefaultAsync(x =>
                     x.FromCurrencyId == fromCurrencyResult.Data!.Id && x.ToCurrencyId == toCurrencyResult.Data!.Id &&
                     x.Date == request.Date, cancellationToken: cancellationToken)
-            ).Adapt<GetDayRateForCurrencies.Response>();
-        
+            ).Adapt<GetDayRateForCurrencies.Response?>();
+
+        if (response == null)
+            return await Result<GetDayRateForCurrencies.Response>.FailAsync(WellKnown.ErrorCodes.NotFound);
         return await response.ToSuccessResultAsync();
     }
 }

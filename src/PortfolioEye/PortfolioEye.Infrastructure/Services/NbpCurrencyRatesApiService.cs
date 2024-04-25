@@ -9,18 +9,18 @@ public class NbpCurrencyRatesApiService : ICurrencyRatesApiService
     public async Task<IEnumerable<DayRate>?> GetRates(string fromCurrency, string toCurrency, DateOnly from,
         DateOnly to)
     {
-        if (!"PLN".Equals(fromCurrency, StringComparison.InvariantCultureIgnoreCase))
-            throw new NotSupportedException("Only conversion from PLN is supported");
+        if (!"PLN".Equals(toCurrency, StringComparison.InvariantCultureIgnoreCase))
+            throw new NotSupportedException("Only conversion to PLN is supported");
         try
         {
             using var client = new HttpClient();
             client.BaseAddress = new Uri("http://api.nbp.pl");
             var resp = await client.GetFromJsonAsync<NbpCurrencyRates>(
-                $"/api/exchangerates/rates/a/{toCurrency.ToLower()}/{from:yyyy-MM-dd}/{to:yyyy-MM-dd}/?format=json");
+                $"/api/exchangerates/rates/a/{fromCurrency.ToLower()}/{from:yyyy-MM-dd}/{to:yyyy-MM-dd}/?format=json");
 
             if (resp == null)
                 return null;
-            return resp.Rates.Select(x => new DayRate(x.EffectiveDate, x.Mid, "PLN", resp.Code));
+            return resp.Rates.Select(x => new DayRate(x.EffectiveDate, x.Mid, resp.Code, "PLN"));
         }
         catch (Exception e)
         {
