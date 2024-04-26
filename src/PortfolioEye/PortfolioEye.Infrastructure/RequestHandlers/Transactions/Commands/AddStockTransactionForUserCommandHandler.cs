@@ -3,13 +3,14 @@ using PortfolioEye.Application.Features.Transactions.Commands;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Domain.Entities;
 using PortfolioEye.Infrastructure.Data;
+using PortfolioEye.Infrastructure.Events;
 using PortfolioEye.Infrastructure.Interfaces;
 using StockTransactionSide = PortfolioEye.Application.Features.Transactions.Commands.StockTransactionSide;
 using TransactionType = PortfolioEye.Domain.Entities.TransactionType;
 
 namespace PortfolioEye.Infrastructure.Handlers.Transactions.Commands;
 
-public class AddStockTransactionForUserCommandHandler(ApplicationDbContext dbContext, ICurrencyRateService rateService)
+public class AddStockTransactionForUserCommandHandler(ApplicationDbContext dbContext, ICurrencyRateService rateService, IMediator mediator)
     : IRequestHandler<AddStockTransactionForUserCommand, IResult>
 {
     public async Task<IResult> Handle(AddStockTransactionForUserCommand request, CancellationToken cancellationToken)
@@ -44,9 +45,11 @@ public class AddStockTransactionForUserCommandHandler(ApplicationDbContext dbCon
         };
         await dbContext.StockTransactions.AddAsync(stockTransaction, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
+
+        await mediator.Publish(new StockTransactionAdded(stockTransaction.Id), cancellationToken);
+        
         return await Result.SuccessAsync();
         
-        //Po zapisaniu rzuć event, że dodano transakcje i pewnie że transakcję stock
         //Handler eventu pobierze kursy od tej daty do końca (jeśli nie ma), pewnie trzeba na to metodę w currencyRateService
         //Kolejny handler będzie mógł ogarnąć pobranie kursów akcji
     }

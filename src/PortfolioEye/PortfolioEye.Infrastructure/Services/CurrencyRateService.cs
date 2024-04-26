@@ -29,8 +29,43 @@ public class CurrencyRateService : ICurrencyRateService
         var firstRate = apiRate.First();
         var command = new AddCurrencyRate(firstRate.FromCurrency, firstRate.ToCurrency, firstRate.Date, firstRate.Rate);
         await _mediator.Send(command);
-        
+
         return firstRate.Rate;
+    }
+
+    public async Task CheckRatesAsync(string fromCurrency, string toCurrency, DateOnly fromDate, DateOnly toDate)
+    {
+        if (fromDate == toDate)
+            return;
+
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(fromDate, toDate);
+
+        var dbRatesResult =
+            await _mediator.Send(new GetRatesInRangeForCurrenciesQuery(fromCurrency, toCurrency, fromDate, toDate));
+
+        var dbRatesList = dbRatesResult.IsSuccess ? dbRatesResult.Data!.Rates : [];
+        var apiRates = (await _currencyRatesApi.GetRates(fromCurrency, toCurrency, fromDate, toDate))?.ToList();
+        if (apiRates == null || apiRates.Count == 0)
+            return;
+        var currentDay = fromDate;
+        while (currentDay < toDate)
+        {
+            if (dbRatesList.Any(x => x.Date == currentDay))
+            {
+                currentDay = currentDay.AddDays(1);
+                continue;
+            }
+
+            var apiRate = apiRates.FirstOrDefault(x => x.Date == currentDay);
+            if (apiRate != null)
+            {
+                var command = new AddCurrencyRate(apiRate.FromCurrency, apiRate.ToCurrency, apiRate.Date,
+                    apiRate.Rate);
+                await _mediator.Send(command);
+            }
+
+            currentDay = currentDay.AddDays(1);
+        }
     }
 }
 
