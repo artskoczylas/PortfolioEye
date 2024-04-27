@@ -29,4 +29,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioEye.Infrastructure\PortfolioEye.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

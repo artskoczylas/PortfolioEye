@@ -27,4 +27,8 @@
       <ProjectReference Include="..\PortfolioEye.Client.Infrastructure\PortfolioEye.Client.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\" />
+    </ItemGroup>
+
 </Project>
