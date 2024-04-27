@@ -8,7 +8,7 @@ using PortfolioEye.Common.Extensions;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.CurrencyRates.Queries;
+namespace PortfolioEye.Infrastructure.RequestHandlers.CurrencyRates.Queries;
 
 public class GetDayRateForCurrenciesHandler(ApplicationDbContext context, IMediator mediator)
     : IRequestHandler<GetDayRateForCurrencies, IResult<GetDayRateForCurrencies.Response>>

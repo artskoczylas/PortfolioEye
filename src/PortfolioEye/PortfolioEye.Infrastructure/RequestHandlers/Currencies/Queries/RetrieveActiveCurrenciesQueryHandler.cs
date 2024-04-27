@@ -6,7 +6,7 @@ using PortfolioEye.Common.Extensions;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.Currencies.Queries;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Currencies.Queries;
 
 public class RetrieveActiveCurrenciesQueryHandler(ApplicationDbContext context)
     : IRequestHandler<RetrieveActiveCurrenciesQuery, IResult<RetrieveActiveCurrenciesQuery.Response>>

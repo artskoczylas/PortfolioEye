@@ -1,5 +1,4 @@
-﻿using Mapster;
-using MediatR;
+﻿using MediatR;
 using PortfolioEye.Application;
 using PortfolioEye.Application.Features.Currencies.Queries;
 using PortfolioEye.Application.Features.CurrencyRates.Commands;
@@ -7,7 +6,7 @@ using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Domain.Entities;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.CurrencyRates.Commands;
+namespace PortfolioEye.Infrastructure.RequestHandlers.CurrencyRates.Commands;
 
 public class AddCurrencyRateHandler(ApplicationDbContext context, IMediator mediator)
     : IRequestHandler<AddCurrencyRate, IResult>

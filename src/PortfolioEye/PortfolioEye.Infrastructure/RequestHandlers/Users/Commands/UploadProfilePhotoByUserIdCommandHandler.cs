@@ -2,12 +2,11 @@
 using PortfolioEye.Application;
 using PortfolioEye.Application.Features.Users.Commands;
 using PortfolioEye.Common.Wrappers;
-using PortfolioEye.Domain.Entities;
 using PortfolioEye.Infrastructure.Data;
 using PortfolioEye.Services;
 using SkiaSharp;
 
-namespace PortfolioEye.Infrastructure.Handlers.Users.Commands;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Users.Commands;
 
 public class UploadProfilePhotoByUserIdCommandHandler(
     ApplicationDbContext dbContext,

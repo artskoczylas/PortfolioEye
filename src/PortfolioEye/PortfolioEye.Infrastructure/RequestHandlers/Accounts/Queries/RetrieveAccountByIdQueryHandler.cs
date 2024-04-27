@@ -5,7 +5,7 @@ using PortfolioEye.Common.Extensions;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.Accounts.Queries;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Accounts.Queries;
 
 public class RetrieveAccountByIdQueryHandler(ApplicationDbContext dbContext)
     : IRequestHandler<RetrieveAccountByIdQuery, IResult<RetrieveAccountByIdQuery.Response>>

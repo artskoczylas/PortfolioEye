@@ -4,7 +4,7 @@ using PortfolioEye.Application.Features.Portfolios.Commands;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.Portfolios.Commands;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Portfolios.Commands;
 
 public class AddPortfolioForUserCommandHandler(ApplicationDbContext dbContext)
     : IRequestHandler<AddPortfolioForUserCommand, IResult>

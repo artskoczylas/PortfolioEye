@@ -1,13 +1,12 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PortfolioEye.Application.Features.Currencies.Queries;
 using PortfolioEye.Application.Features.Portfolios.Queries;
 using PortfolioEye.Common.Extensions;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.Portfolios.Queries;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Portfolios.Queries;
 
 public class RetrievePortfoliosByUserIdHandler(ApplicationDbContext dbContext)
     : IRequestHandler<RetrievePortfoliosByUserId, IResult<RetrievePortfoliosByUserId.Response>>

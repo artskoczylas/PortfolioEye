@@ -8,7 +8,7 @@ using PortfolioEye.Infrastructure.Interfaces;
 using StockTransactionSide = PortfolioEye.Application.Features.Transactions.Commands.StockTransactionSide;
 using TransactionType = PortfolioEye.Domain.Entities.TransactionType;
 
-namespace PortfolioEye.Infrastructure.Handlers.Transactions.Commands;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Transactions.Commands;
 
 public class AddStockTransactionForUserCommandHandler(ApplicationDbContext dbContext, ICurrencyRateService rateService, IMediator mediator)
     : IRequestHandler<AddStockTransactionForUserCommand, IResult>

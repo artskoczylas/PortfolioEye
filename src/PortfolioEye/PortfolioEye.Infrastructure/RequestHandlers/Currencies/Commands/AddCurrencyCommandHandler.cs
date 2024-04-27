@@ -7,7 +7,7 @@ using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Domain.Entities;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.Currencies.Commands;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Currencies.Commands;
 
 public class AddCurrencyCommandHandler(ApplicationDbContext context) : IRequestHandler<AddCurrencyCommand, IResult>
 {

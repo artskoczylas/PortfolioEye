@@ -2,13 +2,11 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PortfolioEye.Application;
-using PortfolioEye.Application.Features.Users;
 using PortfolioEye.Application.Features.Users.Queries;
 using PortfolioEye.Common.Wrappers;
-using PortfolioEye.Domain.Entities;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.Users.Queries;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Users.Queries;
 
 public class RetrieveUserProfileByIdQueryHandler(ApplicationDbContext context)
     : IRequestHandler<RetrieveUserProfileByIdQuery, IResult<UserProfileResponse>>

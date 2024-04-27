@@ -4,7 +4,7 @@ using PortfolioEye.Application.Features.Accounts.Commands;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
 
-namespace PortfolioEye.Infrastructure.Handlers.Accounts.Commands;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Accounts.Commands;
 
 public class DeleteAccountByIdCommandHandler(ApplicationDbContext dbContext)
     : IRequestHandler<DeleteAccountByIdCommand, IResult>

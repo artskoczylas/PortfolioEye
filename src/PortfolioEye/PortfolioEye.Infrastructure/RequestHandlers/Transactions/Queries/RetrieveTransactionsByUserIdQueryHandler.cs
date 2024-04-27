@@ -1,14 +1,12 @@
 ﻿using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using PortfolioEye.Application.Features.Portfolios.Queries;
 using PortfolioEye.Application.Features.Transactions.Queries;
 using PortfolioEye.Common.Extensions;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
-using PortfolioEye.Infrastructure.Services;
 
-namespace PortfolioEye.Infrastructure.Handlers.Transactions.Queries;
+namespace PortfolioEye.Infrastructure.RequestHandlers.Transactions.Queries;
 
 public class RetrieveTransactionsByUserIdQueryHandler(ApplicationDbContext dbContext)
     : IRequestHandler<RetrieveTransactionsByUserIdQuery, IResult<RetrieveTransactionsByUserIdQuery.Response>>
