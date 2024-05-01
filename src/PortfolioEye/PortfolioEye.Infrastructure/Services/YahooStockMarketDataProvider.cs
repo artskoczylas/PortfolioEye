@@ -8,7 +8,7 @@ namespace PortfolioEye.Infrastructure.Services;
 
 public class YahooStockMarketDataProvider() : IStockMarketDataProvider
 {
-    public async Task<IEnumerable<string>> FindTickerAsync(string query)
+    public async Task<IEnumerable<FindResult>> FindTickerAsync(string query)
     {
         try
         {
@@ -36,13 +36,13 @@ public class YahooStockMarketDataProvider() : IStockMarketDataProvider
                 .ReceiveJson<SearchResult>()
                 .ConfigureAwait(false);
 
-           return data != null ? data.Quotes.Select(x => x.Symbol) : new List<string>();
+           return data != null ? data.Quotes.Select(x => new FindResult(x.Symbol, x.Longname ?? x.Shortname, x.QuoteType, x.ExchDisp)) : new List<FindResult>();
         }
         catch (FlurlHttpException ex)
         {
             if (ex.Call.Response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
             {
-                return new List<string>();
+                return new List<FindResult>();
             }
             else
             {
