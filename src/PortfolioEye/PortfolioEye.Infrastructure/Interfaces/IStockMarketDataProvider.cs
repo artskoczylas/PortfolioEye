@@ -1,5 +1,4 @@
-﻿using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
-
+﻿
 namespace PortfolioEye.Infrastructure.Interfaces;
 
 public interface IStockMarketDataProvider

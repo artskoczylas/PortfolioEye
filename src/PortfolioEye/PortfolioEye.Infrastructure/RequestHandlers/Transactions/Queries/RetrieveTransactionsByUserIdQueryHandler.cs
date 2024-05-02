@@ -1,17 +1,22 @@
-﻿using Mapster;
+﻿using System.Diagnostics;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PortfolioEye.Application.Features.Transactions.Queries;
 using PortfolioEye.Common.Extensions;
 using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Data;
+using PortfolioEye.Infrastructure.Interfaces;
 
 namespace PortfolioEye.Infrastructure.RequestHandlers.Transactions.Queries;
 
-public class RetrieveTransactionsByUserIdQueryHandler(ApplicationDbContext dbContext)
+public class RetrieveTransactionsByUserIdQueryHandler(
+    ApplicationDbContext dbContext,
+    IStockMarketDataProvider stockMarketDataProvider)
     : IRequestHandler<RetrieveTransactionsByUserIdQuery, IResult<RetrieveTransactionsByUserIdQuery.Response>>
 {
-    public async Task<IResult<RetrieveTransactionsByUserIdQuery.Response>> Handle(RetrieveTransactionsByUserIdQuery request, CancellationToken cancellationToken)
+    public async Task<IResult<RetrieveTransactionsByUserIdQuery.Response>> Handle(
+        RetrieveTransactionsByUserIdQuery request, CancellationToken cancellationToken)
     {
         var transactions = await dbContext.Transactions
             .Where(c => c.UserId == request.UserId.ToString())

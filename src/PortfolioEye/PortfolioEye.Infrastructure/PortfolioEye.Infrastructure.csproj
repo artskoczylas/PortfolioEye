@@ -14,7 +14,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageReference Include="SkiaSharp" Version="2.88.7" />
     <PackageReference Include="YahooFinanceApi" Version="2.3.3" />
   </ItemGroup>
@@ -22,6 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\PortfolioEye.Application\PortfolioEye.Application.csproj" />
     <ProjectReference Include="..\PortfolioEye.Domain\PortfolioEye.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>
