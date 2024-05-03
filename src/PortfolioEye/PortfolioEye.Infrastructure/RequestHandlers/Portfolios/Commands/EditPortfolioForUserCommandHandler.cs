@@ -16,7 +16,7 @@ public class EditPortfolioCommandHandler(ApplicationDbContext dbContext)
         if (existingPortfolio == null)
             return await Result.FailAsync(WellKnown.ErrorCodes.NotFound);
 
-        if(existingPortfolio.UserId != request.UserId.ToString())
+        if(existingPortfolio.UserId != request.UserId)
             return await Result.FailAsync(WellKnown.ErrorCodes.Unauthorized);
         
         existingPortfolio.Name = request.Name;

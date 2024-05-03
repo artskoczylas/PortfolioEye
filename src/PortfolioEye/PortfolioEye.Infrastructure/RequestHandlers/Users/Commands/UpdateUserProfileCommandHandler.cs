@@ -12,7 +12,7 @@ public class UpdateUserProfileCommandHandler(ApplicationDbContext context)
 {
     public async Task<IResult> Handle(UpdateUserProfileByIdCommand request, CancellationToken cancellationToken)
     {
-        var user = await context.Users.FirstOrDefaultAsync(x => x.Id == request.Id.ToString(), cancellationToken);
+        var user = await context.Users.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
         if (user == null)
             return await Result.FailAsync(WellKnown.ErrorCodes.NotFound);
 

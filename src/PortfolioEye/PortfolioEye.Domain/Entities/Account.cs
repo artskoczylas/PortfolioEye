@@ -6,8 +6,7 @@ public class Account
 {
     public Guid Id { get; set; }
     
-    [StringLength(450)]
-    public string UserId { get; set; }
+    public Guid UserId { get; set; }
     public virtual ApplicationUser User { get; set; }
     
     [StringLength(200)]

@@ -15,7 +15,7 @@ public class RetrievePortfoliosByUserIdHandler(ApplicationDbContext dbContext)
         CancellationToken cancellationToken)
     {
         var portfolios = await dbContext.Portfotfolios
-            .Where(c => c.UserId == request.UserId.ToString())
+            .Where(c => c.UserId == request.UserId)
             .ProjectToType<RetrievePortfoliosByUserId.Portfolio>()
             .ToListAsync(cancellationToken);
 

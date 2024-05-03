@@ -24,8 +24,4 @@
     <ProjectReference Include="..\PortfolioEye.Domain\PortfolioEye.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
-  </ItemGroup>
-
 </Project>

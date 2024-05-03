@@ -16,7 +16,7 @@ public class EditAccountCommandHandler(ApplicationDbContext dbContext)
         if (existingAccount == null)
             return await Result.FailAsync(WellKnown.ErrorCodes.NotFound);
 
-        if(existingAccount.UserId != request.UserId.ToString())
+        if(existingAccount.UserId != request.UserId)
             return await Result.FailAsync(WellKnown.ErrorCodes.Unauthorized);
         
         existingAccount.Name = request.Name;

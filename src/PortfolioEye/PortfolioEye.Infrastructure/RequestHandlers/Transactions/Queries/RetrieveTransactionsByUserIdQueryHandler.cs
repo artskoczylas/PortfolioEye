@@ -11,8 +11,7 @@ using PortfolioEye.Infrastructure.Interfaces;
 namespace PortfolioEye.Infrastructure.RequestHandlers.Transactions.Queries;
 
 public class RetrieveTransactionsByUserIdQueryHandler(
-    ApplicationDbContext dbContext,
-    IStockMarketDataProvider stockMarketDataProvider)
+    ApplicationDbContext dbContext)
     : IRequestHandler<RetrieveTransactionsByUserIdQuery, IResult<RetrieveTransactionsByUserIdQuery.Response>>
 {
     public async Task<IResult<RetrieveTransactionsByUserIdQuery.Response>> Handle(

@@ -15,7 +15,7 @@ public class RetrieveAccountsByUserIdHandler(ApplicationDbContext dbContext)
         CancellationToken cancellationToken)
     {
         var accounts = await dbContext.Accounts
-            .Where(a => a.UserId == request.UserId.ToString())
+            .Where(a => a.UserId == request.UserId)
             .ProjectToType<RetrieveAccountsByUserId.Account>()
             .ToListAsync(cancellationToken);
 
