@@ -15,6 +15,7 @@ namespace PortfolioEye.Infrastructure.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<StockTransaction> StockTransactions { get; set; }
         public DbSet<CurrencyRate> CurrencyRates { get; set; }
+        public DbSet<StockPrice> StockPrices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,6 +43,9 @@ namespace PortfolioEye.Infrastructure.Data
             modelBuilder.Entity<CurrencyRate>()
                 .HasOne(st => st.ToCurrency)
                 .WithMany().OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<StockPrice>()
+                .HasKey(x => new { x.Ticker, x.Date });
         }
     }
 }
