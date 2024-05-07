@@ -15,7 +15,7 @@ public class GetStockPricesInRangeQueryHandler(ApplicationDbContext dbContext)
         CancellationToken cancellationToken)
     {
         var stockPrice = await dbContext.StockPrices
-            .Where(x => x.Ticker.Equals(request.Ticker, StringComparison.CurrentCultureIgnoreCase))
+            .Where(x => string.Equals(request.Ticker.ToUpper(), x.Ticker))
             .ProjectToType<GetStockPricesInRangeQuery.StockPrice>()
             .ToListAsync(cancellationToken);
 
