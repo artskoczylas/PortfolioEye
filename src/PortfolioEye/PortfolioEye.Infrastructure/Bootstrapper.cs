@@ -13,6 +13,7 @@ namespace PortfolioEye.Infrastructure
 			services.AddTransient<ICurrencyRatesApiService, NbpCurrencyRatesApiService>();
 			services.AddTransient<ICurrencyRateService, CurrencyRateService>();
 			services.AddTransient<IStockMarketDataProvider, YahooStockMarketDataProvider>();
+			services.AddTransient<IStockPriceService, StockPriceService>();
 			services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 			return services;
 		}
