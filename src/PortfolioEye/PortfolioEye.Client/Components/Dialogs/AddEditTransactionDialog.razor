@@ -77,8 +77,15 @@
                     </MudItem>
 
                     <MudItem xs="12" md="6">
-                        <MudTextField For="@(() => Model.Ticker)" @bind-Value="Model.Ticker"
-                                      Label="@Localizer["Ticker"]"/>
+                        <MudAutocomplete T="string" Label=@Localizer["Ticker"] @bind-Value="Model.Ticker" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary">
+                            <ProgressIndicatorInPopoverTemplate>
+                                <MudList Clickable="false">
+                                    <MudListItem>
+                                        @Localizer["Loading"]
+                                    </MudListItem>
+                                </MudList>
+                            </ProgressIndicatorInPopoverTemplate>
+                        </MudAutocomplete>
                     </MudItem>
                     <MudItem xs="12" md="6">
                         <MudNumericField For="@(() => Model.Quantity)" @bind-Value="Model.Quantity"
@@ -157,6 +164,7 @@
     [Inject] public IAccountsManager AccountsManager { get; set; } = null!;
     [Inject] public IDialogService DialogService { get; set; } = null!;
     [Inject] IStringLocalizer<AddEditTransactionDialog> Localizer { get; set; } = null!;
+    [Inject] public IStocksManager StocksManager { get; set; }
     private IEnumerable<string> _currencies = new List<string>();
     private IEnumerable<RetrievePortfoliosByUserId.Portfolio> _portfolios = [];
     private IEnumerable<RetrieveAccountsByUserId.Account> _accounts = [];
@@ -196,6 +204,14 @@
         //     TransactionDate = transactionResult.Data!.TransactionDate,
         //     Currency = transactionResult.Data!.Currency
         // };
+    }
+
+    private async Task<IEnumerable<string>> SearchForStockTicker(string value)
+    {
+        if(string.IsNullOrWhiteSpace(value) || value.Length < 3)
+            return [];
+        var result = await StocksManager.SearchForTickers(value);
+        return result.IsSuccess ? result.Data!.Assets.Select(x => x.Ticker) : [];
     }
 
     public async Task SaveAsync()

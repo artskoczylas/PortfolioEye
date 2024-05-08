@@ -159,6 +159,15 @@ namespace PortfolioEye.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ładowanie....
+        /// </summary>
+        internal static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nowa transakcja.
         /// </summary>
         internal static string NewTransaction {
