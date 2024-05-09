@@ -6,6 +6,7 @@
 @using PortfolioEye.Client.Infrastructure.Managers
 @using PortfolioEye.Common.Wrappers
 @using PortfolioEye.Client.Infrastructure.Managers
+@using PortfolioEye.Application.Features.Stocks.Queries
 
 <EditForm Model="@Model" OnValidSubmit="SaveAsync">
     <FluentValidationValidator @ref="_fluentValidationValidator"/>
@@ -77,7 +78,7 @@
                     </MudItem>
 
                     <MudItem xs="12" md="6">
-                        <MudAutocomplete T="string" Label=@Localizer["Ticker"] @bind-Value="Model.Ticker" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary">
+                        <MudAutocomplete T="SearchTickersQuery.Asset" Label=@Localizer["Ticker"]   @bind-Value="Model.TickerInfo" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
                             <ProgressIndicatorInPopoverTemplate>
                                 <MudList Clickable="false">
                                     <MudListItem>
@@ -206,12 +207,12 @@
         // };
     }
 
-    private async Task<IEnumerable<string>> SearchForStockTicker(string value)
+    private async Task<IEnumerable<SearchTickersQuery.Asset>> SearchForStockTicker(string value)
     {
-        if(string.IsNullOrWhiteSpace(value) || value.Length < 3)
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
             return [];
         var result = await StocksManager.SearchForTickers(value);
-        return result.IsSuccess ? result.Data!.Assets.Select(x => x.Ticker) : [];
+        return result.IsSuccess ? result.Data!.Assets : [];
     }
 
     public async Task SaveAsync()
@@ -275,6 +276,18 @@
         public AssetClass Class { get; set; }
         public DateTime? TransactionDate { get; set; } = DateTime.Today;
         public string? Ticker { get; set; }
+        private SearchTickersQuery.Asset? _tickerInfo;
+
+        public SearchTickersQuery.Asset? TickerInfo
+        {
+            get => _tickerInfo;
+            set
+            {
+                _tickerInfo = value;
+                Ticker = value?.Ticker;
+            }
+        }
+
         public decimal Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Value { get; set; }
