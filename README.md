@@ -28,7 +28,7 @@ The project was created as my participation in the 100 commits competition. Due 
 - [X] Account management
 - [X] Fetching exchange rates from NBP
 - [X] Adding stock purchases
-- [ ] Fetching current stock prices (possibly using Yahoo API)
+- [X] Fetching current stock prices (possibly using Yahoo API)
 - [ ] Calculating current stock values
 - [ ] Adding purchases of Polish retail treasury bonds
 - [ ] Calculating the current value of bonds
