@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Mapster;
 using PortfolioEye.Infrastructure.Interfaces;
 using PortfolioEye.Infrastructure.Services;
 
@@ -15,6 +16,8 @@ namespace PortfolioEye.Infrastructure
 			services.AddTransient<IStockMarketDataProvider, YahooStockMarketDataProvider>();
 			services.AddTransient<IStockPriceService, StockPriceService>();
 			services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+			
+			TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
 			return services;
 		}
 	}

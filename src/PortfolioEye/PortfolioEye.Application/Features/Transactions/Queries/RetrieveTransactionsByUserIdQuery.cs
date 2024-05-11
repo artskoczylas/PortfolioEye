@@ -7,5 +7,5 @@ public record RetrieveTransactionsByUserIdQuery(Guid UserId) : IRequest<IResult<
 {
     public record Response(List<Transaction> Transactions);
 
-    public record Transaction(Guid Id, decimal Value, string Currency, DateOnly TransactionDate);
+    public record Transaction(string PortfolioName, string AccountName, Guid Id, decimal Value, string Currency, DateOnly TransactionDate);
 }

@@ -45,4 +45,10 @@
     <data name="Transactions" xml:space="preserve">
         <value>Transakcje</value>
     </data>
+    <data name="Account" xml:space="preserve">
+        <value>Konto</value>
+    </data>
+    <data name="Portfolio" xml:space="preserve">
+        <value>Portfel</value>
+    </data>
 </root>

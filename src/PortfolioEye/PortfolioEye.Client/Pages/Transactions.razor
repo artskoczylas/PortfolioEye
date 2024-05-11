@@ -30,6 +30,12 @@ else
     <MudTable Hover="true" Elevation="1" Items="_transactions" Filter="new Func<RetrieveTransactionsByUserIdQuery.Transaction, bool>(Search)" @bind-transaction="_transaction">
         <HeaderContent>
             <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveTransactionsByUserIdQuery.Transaction, object>(x => x.PortfolioName)">@Localizer["Portfolio"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveTransactionsByUserIdQuery.Transaction, object>(x => x.AccountName)">@Localizer["Account"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
                 <MudTableSortLabel SortBy="new Func<RetrieveTransactionsByUserIdQuery.Transaction, object>(x => x.TransactionDate)">@Localizer["TransactionDate"]</MudTableSortLabel>
             </MudTh>
             <MudTh>
@@ -41,13 +47,19 @@ else
             <MudTh Style="text-align:right">@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Name">
+            <MudTd DataLabel=@Localizer["Portfolio"]>
+                @context.PortfolioName
+            </MudTd>
+            <MudTd DataLabel=@Localizer["Account"]>
+                @context.AccountName
+            </MudTd>
+            <MudTd DataLabel=@Localizer["TransactionDate"]>
                 @context.TransactionDate
             </MudTd>
-            <MudTd DataLabel="Description">
+            <MudTd DataLabel=@Localizer["Value"]>
                 @context.Value
             </MudTd>
-            <MudTd DataLabel="Type">
+            <MudTd DataLabel=@Localizer["Currency"]>
                 <MudHighlighter Text="@context.Currency" HighlightedText="@_searchString"/>
             </MudTd>
             <MudTd DataLabel="Actions" Style="text-align: right">
@@ -151,4 +163,5 @@ else
             await Refresh();
         }
     }
+
 }

@@ -18,9 +18,11 @@ public class RetrieveTransactionsByUserIdQueryHandler(
         RetrieveTransactionsByUserIdQuery request, CancellationToken cancellationToken)
     {
         var transactions = await dbContext.Transactions
+            .Include(x => x.Portfolio)
+            .Include(x => x.Account)
             .Where(c => c.UserId == request.UserId.ToString())
             .OrderByDescending(t => t.TransactionDate)
-            .ProjectToType<RetrieveTransactionsByUserIdQuery.Transaction>()
+            .ProjectToType<RetrieveTransactionsByUserIdQuery.Transaction>(new TypeAdapterConfig(){RuleMap = {  }})
             .ToListAsync(cancellationToken);
 
         var response = new RetrieveTransactionsByUserIdQuery.Response(transactions);

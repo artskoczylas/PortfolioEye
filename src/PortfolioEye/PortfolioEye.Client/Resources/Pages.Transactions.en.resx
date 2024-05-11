@@ -38,4 +38,10 @@
     <data name="Transactions" xml:space="preserve">
         <value>Transactions</value>
     </data>
+    <data name="Portfolio" xml:space="preserve">
+        <value>Portfolio</value>
+    </data>
+    <data name="Account" xml:space="preserve">
+        <value>Account</value>
+    </data>
 </root>
