@@ -78,7 +78,7 @@
                     </MudItem>
 
                     <MudItem xs="12" md="6">
-                        <MudAutocomplete T="SearchTickersQuery.Asset" Label=@Localizer["Ticker"]   @bind-Value="Model.TickerInfo" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
+                        <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]   @bind-Value="Model.TickerInfo" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
                             <ProgressIndicatorInPopoverTemplate>
                                 <MudList Clickable="false">
                                     <MudListItem>

@@ -86,4 +86,7 @@
     <data name="Loading" xml:space="preserve">
         <value>Loading...</value>
     </data>
+    <data name="EnterMinThreeChars" xml:space="preserve">
+        <value>Enter at least three characters...</value>
+    </data>
 </root>

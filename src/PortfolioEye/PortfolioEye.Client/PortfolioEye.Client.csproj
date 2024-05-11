@@ -72,74 +72,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Components.Dialogs.AddEditTransactionDialog.pl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources\Pages.Profile.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Pages.Profile.pl.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Pages.Profile.en.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Pages.Profile.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Components.Shared.PersonCard.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Components.Shared.PersonCard.pl.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Components.Shared.PersonCard.en.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Components.Shared.PersonCard.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Layout.MainLayout.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Layout.MainLayout.pl.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Layout.MainLayout.en.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Layout.MainLayout.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Layout.NavMenu.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Layout.NavMenu.pl.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Components.TablePager.en.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Components.TablePager.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Pages.Portfolios.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Pages.Portfolios.pl.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Pages.Accounts.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Pages.Accounts.pl.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Components.Dialogs.AddEditPortfolioDialog.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Components.Dialogs.AddEditPortfolioDialog.pl.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Components.Dialogs.AddEditAccountDialog.en.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Components.Dialogs.AddEditAccountDialog.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\Components.Dialogs.AddEditTransactionDialog.pl.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Components.Dialogs.AddEditTransactionDialog.pl.resx</DependentUpon>
-    </Compile>
+    <EmbeddedResource Update="Resources\Pages.Transactions.pl.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Pages.Transactions.pl.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
