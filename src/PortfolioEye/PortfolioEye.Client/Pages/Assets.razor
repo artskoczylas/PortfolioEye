@@ -1,0 +1,98 @@
+﻿@page "/Assets"
+@using PortfolioEye.Application.Features.Assets.Queries
+@using Microsoft.Extensions.Localization
+@using PortfolioEye.Client.Infrastructure.Managers
+@using PortfolioEye.Client.Components.Dialogs
+<MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">@Localizer["MyAssets"]</MudText>
+
+@if (!_loaded)
+{
+    <MudProgressLinear Color="Color.Primary" Indeterminate="true"/>
+}
+else
+{
+    <MudPaper Elevation="1" Class="pa-2 mb-2" Style="display: flex; justify-content: space-between; align-items: center;">
+        <MudItem>
+            <MudTextField @bind-Value="_searchString" Immediate="true" Style="min-width: 30vw; margin-top: 0"
+                          Placeholder="@Localizer["SearchForAssets"]"
+                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"/>
+        </MudItem>
+    </MudPaper>
+
+    <MudTable Hover="true" Elevation="1" Items="_Assets" Filter="new Func<RetrieveAssetsByUserIdQuery.Asset, bool>(Search)" @bind-Asset="_Asset">
+        <HeaderContent>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Type)">@Localizer["Type"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Ticker)">@Localizer["Ticker"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Value)">@Localizer["Value"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Currency)">@Localizer["Currency"]</MudTableSortLabel>
+            </MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel=@Localizer["Type"]>
+                @Localizer[context.Type.ToString()]
+            </MudTd>
+            <MudTd DataLabel=@Localizer["Ticker"]>
+                @context.Ticker
+            </MudTd>
+            <MudTd DataLabel=@Localizer["Value"]>
+                @context.Value
+            </MudTd>
+            <MudTd DataLabel=@Localizer["Currency"]>
+                <MudHighlighter Text="@context.Currency" HighlightedText="@_searchString"/>
+            </MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <TablePager/>
+        </PagerContent>
+    </MudTable>
+}
+
+@code{
+    private string _searchString = "";
+    private bool _loaded;
+    private IEnumerable<RetrieveAssetsByUserIdQuery.Asset>? _Assets;
+    private RetrieveAssetsByUserIdQuery.Asset? _Asset;
+    [Inject] public IStringLocalizer<Assets> Localizer { get; set; } = null!;
+    [Inject] public IDialogService DialogService { get; set; } = null!;
+    [Inject] public IAssetsManager AssetsManager { get; set; } = null!;
+    [Inject] public ISnackbar Snackbar { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        try
+        {
+            _loaded = false;
+            var result = await AssetsManager.RetrieveAllMy();
+            if (result.IsSuccess && result.Data != null)
+                _Assets = result.Data.Assets;
+        }
+        finally
+        {
+            _loaded = true;
+        }
+    }
+
+    private async Task Refresh()
+    {
+        await LoadData();
+    }
+
+    private bool Search(RetrieveAssetsByUserIdQuery.Asset Asset)
+    {
+        if (string.IsNullOrWhiteSpace(_searchString)) return true;
+        return false;
+    }
+}
