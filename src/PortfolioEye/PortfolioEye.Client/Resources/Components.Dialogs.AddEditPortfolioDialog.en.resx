@@ -11,24 +11,6 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="NewPortfolio" xml:space="preserve">
-        <value>New portfolio</value>
-    </data>
-    <data name="Cancel" xml:space="preserve">
-        <value>Cancel</value>
-    </data>
-    <data name="Description" xml:space="preserve">
-        <value>Description</value>
-    </data>
-    <data name="Name" xml:space="preserve">
-        <value>Name</value>
-    </data>
-    <data name="Save" xml:space="preserve">
-        <value>Save</value>
-    </data>
-    <data name="Edit" xml:space="preserve">
-        <value>Edit</value>
-    </data>
     <data name="EditPortfolio" xml:space="preserve">
         <value>Edit portfolio</value>
     </data>
@@ -43,8 +25,5 @@
     </data>
     <data name="TitleCannotSavePortfolio" xml:space="preserve">
         <value>Error occurred</value>
-    </data>
-    <data name="Currency" xml:space="preserve">
-        <value>Currency</value>
     </data>
 </root>

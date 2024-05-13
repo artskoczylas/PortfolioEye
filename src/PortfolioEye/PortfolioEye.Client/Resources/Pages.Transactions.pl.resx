@@ -24,31 +24,4 @@
     <data name="SearchForTransactions" xml:space="preserve">
         <value>Szukaj transakcji</value>
     </data>
-    <data name="Actions" xml:space="preserve">
-        <value>Akcje</value>
-    </data>
-    <data name="TransactionDate" xml:space="preserve">
-        <value>Data transakcji</value>
-    </data>
-    <data name="Value" xml:space="preserve">
-        <value>Wartość</value>
-    </data>
-    <data name="Currency" xml:space="preserve">
-        <value>Waluta</value>
-    </data>
-    <data name="Edit" xml:space="preserve">
-        <value>Edytuj</value>
-    </data>
-    <data name="Delete" xml:space="preserve">
-        <value>Usuń</value>
-    </data>
-    <data name="Transactions" xml:space="preserve">
-        <value>Transakcje</value>
-    </data>
-    <data name="Account" xml:space="preserve">
-        <value>Konto</value>
-    </data>
-    <data name="Portfolio" xml:space="preserve">
-        <value>Portfel</value>
-    </data>
 </root>

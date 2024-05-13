@@ -30,9 +30,6 @@
     <data name="Reload" xml:space="preserve">
         <value>Odśwież</value>
     </data>
-    <data name="Profile" xml:space="preserve">
-        <value>Profil</value>
-    </data>
     <data name="Login" xml:space="preserve">
         <value>Zaloguj się</value>
     </data>

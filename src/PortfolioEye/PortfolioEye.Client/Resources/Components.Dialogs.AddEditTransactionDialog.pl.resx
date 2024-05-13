@@ -21,18 +21,6 @@
     <data name="NewTransaction" xml:space="preserve">
         <value>Nowa transakcja</value>
     </data>
-    <data name="Portfolio" xml:space="preserve">
-        <value>Portfel</value>
-    </data>
-    <data name="Account" xml:space="preserve">
-        <value>Konto</value>
-    </data>
-    <data name="Type" xml:space="preserve">
-        <value>Typ transakcji</value>
-    </data>
-    <data name="TransactionDate" xml:space="preserve">
-        <value>Data transakcji</value>
-    </data>
     <data name="Sale" xml:space="preserve">
         <value>Sprzedaż</value>
     </data>
@@ -45,32 +33,14 @@
     <data name="Expenses" xml:space="preserve">
         <value>Koszty</value>
     </data>
-    <data name="Deposit" xml:space="preserve">
-        <value>Wpłata</value>
-    </data>
     <data name="Withdrawal" xml:space="preserve">
         <value>Wypłata</value>
     </data>
     <data name="Purchase" xml:space="preserve">
         <value>Zakup</value>
     </data>
-    <data name="Cancel" xml:space="preserve">
-        <value>Anuluj</value>
-    </data>
-    <data name="Save" xml:space="preserve">
-        <value>Zapisz</value>
-    </data>
-    <data name="Bonds" xml:space="preserve">
-        <value>Obligacje</value>
-    </data>
-    <data name="Shares" xml:space="preserve">
-        <value>Akcje</value>
-    </data>
     <data name="AssetClass" xml:space="preserve">
         <value>Klasa aktywów</value>
-    </data>
-    <data name="Ticker" xml:space="preserve">
-        <value>Ticker</value>
     </data>
     <data name="Quantity" xml:space="preserve">
         <value>Ilość</value>
@@ -78,17 +48,11 @@
     <data name="Price" xml:space="preserve">
         <value>Cena</value>
     </data>
-    <data name="Currency" xml:space="preserve">
-        <value>Waluta</value>
-    </data>
     <data name="FeeValue" xml:space="preserve">
         <value>Kwota prowizji</value>
     </data>
     <data name="FeeCurrency" xml:space="preserve">
         <value>Waluta prowizji</value>
-    </data>
-    <data name="Value" xml:space="preserve">
-        <value>Wartość</value>
     </data>
     <data name="Loading" xml:space="preserve">
         <value>Ładowanie...</value>

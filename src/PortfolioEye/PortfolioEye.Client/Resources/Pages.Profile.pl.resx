@@ -21,9 +21,6 @@
     <data name="BasicData" xml:space="preserve">
         <value>Dane podstawowe</value>
     </data>
-    <data name="Profile" xml:space="preserve">
-        <value>Profil</value>
-    </data>
     <data name="Photo" xml:space="preserve">
         <value>Zdjęcie</value>
     </data>

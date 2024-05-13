@@ -24,9 +24,6 @@
     <data name="Logout" xml:space="preserve">
         <value>Log out</value>
     </data>
-    <data name="Profile" xml:space="preserve">
-        <value>Profile</value>
-    </data>
     <data name="Register" xml:space="preserve">
         <value>Register account</value>
     </data>

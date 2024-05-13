@@ -18,26 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Portfolios" xml:space="preserve">
-        <value>Moje portfele</value>
-    </data>
-    <data name="NewPortfolio" xml:space="preserve">
-        <value>Nowy portfel</value>
-    </data>
     <data name="SearchForPortfolios" xml:space="preserve">
         <value>Szukaj portfela</value>
-    </data>
-    <data name="Name" xml:space="preserve">
-        <value>Nazwa</value>
-    </data>
-    <data name="Actions" xml:space="preserve">
-        <value>Akcje</value>
-    </data>
-    <data name="Edit" xml:space="preserve">
-        <value>Edytuj</value>
-    </data>
-    <data name="Delete" xml:space="preserve">
-        <value>Usuń</value>
     </data>
     <data name="ContentDeletePortfolio" xml:space="preserve">
         <value>Czy na pewno chcesz usunąć portfel {0}</value>
@@ -53,14 +35,5 @@
     </data>
     <data name="No" xml:space="preserve">
         <value>Nie</value>
-    </data>
-    <data name="Yes" xml:space="preserve">
-        <value>Tak</value>
-    </data>
-    <data name="Description" xml:space="preserve">
-        <value>Opis</value>
-    </data>
-    <data name="Currency" xml:space="preserve">
-        <value>Waluta</value>
     </data>
 </root>

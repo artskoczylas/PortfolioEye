@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Localization;
 using MudBlazor.Services;
 using PortfolioEye.Client;
 using PortfolioEye.Client.Infrastructure;
@@ -19,4 +20,5 @@ builder.Services.AddLocalization(options =>
 {
     options.ResourcesPath = "Resources";
 });
+builder.Services.AddTransient(typeof(IStringLocalizer<>), typeof(CommonStringsLocalizer<>));
 await builder.Build().RunAsync();

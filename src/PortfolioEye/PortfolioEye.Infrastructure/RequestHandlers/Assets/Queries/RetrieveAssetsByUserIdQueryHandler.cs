@@ -17,7 +17,7 @@ public class RetrieveAssetsByUserIdQueryHandler(
     {
         var response = new RetrieveAssetsByUserIdQuery.Response(new List<RetrieveAssetsByUserIdQuery.Asset>()
         {
-            new RetrieveAssetsByUserIdQuery.Asset(RetrieveAssetsByUserIdQuery.AssetType.Stock, "VWCE.DE", 123, "EUR")
+            new RetrieveAssetsByUserIdQuery.Asset(RetrieveAssetsByUserIdQuery.AssetType.Stocks, "VWCE.DE", 123, "EUR")
         });
         return await response.ToSuccessResultAsync();
     }

@@ -11,7 +11,7 @@ public record RetrieveAssetsByUserIdQuery(Guid UserId) : IRequest<IResult<Retrie
 
     public enum AssetType
     {
-        Stock,
-        Bond
+        Stocks,
+        Bonds
     }
 }
