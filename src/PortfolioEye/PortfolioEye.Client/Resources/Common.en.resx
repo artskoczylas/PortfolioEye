@@ -98,4 +98,7 @@
     <data name="MyAssets" xml:space="preserve">
         <value>My assets</value>
     </data>
+    <data name="Stocks" xml:space="preserve">
+        <value>Stocks</value>
+    </data>
 </root>

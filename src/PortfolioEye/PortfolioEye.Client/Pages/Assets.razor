@@ -28,7 +28,7 @@ else
             <MudTh>
                 <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Ticker)">@Localizer["Ticker"]</MudTableSortLabel>
             </MudTh>
-            <MudTh>
+            <MudTh Style="text-align:right;">
                 <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Value)">@Localizer["Value"]</MudTableSortLabel>
             </MudTh>
             <MudTh>
@@ -42,7 +42,7 @@ else
             <MudTd DataLabel=@Localizer["Ticker"]>
                 @context.Ticker
             </MudTd>
-            <MudTd DataLabel=@Localizer["Value"]>
+            <MudTd DataLabel=@Localizer["Value"] Style="text-align:right; padding-right: 40px;">
                 @context.Value
             </MudTd>
             <MudTd DataLabel=@Localizer["Currency"]>

@@ -105,4 +105,7 @@
     <data name="MyAssets" xml:space="preserve">
         <value>Moje aktywa</value>
     </data>
+    <data name="Stocks" xml:space="preserve">
+        <value>Akcje</value>
+    </data>
 </root>
