@@ -7,7 +7,7 @@ public record RetrieveAssetsByUserIdQuery(Guid UserId) : IRequest<IResult<Retrie
 {
     public record Response(List<Asset> Assets);
 
-    public record Asset(AssetType Type, string Ticker, decimal Value, string Currency);
+    public record Asset(AssetType Type, string Ticker, decimal Quantity, decimal Value, decimal AverageBuyPrice, string Currency, decimal CurrentPrice, decimal CurrentValue);
 
     public enum AssetType
     {
