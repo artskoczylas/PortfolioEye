@@ -1,11 +1,16 @@
 ﻿
+using PortfolioEye.Domain.Entities;
+
 namespace PortfolioEye.Infrastructure.Interfaces;
 
 public interface IStockMarketDataProvider
 {
     Task<IEnumerable<FindResult>> FindTickerAsync(string query);
     Task<HistoricalData> GetHistoricalDataAsync(string ticker, DateOnly from, DateOnly to);
+    Task<DetailsResult> GetDetails(string ticker);
 }
+
+public record DetailsResult(string Currency);
 
 public record FindResult(string Ticker, string Name, string Type, string Exchange);
 
@@ -16,4 +21,5 @@ public record HistoricalDay(
     decimal Close,
     decimal High,
     decimal Low,
-    decimal AdjustedClose);
+    decimal AdjustedClose,
+    string Currency);
