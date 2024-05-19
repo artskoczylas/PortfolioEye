@@ -21,6 +21,9 @@ public class StockTransaction
     [Precision(18, 6)] public decimal PriceInStockCurrency { get; set; }
     [Precision(18, 2)] public decimal ValueInStockCurrency { get; set; }
     [StringLength(3)] public string StockCurrency { get; set; } = null!;
+    
+    [Precision(18, 6)] public decimal PriceInPortfolioCurrency { get; set; }
+    [Precision(18, 2)] public decimal ValueInPortfolioCurrency { get; set; }
 }
 
 public enum StockTransactionSide
