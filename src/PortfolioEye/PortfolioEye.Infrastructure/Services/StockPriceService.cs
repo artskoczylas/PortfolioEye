@@ -19,7 +19,6 @@ public class StockPriceService(IMediator mediator, IStockMarketDataProvider mark
 
         var dbRatesList = dbPricesResult.IsSuccess ? dbPricesResult.Data!.Rates : [];
         var stockPrices = (await marketDataProvider.GetHistoricalDataAsync(ticker, fromDate, toDate));
-
         var currentDay = fromDate;
         while (currentDay < toDate)
         {

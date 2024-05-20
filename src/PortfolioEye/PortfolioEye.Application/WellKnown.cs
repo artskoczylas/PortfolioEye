@@ -7,6 +7,9 @@ public static class WellKnown
         public const int Unauthorized = 401;
         public const int NotFound = 404;
         public const int Conflict = 409;
+
+
+        public const int CannotGetStockInfo = 1001;
     }
     public static class Claims
     {
