@@ -28,11 +28,29 @@ else
             <MudTh>
                 <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Ticker)">@Localizer["Ticker"]</MudTableSortLabel>
             </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Quantity)">@Localizer["Quantity"]</MudTableSortLabel>
+            </MudTh>
             <MudTh Style="text-align:right;">
-                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Value)">@Localizer["Value"]</MudTableSortLabel>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.BuyValue)">@Localizer["BuyValue"]</MudTableSortLabel>
             </MudTh>
             <MudTh>
-                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Currency)">@Localizer["Currency"]</MudTableSortLabel>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.AverageBuyPrice)">@Localizer["AverageBuyPrice"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.CurrentPrice)">@Localizer["CurrentPrice"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.CurrentValue)">@Localizer["CurrentValue"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.StockCurrency)">@Localizer["Currency"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.Return)">@Localizer["Return"]</MudTableSortLabel>
+            </MudTh>
+            <MudTh>
+                <MudTableSortLabel SortBy="new Func<RetrieveAssetsByUserIdQuery.Asset, object>(x => x.ReturnPercentage)">@Localizer["ReturnPercentage"]</MudTableSortLabel>
             </MudTh>
         </HeaderContent>
         <RowTemplate>
@@ -42,11 +60,30 @@ else
             <MudTd DataLabel=@Localizer["Ticker"]>
                 @context.Ticker
             </MudTd>
-            <MudTd DataLabel=@Localizer["Value"] Style="text-align:right; padding-right: 40px;">
-                @context.Value
+            <MudTd DataLabel=@Localizer["Quantity"]>
+                @context.Quantity
             </MudTd>
+            <MudTd DataLabel=@Localizer["BuyValue"] Style="text-align:right; padding-right: 40px;">
+                @context.BuyValue
+            </MudTd>
+            <MudTd DataLabel=@Localizer["AverageBuyPrice"]>
+                @context.AverageBuyPrice
+            </MudTd>
+            <MudTd DataLabel=@Localizer["CurrentPrice"]>
+                @context.CurrentPrice
+            </MudTd>
+            <MudTd DataLabel=@Localizer["CurrentValue"]>
+                @context.CurrentValue
+            </MudTd>
+
             <MudTd DataLabel=@Localizer["Currency"]>
-                <MudHighlighter Text="@context.Currency" HighlightedText="@_searchString"/>
+                <MudHighlighter Text="@context.StockCurrency" HighlightedText="@_searchString"/>
+            </MudTd>
+            <MudTd DataLabel=@Localizer["Return"]>
+                @context.Return
+            </MudTd>
+            <MudTd DataLabel=@Localizer["ReturnPercentage"]>
+                @context.ReturnPercentage%
             </MudTd>
         </RowTemplate>
         <PagerContent>
@@ -95,4 +132,5 @@ else
         if (string.IsNullOrWhiteSpace(_searchString)) return true;
         return false;
     }
+
 }
