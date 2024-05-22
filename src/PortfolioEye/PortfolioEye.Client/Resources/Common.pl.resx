@@ -108,4 +108,10 @@
     <data name="Stocks" xml:space="preserve">
         <value>Akcje</value>
     </data>
+    <data name="Quantity" xml:space="preserve">
+        <value>Ilość</value>
+    </data>
+    <data name="Portfolios" xml:space="preserve">
+        <value>Portfele</value>
+    </data>
 </root>

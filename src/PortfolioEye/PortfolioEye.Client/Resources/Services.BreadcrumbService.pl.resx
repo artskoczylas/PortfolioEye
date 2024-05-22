@@ -18,19 +18,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="AddTransaction" xml:space="preserve">
-        <value>Dodaj transakcję</value>
+    <data name="accounts" xml:space="preserve">
+        <value>Konta</value>
     </data>
-    <data name="SearchForTransactions" xml:space="preserve">
-        <value>Szukaj transakcji</value>
+    <data name="transactions" xml:space="preserve">
+        <value>Transakcje</value>
     </data>
-    <data name="ContentDeleteTransaction" xml:space="preserve">
-        <value>Czy na pewno chcesz usunąć transakcję z dnia {0} na koncie {1}? Operacji nie można cofnąć.</value>
+    <data name="assets" xml:space="preserve">
+        <value>Moje aktywa</value>
     </data>
-    <data name="TransactionDeleted" xml:space="preserve">
-        <value>Transakcja została usunięta</value>
-    </data>
-    <data name="TitleDeleteTransaction" xml:space="preserve">
-        <value>Usunięcie transakcji</value>
+    <data name="portfolios" xml:space="preserve">
+        <value>Portfele</value>
     </data>
 </root>

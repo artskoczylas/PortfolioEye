@@ -21,4 +21,22 @@
     <data name="SearchForAssets" xml:space="preserve">
         <value>Szukaj aktywa</value>
     </data>
+    <data name="BuyValue" xml:space="preserve">
+        <value>Wartość zakupu</value>
+    </data>
+    <data name="AverageBuyPrice" xml:space="preserve">
+        <value>Średnia cena zakupu</value>
+    </data>
+    <data name="CurrentPrice" xml:space="preserve">
+        <value>Aktualna cena</value>
+    </data>
+    <data name="CurrentValue" xml:space="preserve">
+        <value>Aktualna wartość</value>
+    </data>
+    <data name="Return" xml:space="preserve">
+        <value>Zysk / strata</value>
+    </data>
+    <data name="ReturnPercentage" xml:space="preserve">
+        <value>Zysk / strata [%]</value>
+    </data>
 </root>

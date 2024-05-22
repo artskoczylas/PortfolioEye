@@ -11,19 +11,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="AddTransaction" xml:space="preserve">
-        <value>Add transaction</value>
+    <data name="portfolios" xml:space="preserve">
+        <value>Portfolios</value>
     </data>
-    <data name="SearchForTransactions" xml:space="preserve">
-        <value>Search for transactions</value>
+    <data name="accounts" xml:space="preserve">
+        <value>Accounts</value>
     </data>
-    <data name="TitleDeleteTransaction" xml:space="preserve">
-        <value>Delete transaction</value>
+    <data name="transactions" xml:space="preserve">
+        <value>Transactions</value>
     </data>
-    <data name="ContentDeleteTransaction" xml:space="preserve">
-        <value>Are you sure you want to delete a transaction dated {0} on account {1}? The operation cannot be undone.</value>
-    </data>
-    <data name="TransactionDeleted" xml:space="preserve">
-        <value>Transaction deleted</value>
+    <data name="assets" xml:space="preserve">
+        <value>My assents</value>
     </data>
 </root>

@@ -18,19 +18,19 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="AddTransaction" xml:space="preserve">
-        <value>Dodaj transakcję</value>
+    <data name="Dashboard" xml:space="preserve">
+        <value>Dashboard</value>
     </data>
-    <data name="SearchForTransactions" xml:space="preserve">
-        <value>Szukaj transakcji</value>
+    <data name="WelcomeHeader" xml:space="preserve">
+        <value>Witaj w PortfolioEye</value>
     </data>
-    <data name="ContentDeleteTransaction" xml:space="preserve">
-        <value>Czy na pewno chcesz usunąć transakcję z dnia {0} na koncie {1}? Operacji nie można cofnąć.</value>
+    <data name="WelcomeDescription" xml:space="preserve">
+        <value>Twoje inwestycje, twoja aplikacja, twój sukces.</value>
     </data>
-    <data name="TransactionDeleted" xml:space="preserve">
-        <value>Transakcja została usunięta</value>
+    <data name="StartHelp" xml:space="preserve">
+        <value>Wszystko co potrzebne znajdziesz w menu po lewej stronie.</value>
     </data>
-    <data name="TitleDeleteTransaction" xml:space="preserve">
-        <value>Usunięcie transakcji</value>
+    <data name="StartWithPortfolios" xml:space="preserve">
+        <value>Zacznij od dodania portfela i konta. Potem możesz zacząć dodawać swoje transacje aby śledzić wyniki.</value>
     </data>
 </root>

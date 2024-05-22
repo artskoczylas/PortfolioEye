@@ -1,9 +1,11 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
 @attribute [Authorize]
+@inject IStringLocalizer<Dashboard> Localizer
+<PageTitle>@Localizer["Dashboard"]</PageTitle>
 
-<PageTitle>Home</PageTitle>
+<MudText Typo="Typo.h2">@Localizer["WelcomeHeader"]</MudText>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<MudText Typo="Typo.body1">@Localizer["StartHelp"]</MudText>
+<MudText Typo="Typo.body1">@Localizer["StartWithPortfolios"]</MudText>

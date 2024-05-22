@@ -1,0 +1,29 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Dashboard" xml:space="preserve">
+        <value>Dashboard</value>
+    </data>
+    <data name="WelcomeDescription" xml:space="preserve">
+        <value>Your investments, your application, your success.</value>
+    </data>
+    <data name="WelcomeHeader" xml:space="preserve">
+        <value>Welcome to PortfolioEye</value>
+    </data>
+    <data name="StartHelp" xml:space="preserve">
+        <value>Everything you need can be found in the menu on the left side.</value>
+    </data>
+    <data name="StartWithPortfolios" xml:space="preserve">
+        <value>Start by adding a wallet and an account. Then you can start adding your transactions to track your results.</value>
+    </data>
+</root>

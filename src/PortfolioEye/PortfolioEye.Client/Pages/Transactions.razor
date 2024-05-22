@@ -3,6 +3,7 @@
 @using Microsoft.Extensions.Localization
 @using PortfolioEye.Client.Infrastructure.Managers
 @using PortfolioEye.Client.Components.Dialogs
+<PageTitle>@Localizer["Transactions"]</PageTitle>
 <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">@Localizer["Transactions"]</MudText>
 
 @if (!_loaded)
@@ -129,7 +130,7 @@ else
     private async Task Delete(RetrieveTransactionsByUserIdQuery.Transaction transaction)
     {
         var dialogResult = await DialogService.ShowMessageBox(Localizer["TitleDeleteTransaction"]
-            , Localizer["ContentDeleteTransaction", transaction.TransactionDate]
+            , Localizer["ContentDeleteTransaction", transaction.TransactionDate, transaction.AccountName]
             , Localizer["Yes"]
             , Localizer["No"]);
         if (!dialogResult.HasValue || !dialogResult.Value)

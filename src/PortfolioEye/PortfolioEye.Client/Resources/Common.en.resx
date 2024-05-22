@@ -101,4 +101,10 @@
     <data name="Stocks" xml:space="preserve">
         <value>Stocks</value>
     </data>
+    <data name="Quantity" xml:space="preserve">
+        <value>Quantity</value>
+    </data>
+    <data name="Portfolios" xml:space="preserve">
+        <value>Portfolios</value>
+    </data>
 </root>
