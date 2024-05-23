@@ -25,7 +25,7 @@ public class AddStockTransactionForUserCommandHandler(
     {
         try
         {
-            var stockDetails = await stockMarketDataProvider.GetDetails(request.Ticker);
+            var stockDetails = await stockMarketDataProvider.GetDetailsAsync(request.Ticker);
             if (stockDetails == null)
                 return await Result.FailAsync(WellKnown.ErrorCodes.CannotGetStockInfo);
 

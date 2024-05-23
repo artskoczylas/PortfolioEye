@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PortfolioEye.Application.Features.Portfolios.Queries;
+using PortfolioEye.Application;
 using PortfolioEye.Application.Features.Stocks.Queries;
-using PortfolioEye.Infrastructure.Interfaces;
 
 namespace PortfolioEye.Controllers;
 
@@ -19,6 +18,32 @@ public class StocksController(IMediator mediator) : ControllerBase
             return Ok(result);
         return result.ErrorCode switch
         {
+            _ => BadRequest(result)
+        };
+    }
+    
+    [HttpGet("Details/{ticker}")]
+    public async Task<IActionResult> StockDetails(string ticker)
+    {
+        var result = await mediator.Send(new GetStockDetailsQuery(ticker));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
+        {
+            WellKnown.ErrorCodes.NotFound => NotFound(result),
+            _ => BadRequest(result)
+        };
+    }
+    
+    [HttpGet("History/{ticker}")]
+    public async Task<IActionResult> StockPriceHistory(string ticker, [FromQuery] DateOnly from, [FromQuery] DateOnly to)
+    {
+        var result = await mediator.Send(new GetStockHistoryQuery(ticker, from, to));
+        if (result.IsSuccess)
+            return Ok(result);
+        return result.ErrorCode switch
+        {
+            WellKnown.ErrorCodes.NotFound => NotFound(result),
             _ => BadRequest(result)
         };
     }

@@ -53,7 +53,7 @@ public class YahooStockMarketDataProvider() : IStockMarketDataProvider
 
     public async Task<HistoricalData> GetHistoricalDataAsync(string ticker, DateOnly from, DateOnly to)
     {
-        var details = await GetDetails(ticker);
+        var details = await GetDetailsAsync(ticker);
         if (details == null)
             throw new Exception();
         var data = await Yahoo.GetHistoricalAsync(ticker, from.ToDateTime(new TimeOnly()),
@@ -65,7 +65,7 @@ public class YahooStockMarketDataProvider() : IStockMarketDataProvider
         return new HistoricalData(stockData[ticker].Currency, result);
     }
 
-    public async Task<DetailsResult> GetDetails(string ticker)
+    public async Task<DetailsResult> GetDetailsAsync(string ticker)
     {
         var stockInfos = await Yahoo.Symbols(ticker).Fields(Field.Currency).QueryAsync();
         var stockInfo = stockInfos[ticker];

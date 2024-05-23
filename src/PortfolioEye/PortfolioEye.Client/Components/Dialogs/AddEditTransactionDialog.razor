@@ -78,7 +78,7 @@
                     </MudItem>
 
                     <MudItem xs="12" md="6">
-                        <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]   @bind-Value="Model.TickerInfo" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
+                        <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]     @bind-Value="Model.TickerInfo" @bind-Value:after="AfterTickerInfoSet" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
                             <ProgressIndicatorInPopoverTemplate>
                                 <MudList Clickable="false">
                                     <MudListItem>
@@ -169,6 +169,27 @@
     private IEnumerable<string> _currencies = new List<string>();
     private IEnumerable<RetrievePortfoliosByUserId.Portfolio> _portfolios = [];
     private IEnumerable<RetrieveAccountsByUserId.Account> _accounts = [];
+
+    private async Task AfterTickerInfoSet()
+    {
+        if (Model?.TickerInfo?.Ticker == null)
+            return;
+        if (Model.Currency == null)
+        {
+            var details = await StocksManager.GetDetails(Model.TickerInfo.Ticker);
+            if (!details.IsSuccess)
+                return;
+            Model.Currency = details.Data?.Currency;
+        }
+
+        // if (Model.Price == decimal.Zero && Model.TransactionDate.HasValue)
+        // {
+        //     var details = await StocksManager.GetHistory(Model.TickerInfo.Ticker,  DateOnly.FromDateTime(Model.TransactionDate.Value), DateOnly.FromDateTime(Model.TransactionDate.Value));
+        //     if (!details.IsSuccess && details.Data?.StockPrices.Count() > 0)
+        //         return;
+        //     Model.Price = details.Data!.StockPrices.First().AdjustedClose;
+        // }
+    }
 
     protected override async Task OnInitializedAsync()
     {

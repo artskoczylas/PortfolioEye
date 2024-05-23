@@ -7,7 +7,7 @@ public interface IStockMarketDataProvider
 {
     Task<IEnumerable<FindResult>> FindTickerAsync(string query);
     Task<HistoricalData> GetHistoricalDataAsync(string ticker, DateOnly from, DateOnly to);
-    Task<DetailsResult> GetDetails(string ticker);
+    Task<DetailsResult> GetDetailsAsync(string ticker);
 }
 
 public record DetailsResult(string Currency);

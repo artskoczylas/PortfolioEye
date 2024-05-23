@@ -1,7 +1,4 @@
-﻿using System.Net.Http.Json;
-using PortfolioEye.Application.Features.Stocks.Queries;
-using PortfolioEye.Application.Features.Transactions.Commands;
-using PortfolioEye.Application.Features.Transactions.Queries;
+﻿using PortfolioEye.Application.Features.Stocks.Queries;
 using PortfolioEye.Client.Infrastructure.Extensions;
 using PortfolioEye.Common.Wrappers;
 
@@ -15,10 +12,22 @@ public class StocksManager(IHttpClientFactory factory) : IStocksManager
         return await response.ToResultAsync<SearchTickersQuery.Response>();
     }
 
-  
+    public async Task<IResult<GetStockDetailsQuery.Response>> GetDetails(string ticker)
+    {
+        var response = await factory.MainApiClient().GetAsync($"api/stocks/details/{ticker}");
+        return await response.ToResultAsync<GetStockDetailsQuery.Response>();
+    }
+
+    public async Task<IResult<GetStockHistoryQuery.Response>> GetHistory(string ticker, DateOnly from, DateOnly to)
+    {
+        var response = await factory.MainApiClient().GetAsync($"api/stocks/History/{ticker}?from={from}&to={to}");
+        return await response.ToResultAsync<GetStockHistoryQuery.Response>();
+    }
 }
 
 public interface IStocksManager : IManager
 {
     Task<IResult<SearchTickersQuery.Response>> SearchForTickers(string query);
+    Task<IResult<GetStockDetailsQuery.Response>> GetDetails(string ticker);
+    Task<IResult<GetStockHistoryQuery.Response>> GetHistory(string ticker, DateOnly from, DateOnly to);
 }
