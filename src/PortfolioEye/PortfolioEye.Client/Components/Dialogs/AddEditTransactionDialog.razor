@@ -182,13 +182,13 @@
             Model.Currency = details.Data?.Currency;
         }
 
-        // if (Model.Price == decimal.Zero && Model.TransactionDate.HasValue)
-        // {
-        //     var details = await StocksManager.GetHistory(Model.TickerInfo.Ticker,  DateOnly.FromDateTime(Model.TransactionDate.Value), DateOnly.FromDateTime(Model.TransactionDate.Value));
-        //     if (!details.IsSuccess && details.Data?.StockPrices.Count() > 0)
-        //         return;
-        //     Model.Price = details.Data!.StockPrices.First().AdjustedClose;
-        // }
+        if (Model.Price == decimal.Zero && Model.TransactionDate.HasValue)
+        {
+            var details = await StocksManager.GetHistory(Model.TickerInfo.Ticker,  DateOnly.FromDateTime(Model.TransactionDate.Value), DateOnly.FromDateTime(Model.TransactionDate.Value.AddDays(1)));
+            if (!details.IsSuccess && details.Data?.StockPrices.Count() > 0)
+                return;
+            Model.Price = details.Data!.StockPrices.First().AdjustedClose;
+        }
     }
 
     protected override async Task OnInitializedAsync()

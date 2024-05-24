@@ -20,7 +20,7 @@ public class StocksManager(IHttpClientFactory factory) : IStocksManager
 
     public async Task<IResult<GetStockHistoryQuery.Response>> GetHistory(string ticker, DateOnly from, DateOnly to)
     {
-        var response = await factory.MainApiClient().GetAsync($"api/stocks/History/{ticker}?from={from}&to={to}");
+        var response = await factory.MainApiClient().GetAsync($"api/stocks/History/{ticker}?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}");
         return await response.ToResultAsync<GetStockHistoryQuery.Response>();
     }
 }
