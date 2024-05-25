@@ -21,5 +21,4 @@ public record HistoricalDay(
     decimal Close,
     decimal High,
     decimal Low,
-    decimal AdjustedClose,
-    string Currency);
+    decimal AdjustedClose);

@@ -59,10 +59,9 @@ public class YahooStockMarketDataProvider() : IStockMarketDataProvider
         var data = await Yahoo.GetHistoricalAsync(ticker, from.ToDateTime(new TimeOnly()),
             to.ToDateTime(new TimeOnly()));
         var result = data.Select(item => new HistoricalDay(DateOnly.FromDateTime(item.DateTime), item.Open,
-            item.Close, item.High, item.Low, item.AdjustedClose, details.Currency)).ToList();
+            item.Close, item.High, item.Low, item.AdjustedClose)).ToList();
 
-        var stockData =await Yahoo.Symbols(ticker).Fields(Field.Currency).QueryAsync();
-        return new HistoricalData(stockData[ticker].Currency, result);
+        return new HistoricalData(details.Currency, result);
     }
 
     public async Task<DetailsResult> GetDetailsAsync(string ticker)
