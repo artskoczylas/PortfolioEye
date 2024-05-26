@@ -60,4 +60,13 @@
     <data name="EnterMinThreeChars" xml:space="preserve">
         <value>Wpisz minimum trzy znaki...</value>
     </data>
+    <data name="BondKind" xml:space="preserve">
+        <value>Rodzaj obligacji</value>
+    </data>
+    <data name="NextYearsInterestMargin" xml:space="preserve">
+        <value>Marża w kolejnych latach</value>
+    </data>
+    <data name="FirstYearInterestRate" xml:space="preserve">
+        <value>Oprocentowanie w pierwszym roku</value>
+    </data>
 </root>

@@ -53,4 +53,13 @@
     <data name="EnterMinThreeChars" xml:space="preserve">
         <value>Enter at least three characters...</value>
     </data>
+    <data name="BondKind" xml:space="preserve">
+        <value>Bond kind</value>
+    </data>
+    <data name="FirstYearInterestRate" xml:space="preserve">
+        <value>Interest rete in first year</value>
+    </data>
+    <data name="NextYearsInterestMargin" xml:space="preserve">
+        <value>Margin in next years</value>
+    </data>
 </root>

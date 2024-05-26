@@ -55,10 +55,11 @@
                     <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Type)"
                                @bind-Value="Model.Type" T="TransactionType" Label="@Localizer["Type"]"
                                AnchorOrigin="Origin.BottomCenter">
-                        @foreach (TransactionType item in Enum.GetValues(typeof(TransactionType)))
-                        {
-                            <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem>
-                        }
+                        <MudSelectItem Value="TransactionType.Purchase">@Localizer[TransactionType.Purchase.ToString()]</MudSelectItem>
+                        @* @foreach (TransactionType item in Enum.GetValues(typeof(TransactionType))) *@
+                        @* { *@
+                        @*     <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem> *@
+                        @* } *@
                     </MudSelect>
                 </MudItem>
                 <MudItem xs="12" md="6">
@@ -76,36 +77,63 @@
                             }
                         </MudSelect>
                     </MudItem>
+                    @if (Model.Class == AssetClass.Shares)
+                    {
+                        <MudItem xs="12" md="6">
+                            <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]       @bind-Value="Model.TickerInfo" @bind-Value:after="AfterTickerInfoSet" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
+                                <ProgressIndicatorInPopoverTemplate>
+                                    <MudList Clickable="false">
+                                        <MudListItem>
+                                            @Localizer["Loading"]
+                                        </MudListItem>
+                                    </MudList>
+                                </ProgressIndicatorInPopoverTemplate>
+                            </MudAutocomplete>
+                        </MudItem>
+                    }
+                    else if (Model.Class == AssetClass.Bonds)
+                    {
+                        <MudItem xs="12" md="6">
+                        <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.BondKind)"
+                                   @bind-Value="Model.BondKind" T="BondKind" Label="@Localizer["BondKind"]"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (BondKind item in Enum.GetValues(typeof(BondKind)))
+                            {
+                                <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem>
+                            }
+                        </MudSelect>
+                         </MudItem>
+                        <MudItem xs="12" md="6">
+                            <MudNumericField For="@(() => Model.FirstYearInterestRate)" @bind-Value="Model.FirstYearInterestRate"
+                                             Label="@Localizer["FirstYearInterestRate"]" HideSpinButtons="true" AdornmentText="%"  Adornment="Adornment.End"/>
+                        </MudItem>
+                        <MudItem xs="12" md="6">
+                            <MudNumericField For="@(() => Model.NextYearsInterestMargin)" @bind-Value="Model.NextYearsInterestMargin"
+                                             Label="@Localizer["NextYearsInterestMargin"]" HideSpinButtons="true" AdornmentText="%"  Adornment="Adornment.End"/>
+                        </MudItem>
+                    }
 
-                    <MudItem xs="12" md="6">
-                        <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]     @bind-Value="Model.TickerInfo" @bind-Value:after="AfterTickerInfoSet" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
-                            <ProgressIndicatorInPopoverTemplate>
-                                <MudList Clickable="false">
-                                    <MudListItem>
-                                        @Localizer["Loading"]
-                                    </MudListItem>
-                                </MudList>
-                            </ProgressIndicatorInPopoverTemplate>
-                        </MudAutocomplete>
-                    </MudItem>
                     <MudItem xs="12" md="6">
                         <MudNumericField For="@(() => Model.Quantity)" @bind-Value="Model.Quantity"
                                          Label="@Localizer["Quantity"]" HideSpinButtons="true"/>
                     </MudItem>
                     <MudItem xs="12" md="6">
-                        <MudNumericField For="@(() => Model.Price)" @bind-Value="Model.Price"
-                                         Label="@Localizer["Price"]" HideSpinButtons="true"/>
+                        <MudNumericField ReadOnly="Model.PriceReadOnly" For="@(() => Model.Price)" @bind-Value="Model.Price"
+                                         Label="@Localizer["Price"]" HideSpinButtons="true" AdornmentText="@Model.Currency" Adornment="Adornment.End"/>
                     </MudItem>
-                    <MudItem xs="12" md="6">
-                        <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Currency)"
-                                   @bind-Value="Model.Currency" T="string" Label="@Localizer["Currency"]"
-                                   AnchorOrigin="Origin.BottomCenter">
-                            @foreach (var item in _currencies)
-                            {
-                                <MudSelectItem Value="@item"/>
-                            }
-                        </MudSelect>
-                    </MudItem>
+                    @if (Model.Class != AssetClass.Bonds)
+                    {
+                        <MudItem xs="12" md="6">
+                            <MudSelect ReadOnly="Model.CurrencyReadOnly" Disabled="@(TransactionId != null)" For="@(() => Model.Currency)"
+                                       @bind-Value="Model.Currency" T="string" Label="@Localizer["Currency"]"
+                                       AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var item in _currencies)
+                                {
+                                    <MudSelectItem Value="@item"/>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                    }
                 }
                 else
                 {
@@ -114,21 +142,23 @@
                                          Label="@Localizer["Value"]" HideSpinButtons="true"/>
                     </MudItem>
                 }
-
-                <MudItem xs="12" md="6">
-                    <MudNumericField For="@(() => Model.FeeValue)" @bind-Value="Model.FeeValue"
-                                     Label="@Localizer["FeeValue"]" HideSpinButtons="true"/>
-                </MudItem>
-                <MudItem xs="12" md="6">
-                    <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.FeeCurrency)"
-                               @bind-Value="Model.FeeCurrency" T="string" Label="@Localizer["FeeCurrency"]"
-                               AnchorOrigin="Origin.BottomCenter">
-                        @foreach (var item in _currencies)
-                        {
-                            <MudSelectItem Value="@item"/>
-                        }
-                    </MudSelect>
-                </MudItem>
+                @if (Model.Class != AssetClass.Bonds)
+                {
+                    <MudItem xs="12" md="6">
+                        <MudNumericField For="@(() => Model.FeeValue)" @bind-Value="Model.FeeValue"
+                                         Label="@Localizer["FeeValue"]" HideSpinButtons="true"/>
+                    </MudItem>
+                    <MudItem xs="12" md="6">
+                        <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.FeeCurrency)"
+                                   @bind-Value="Model.FeeCurrency" T="string" Label="@Localizer["FeeCurrency"]"
+                                   AnchorOrigin="Origin.BottomCenter">
+                            @foreach (var item in _currencies)
+                            {
+                                <MudSelectItem Value="@item"/>
+                            }
+                        </MudSelect>
+                    </MudItem>
+                }
             </MudGrid>
         </DialogContent>
         <DialogActions>
@@ -184,7 +214,7 @@
 
         if (Model.Price == decimal.Zero && Model.TransactionDate.HasValue)
         {
-            var details = await StocksManager.GetHistory(Model.TickerInfo.Ticker,  DateOnly.FromDateTime(Model.TransactionDate.Value), DateOnly.FromDateTime(Model.TransactionDate.Value.AddDays(1)));
+            var details = await StocksManager.GetHistory(Model.TickerInfo.Ticker, DateOnly.FromDateTime(Model.TransactionDate.Value), DateOnly.FromDateTime(Model.TransactionDate.Value.AddDays(1)));
             if (!details.IsSuccess && details.Data?.StockPrices.Count() > 0)
                 return;
             Model.Price = details.Data!.StockPrices.First().AdjustedClose;
@@ -294,9 +324,22 @@
         public Guid PortfolioId { get; set; }
         public Guid AccountId { get; set; }
         public TransactionType Type { get; set; }
-        public AssetClass Class { get; set; }
+        private AssetClass _class;
+
+        public AssetClass Class
+        {
+            get => _class;
+            set
+            {
+                _class = value;
+                if (_class != AssetClass.Bonds) return;
+                Price = 100m;
+                Currency = "PLN";
+            }
+        }
+
         public DateTime? TransactionDate { get; set; } = DateTime.Today;
-        public string? Ticker { get; set; }
+        public string? Ticker { get; private set; }
         private SearchTickersQuery.Asset? _tickerInfo;
 
         public SearchTickersQuery.Asset? TickerInfo
@@ -309,12 +352,31 @@
             }
         }
 
-        public decimal Quantity { get; set; }
+        private decimal _quantity;
+
+        public decimal Quantity
+        {
+            get => _quantity;
+            set
+            {
+                if (_class == AssetClass.Bonds)
+                    _quantity = Math.Round(value);
+                else
+                    _quantity = value;
+            }
+        }
+
         public decimal Price { get; set; }
+        public bool PriceReadOnly => Class == AssetClass.Bonds;
         public decimal Value { get; set; }
+        public bool CurrencyReadOnly => Class == AssetClass.Bonds;
         public string? Currency { get; set; }
         public decimal FeeValue { get; set; }
         public string? FeeCurrency { get; set; }
+
+        public BondKind BondKind { get; set; }
+        public decimal FirstYearInterestRate { get; set; }
+        public decimal NextYearsInterestMargin { get; set; }
     }
 
 }
