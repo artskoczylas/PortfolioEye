@@ -18,6 +18,7 @@ namespace PortfolioEye.Infrastructure
 			services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 			
 			TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
+			
 			return services;
 		}
 	}

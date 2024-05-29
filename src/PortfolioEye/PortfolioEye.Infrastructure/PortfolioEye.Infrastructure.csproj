@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
@@ -22,6 +24,12 @@
   <ItemGroup>
     <ProjectReference Include="..\PortfolioEye.Application\PortfolioEye.Application.csproj" />
     <ProjectReference Include="..\PortfolioEye.Domain\PortfolioEye.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dane_dotyczace_obligacji_detalicznych.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
