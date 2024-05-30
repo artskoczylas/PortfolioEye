@@ -10,8 +10,10 @@ public class BondInformationsReaderTest
     [Test]
     public void Testing()
     {
+        var provider = new BondInformationProvider();
+        
         var reader = new BondInformationsReader();
-        reader.ReadInformation();
+        var result = reader.ReadInformation(provider.GetCurrentBondInformation());
         
         
         Assert.Pass();
