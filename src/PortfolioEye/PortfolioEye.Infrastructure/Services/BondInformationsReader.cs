@@ -31,7 +31,7 @@ public class BondInformationProvider
 
 public class BondInformationsReader
 {
-    public IEnumerable<BondEmissionInfo> ReadInformation(FileStream stream)
+    public IEnumerable<BondEmissionInfo> ReadInformation(Stream stream)
     {
         List<BondEmissionInfo> result = new List<BondEmissionInfo>();
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
