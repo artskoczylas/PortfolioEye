@@ -55,7 +55,7 @@ public class BondInformationsReaderTest
     }
 
     [Test]
-    public void EDO1014Series_HaveValidLasttYearRate()
+    public void EDO1014Series_HaveValidLastYearRate()
     {
         var result = reader.ReadInformation(sampleFileStream);
 
@@ -73,5 +73,43 @@ public class BondInformationsReaderTest
         var testSeries = result.FirstOrDefault(x => x.Series == "EDO0634");
 
         testSeries.Should().NotBeNull();
+    }
+    
+    [Test]
+    public void EDO0634Series_HaveValidData()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "EDO0634");
+
+        testSeries.Isin.Should().Be("PL0000116992");
+        testSeries.SaleStart.Should().Be(new DateOnly(2024, 06, 01));
+        testSeries.SaleEnd.Should().Be(new DateOnly(2024, 06, 30));
+        testSeries.Price.Should().Be(100m);
+        testSeries.ConvertPrice.Should().Be(99.6m);
+        testSeries.InterestPln.Should().BeNull();
+        testSeries.Margin.Should().Be(0.02m);
+    }
+
+    [Test]
+    public void EDO0634Series_HaveValidFirstYearRate()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "EDO0634");
+        var firstYear = testSeries.Years.FirstOrDefault(x => x.YearNo == 1);
+        firstYear.Should().NotBeNull();
+        firstYear!.InterestRate.Should().Be(0.068m);
+    }
+
+    [Test]
+    public void EDO0634Series_HaveValidLastYearRate()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "EDO0634");
+        var firstYear = testSeries.Years.FirstOrDefault(x => x.YearNo == 10);
+        firstYear.Should().NotBeNull();
+        firstYear!.InterestRate.Should().BeNull();
     }
 }

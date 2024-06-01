@@ -9,7 +9,7 @@ using PortfolioEye.Common.Wrappers;
 using PortfolioEye.Infrastructure.Interfaces;
 using PortfolioEye.Infrastructure.Services;
 
-namespace PortfolioEye.Client.Infrastructure.Tests.Services;
+namespace PortfolioEye.Infrastructure.Tests.Services;
 
 [TestFixture]
 [TestOf(typeof(CurrencyRateService))]
