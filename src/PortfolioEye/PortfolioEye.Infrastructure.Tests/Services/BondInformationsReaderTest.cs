@@ -112,4 +112,100 @@ public class BondInformationsReaderTest
         firstYear.Should().NotBeNull();
         firstYear!.InterestRate.Should().BeNull();
     }
+    
+    [Test]
+    public void ROD1028Series_Exists()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD1028");
+
+        testSeries.Should().NotBeNull();
+    }
+    
+    [Test]
+    public void ROD1028Series_HaveValidData()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD1028");
+
+        testSeries.Isin.Should().Be("PL0000109484");
+        testSeries.SaleStart.Should().Be(new DateOnly(2016, 10, 01));
+        testSeries.SaleEnd.Should().Be(new DateOnly(2016, 10, 31));
+        testSeries.Price.Should().Be(100m);
+        testSeries.ConvertPrice.Should().BeNull();
+        testSeries.InterestPln.Should().BeNull();
+        testSeries.Margin.Should().Be(0.02m);
+    }
+
+    [Test]
+    public void ROD1028Series_HaveValidFirstYearRate()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD1028");
+        var firstYear = testSeries.Years.FirstOrDefault(x => x.YearNo == 1);
+        firstYear.Should().NotBeNull();
+        firstYear!.InterestRate.Should().Be(0.03m);
+    }
+
+    [Test]
+    public void ROD1028Series_HaveValidLastYearRate()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD1028");
+        var firstYear = testSeries.Years.FirstOrDefault(x => x.YearNo == 12);
+        firstYear.Should().NotBeNull();
+        firstYear!.InterestRate.Should().BeNull();
+    }
+    
+    [Test]
+    public void ROD0636Series_Exists()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD0636");
+
+        testSeries.Should().NotBeNull();
+    }
+    
+    [Test]
+    public void ROD0636Series_HaveValidData()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD0636");
+
+        testSeries.Isin.Should().Be("PL0000117016");
+        testSeries.SaleStart.Should().Be(new DateOnly(2024, 06, 01));
+        testSeries.SaleEnd.Should().Be(new DateOnly(2024, 06, 30));
+        testSeries.Price.Should().Be(100m);
+        testSeries.ConvertPrice.Should().BeNull();
+        testSeries.InterestPln.Should().BeNull();
+        testSeries.Margin.Should().Be(0.025m);
+    }
+
+    [Test]
+    public void ROD0636Series_HaveValidFirstYearRate()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD0636");
+        var firstYear = testSeries.Years.FirstOrDefault(x => x.YearNo == 1);
+        firstYear.Should().NotBeNull();
+        firstYear!.InterestRate.Should().Be(0.0705m);
+    }
+
+    [Test]
+    public void ROD0636Series_HaveValidLastYearRate()
+    {
+        var result = reader.ReadInformation(sampleFileStream);
+
+        var testSeries = result.FirstOrDefault(x => x.Series == "ROD0636");
+        var firstYear = testSeries.Years.FirstOrDefault(x => x.YearNo == 12);
+        firstYear.Should().NotBeNull();
+        firstYear!.InterestRate.Should().BeNull();
+    }
 }
