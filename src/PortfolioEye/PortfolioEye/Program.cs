@@ -6,6 +6,7 @@ using PortfolioEye.Components;
 using PortfolioEye.Components.Account;
 using PortfolioEye.Domain.Entities;
 using MudBlazor.Services;
+using PortfolioEye.BackgroundWorkers;
 using PortfolioEye.Client.Services;
 using PortfolioEye.Infrastructure;
 using PortfolioEye.Infrastructure.Data;
@@ -49,7 +50,7 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 builder.Services.AddTransient<BreadcrumbService>();
 builder.Services.AddTransient<ICurrentUserAccessor, CurrentUserAccessor>();
 builder.Services.AddTransient<IHostingInformationProvider, HostingInformationProvider>();
-
+builder.Services.AddHostedService<PolishBondsInformationWorker>();
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddLocalization(options =>
 {
