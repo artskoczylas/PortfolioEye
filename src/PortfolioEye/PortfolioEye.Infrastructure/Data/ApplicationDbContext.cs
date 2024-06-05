@@ -18,6 +18,7 @@ namespace PortfolioEye.Infrastructure.Data
         public DbSet<StockPrice> StockPrices { get; set; }
         public DbSet<BondTransaction> BondTransactions { get; set; }
         public DbSet<BondEmission> BondEmissions { get; set; }
+        public DbSet<ImportHistory> ImportHistory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
