@@ -12,8 +12,8 @@ using PortfolioEye.Infrastructure.Data;
 namespace PortfolioEye.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240605204052_AddImportHistoryTable")]
-    partial class AddImportHistoryTable
+    [Migration("20240606211747_AddImportHistoryAndBondInfoTables")]
+    partial class AddImportHistoryAndBondInfoTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,7 +271,7 @@ namespace PortfolioEye.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("ConvertPrice")
+                    b.Property<decimal?>("ConvertPrice")
                         .HasPrecision(18, 4)
                         .HasColumnType("numeric(18,4)");
 
@@ -315,7 +315,7 @@ namespace PortfolioEye.Infrastructure.Migrations
                     b.Property<Guid>("BondEmissionId")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("InterestRate")
+                    b.Property<decimal?>("InterestRate")
                         .HasPrecision(18, 4)
                         .HasColumnType("numeric(18,4)");
 

@@ -22,10 +22,14 @@ public record BondEmissionInterestYear(int YearNo, decimal? InterestRate);
 
 public class BondInformationProvider
 {
-    public FileStream GetCurrentBondInformation()
+    public Stream GetCurrentBondInformation()
     {
-        var file = new FileInfo("Dane_dotyczace_obligacji_detalicznych.xls");
-        return  File.Open(file.FullName, FileMode.Open, FileAccess.Read);
+        return new MemoryStream(Resources.Files.Dane_dotyczace_obligacji_detalicznych);
+    }
+
+    public int GetCurrentBondVersion()
+    {
+        return 20240605;
     }
 }
 

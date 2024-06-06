@@ -11,7 +11,7 @@ public class BondEmission
     public string Isin { get; set; }
     public DateOnly SaleStart { get; set; }
     public DateOnly SaleEnd { get; set; }
-    [Precision(18, 4)] public decimal ConvertPrice { get; set; }
+    [Precision(18, 4)] public decimal? ConvertPrice { get; set; }
     [Precision(18, 4)] public decimal FirstYearInterestRate { get; set; }
     [Precision(18, 4)] public decimal NextYearsInterestMargin { get; set; }
     public virtual List<BondEmissionsYear> Years { get; set; } = null!;
@@ -23,7 +23,7 @@ public class BondEmissionsYear
     public Guid BondEmissionId { get; set; }
     public BondEmission BondEmission { get; set; } = null!;
     public int No { get; set; }
-    [Precision(18, 4)] public decimal InterestRate { get; set; }
+    [Precision(18, 4)] public decimal? InterestRate { get; set; }
 }
 
 public class BondTransaction

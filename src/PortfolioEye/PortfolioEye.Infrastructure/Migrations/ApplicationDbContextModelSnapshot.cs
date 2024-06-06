@@ -268,7 +268,7 @@ namespace PortfolioEye.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("ConvertPrice")
+                    b.Property<decimal?>("ConvertPrice")
                         .HasPrecision(18, 4)
                         .HasColumnType("numeric(18,4)");
 
@@ -312,7 +312,7 @@ namespace PortfolioEye.Infrastructure.Migrations
                     b.Property<Guid>("BondEmissionId")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("InterestRate")
+                    b.Property<decimal?>("InterestRate")
                         .HasPrecision(18, 4)
                         .HasColumnType("numeric(18,4)");
 

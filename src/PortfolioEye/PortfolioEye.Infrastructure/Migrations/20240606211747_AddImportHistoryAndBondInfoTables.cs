@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PortfolioEye.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddBondEmissionsYearSeriesTable : Migration
+    public partial class AddImportHistoryAndBondInfoTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +17,7 @@ namespace PortfolioEye.Infrastructure.Migrations
                 type: "numeric(18,4)",
                 precision: 18,
                 scale: 4,
-                nullable: false,
-                defaultValue: 0m);
+                nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Isin",
@@ -48,7 +47,7 @@ namespace PortfolioEye.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     BondEmissionId = table.Column<Guid>(type: "uuid", nullable: false),
                     No = table.Column<int>(type: "integer", nullable: false),
-                    InterestRate = table.Column<decimal>(type: "numeric(18,4)", precision: 18, scale: 4, nullable: false)
+                    InterestRate = table.Column<decimal>(type: "numeric(18,4)", precision: 18, scale: 4, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,6 +58,20 @@ namespace PortfolioEye.Infrastructure.Migrations
                         principalTable: "BondEmissions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImportHistory",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Version = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImportHistory", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
@@ -72,6 +85,9 @@ namespace PortfolioEye.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "BondEmissionsYear");
+
+            migrationBuilder.DropTable(
+                name: "ImportHistory");
 
             migrationBuilder.DropColumn(
                 name: "ConvertPrice",

@@ -15,6 +15,9 @@ namespace PortfolioEye.Infrastructure
 			services.AddTransient<ICurrencyRateService, CurrencyRateService>();
 			services.AddTransient<IStockMarketDataProvider, YahooStockMarketDataProvider>();
 			services.AddTransient<IStockPriceService, StockPriceService>();
+			services.AddTransient<BondInformationService>();
+			services.AddTransient<BondInformationProvider>();
+			services.AddTransient<BondInformationsReader>();
 			services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 			
 			TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
