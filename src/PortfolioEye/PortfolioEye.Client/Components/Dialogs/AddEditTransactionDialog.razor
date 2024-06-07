@@ -7,6 +7,9 @@
 @using PortfolioEye.Common.Wrappers
 @using PortfolioEye.Client.Infrastructure.Managers
 @using PortfolioEye.Application.Features.Stocks.Queries
+@using System.Runtime.InteropServices.JavaScript
+@using PortfolioEye.Application.Features.Bonds.Queries
+@using BondKind = PortfolioEye.Application.Features.Transactions.Commands.BondKind
 
 <EditForm Model="@Model" OnValidSubmit="SaveAsync">
     <FluentValidationValidator @ref="_fluentValidationValidator"/>
@@ -53,7 +56,7 @@
                 </MudItem>
                 <MudItem xs="12" md="6">
                     <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Type)"
-                               @bind-Value="Model.Type" T="TransactionType" Label="@Localizer["Type"]"
+                               @bind-Value="Model.Type" @bind-Value:after="AfterTypeSet" T="TransactionType" Label="@Localizer["Type"]"
                                AnchorOrigin="Origin.BottomCenter">
                         <MudSelectItem Value="TransactionType.Purchase">@Localizer[TransactionType.Purchase.ToString()]</MudSelectItem>
                         @* @foreach (TransactionType item in Enum.GetValues(typeof(TransactionType))) *@
@@ -63,13 +66,14 @@
                     </MudSelect>
                 </MudItem>
                 <MudItem xs="12" md="6">
-                    <MudDatePicker For="@(() => Model.TransactionDate)" @bind-Date="Model.TransactionDate" Label="@Localizer["TransactionDate"]"/>
+                    <MudDatePicker For="@(() => Model.TransactionDate)" @bind-Date="Model.TransactionDate" @bind-Date:after="AfterTransactionDateSet" Label="@Localizer["TransactionDate"]"/>
                 </MudItem>
                 @if (Model.Type == TransactionType.Sale || Model.Type == TransactionType.Purchase)
                 {
                     <MudItem xs="12" md="6">
                         <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Class)"
-                                   @bind-Value="Model.Class" T="AssetClass" Label="@Localizer["AssetClass"]"
+                                   @bind-Value="Model.Class" T="AssetClass" 
+                                   @bind-Value:after="AfterClassSet" Label="@Localizer["AssetClass"]"
                                    AnchorOrigin="Origin.BottomCenter">
                             @foreach (AssetClass item in Enum.GetValues(typeof(AssetClass)))
                             {
@@ -80,7 +84,7 @@
                     @if (Model.Class == AssetClass.Shares)
                     {
                         <MudItem xs="12" md="6">
-                            <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]       @bind-Value="Model.TickerInfo" @bind-Value:after="AfterTickerInfoSet" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
+                            <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]        @bind-Value="Model.TickerInfo" @bind-Value:after="AfterTickerInfoSet" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
                                 <ProgressIndicatorInPopoverTemplate>
                                     <MudList Clickable="false">
                                         <MudListItem>
@@ -94,22 +98,22 @@
                     else if (Model.Class == AssetClass.Bonds)
                     {
                         <MudItem xs="12" md="6">
-                        <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.BondKind)"
-                                   @bind-Value="Model.BondKind" T="BondKind" Label="@Localizer["BondKind"]"
-                                   AnchorOrigin="Origin.BottomCenter">
-                            @foreach (BondKind item in Enum.GetValues(typeof(BondKind)))
-                            {
-                                <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem>
-                            }
-                        </MudSelect>
-                         </MudItem>
+                            <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.BondKind)"
+                                       @bind-Value="Model.BondKind" @bind-Value:after="AfterBondKindSet" T="BondKind" Label="@Localizer["BondKind"]"
+                                       AnchorOrigin="Origin.BottomCenter">
+                                @foreach (BondKind item in Enum.GetValues(typeof(BondKind)))
+                                {
+                                    <MudSelectItem Value="@item">@Localizer[item.ToString()]</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
                         <MudItem xs="12" md="6">
                             <MudNumericField For="@(() => Model.FirstYearInterestRate)" @bind-Value="Model.FirstYearInterestRate"
-                                             Label="@Localizer["FirstYearInterestRate"]" HideSpinButtons="true" AdornmentText="%"  Adornment="Adornment.End"/>
+                                             Label="@Localizer["FirstYearInterestRate"]" HideSpinButtons="true" AdornmentText="%" Adornment="Adornment.End"/>
                         </MudItem>
                         <MudItem xs="12" md="6">
                             <MudNumericField For="@(() => Model.NextYearsInterestMargin)" @bind-Value="Model.NextYearsInterestMargin"
-                                             Label="@Localizer["NextYearsInterestMargin"]" HideSpinButtons="true" AdornmentText="%"  Adornment="Adornment.End"/>
+                                             Label="@Localizer["NextYearsInterestMargin"]" HideSpinButtons="true" AdornmentText="%" Adornment="Adornment.End"/>
                         </MudItem>
                     }
 
@@ -196,11 +200,16 @@
     [Inject] public IDialogService DialogService { get; set; } = null!;
     [Inject] IStringLocalizer<AddEditTransactionDialog> Localizer { get; set; } = null!;
     [Inject] public IStocksManager StocksManager { get; set; }
+    [Inject] public IBondsManager BondsManager { get; set; }
     private IEnumerable<string> _currencies = new List<string>();
     private IEnumerable<RetrievePortfoliosByUserId.Portfolio> _portfolios = [];
     private IEnumerable<RetrieveAccountsByUserId.Account> _accounts = [];
 
-    private async Task AfterTickerInfoSet()
+    private Task AfterTypeSet() => TrySetBondInfo();
+
+    private Task AfterClassSet() => TrySetBondInfo();
+    
+    private async Task AfterTickerInfoSet() 
     {
         if (Model?.TickerInfo?.Ticker == null)
             return;
@@ -221,6 +230,21 @@
         }
     }
 
+    private Task AfterTransactionDateSet() => TrySetBondInfo();
+
+    private Task AfterBondKindSet() => TrySetBondInfo();
+
+
+    private async Task TrySetBondInfo()
+    {
+        if (!Model.TransactionDate.HasValue || Model.Type != TransactionType.Purchase || Model.Class != AssetClass.Bonds)
+            return;
+
+        var emission = await SearchForBondEmission(Model.BondKind, DateOnly.FromDateTime(Model.TransactionDate.Value));
+        if (emission == null)
+            return;
+        Model.BondInfo = emission;
+    }
     protected override async Task OnInitializedAsync()
     {
         var currenciesResult = await CurrenciesManager.RetrieveActive();
@@ -264,6 +288,12 @@
             return [];
         var result = await StocksManager.SearchForTickers(value);
         return result.IsSuccess ? result.Data!.Assets : [];
+    }
+
+    private async Task<RetrieveBondEmissionByBuyDateQuery.Response?> SearchForBondEmission(BondKind kind, DateOnly buyDate)
+    {
+        var result = await BondsManager.GetEmission(kind, buyDate);
+        return result.IsSuccess ? result.Data : null;
     }
 
     public async Task SaveAsync()
@@ -349,6 +379,20 @@
             {
                 _tickerInfo = value;
                 Ticker = value?.Ticker;
+            }
+        }
+
+        private RetrieveBondEmissionByBuyDateQuery.Response? _bondInfo;
+        public RetrieveBondEmissionByBuyDateQuery.Response? BondInfo
+        {
+            get => _bondInfo;
+            set
+            {
+                _bondInfo = value;
+                if (value == null)
+                    return;
+                FirstYearInterestRate = value.FirstYearInterestRate * 100m;
+                NextYearsInterestMargin = value.NextYearsInterestMargin * 100m;
             }
         }
 
