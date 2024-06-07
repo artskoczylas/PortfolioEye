@@ -37,7 +37,10 @@ The project was created as my participation in the 100 commits competition. Due 
 
 ## Demo
 
-TBA
+The demo is available at https://demo.portfolioeye.app/
+To log in, use these credentials:
+- Login: demo@portfolioeye.app
+- Password: Demo!23
 
 ## Installation
 
