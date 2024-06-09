@@ -72,7 +72,7 @@
                 {
                     <MudItem xs="12" md="6">
                         <MudSelect Disabled="@(TransactionId != null)" For="@(() => Model.Class)"
-                                   @bind-Value="Model.Class" T="AssetClass" 
+                                   @bind-Value="Model.Class" T="AssetClass"
                                    @bind-Value:after="AfterClassSet" Label="@Localizer["AssetClass"]"
                                    AnchorOrigin="Origin.BottomCenter">
                             @foreach (AssetClass item in Enum.GetValues(typeof(AssetClass)))
@@ -84,7 +84,7 @@
                     @if (Model.Class == AssetClass.Shares)
                     {
                         <MudItem xs="12" md="6">
-                            <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]        @bind-Value="Model.TickerInfo" @bind-Value:after="AfterTickerInfoSet" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
+                            <MudAutocomplete T="SearchTickersQuery.Asset" Placeholder=@Localizer["EnterMinThreeChars"] Label=@Localizer["Ticker"]         @bind-Value="Model.TickerInfo" @bind-Value:after="AfterTickerInfoSet" SearchFunc="@SearchForStockTicker" ProgressIndicatorColor="Color.Primary" ToStringFunc="@(e => e == null ? null : $"{e.Ticker} ({e.Name}) {e.Exchange}")">
                                 <ProgressIndicatorInPopoverTemplate>
                                     <MudList Clickable="false">
                                         <MudListItem>
@@ -170,14 +170,14 @@
             @if (TransactionId != null)
             {
                 <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
-                           Disabled="@(!Validated)" Color="Color.Secondary">
+                           Disabled="@((!Validated) || isSaving)" Color="Color.Secondary">
                     @Localizer["Edit"]
                 </MudButton>
             }
             else
             {
                 <MudButton DisableElevation Variant="Variant.Filled" ButtonType="ButtonType.Submit"
-                           Disabled="@(!Validated)" Color="Color.Success">
+                           Disabled="@((!Validated) || isSaving)" Color="Color.Success">
                     @Localizer["Save"]
                 </MudButton>
             }
@@ -201,6 +201,7 @@
     [Inject] IStringLocalizer<AddEditTransactionDialog> Localizer { get; set; } = null!;
     [Inject] public IStocksManager StocksManager { get; set; }
     [Inject] public IBondsManager BondsManager { get; set; }
+    private bool isSaving { get; set; } = false;
     private IEnumerable<string> _currencies = new List<string>();
     private IEnumerable<RetrievePortfoliosByUserId.Portfolio> _portfolios = [];
     private IEnumerable<RetrieveAccountsByUserId.Account> _accounts = [];
@@ -208,8 +209,8 @@
     private Task AfterTypeSet() => TrySetBondInfo();
 
     private Task AfterClassSet() => TrySetBondInfo();
-    
-    private async Task AfterTickerInfoSet() 
+
+    private async Task AfterTickerInfoSet()
     {
         if (Model?.TickerInfo?.Ticker == null)
             return;
@@ -245,6 +246,7 @@
             return;
         Model.BondInfo = emission;
     }
+
     protected override async Task OnInitializedAsync()
     {
         var currenciesResult = await CurrenciesManager.RetrieveActive();
@@ -298,50 +300,58 @@
 
     public async Task SaveAsync()
     {
-        IResult? result = null;
-        if (TransactionId != null)
+        try
         {
-            // var command = new EditTransactionCommand(TransactionId.Value, Model.Value, Model.Currency, Model.TransactionDate);
-            // result = await TransactionsManager.Edit(command);
-        }
-        else
-        {
-            if (Model is { Class: AssetClass.Shares, Type: TransactionType.Purchase or TransactionType.Sale })
+            isSaving = true;
+            IResult? result = null;
+            if (TransactionId != null)
             {
-                var command = new AddStockTransactionCommand(
-                    Model.PortfolioId, Model.AccountId,
-                    Model.Type == TransactionType.Purchase ? StockTransactionSide.Purchase : StockTransactionSide.Sale,
-                    DateOnly.FromDateTime(Model.TransactionDate!.Value), Model.Ticker!, Model.Quantity, Model.Price, Model.Currency!,
-                    Model.FeeValue, Model.FeeCurrency!);
-                result = await TransactionsManager.CreateNewStock(command);
+                // var command = new EditTransactionCommand(TransactionId.Value, Model.Value, Model.Currency, Model.TransactionDate);
+                // result = await TransactionsManager.Edit(command);
             }
             else
             {
-                var command = new AddTransactionCommand(
-                    Model.PortfolioId, Model.AccountId,
-                    Model.Type, Model.Class, Model.TransactionDate.Value,
-                    Model.Ticker, Model.Quantity, Model.Price, Model.Currency,
-                    Model.FeeValue, Model.FeeCurrency);
-                result = await TransactionsManager.CreateNew(command);
+                if (Model is { Class: AssetClass.Shares, Type: TransactionType.Purchase or TransactionType.Sale })
+                {
+                    var command = new AddStockTransactionCommand(
+                        Model.PortfolioId, Model.AccountId,
+                        Model.Type == TransactionType.Purchase ? StockTransactionSide.Purchase : StockTransactionSide.Sale,
+                        DateOnly.FromDateTime(Model.TransactionDate!.Value), Model.Ticker!, Model.Quantity, Model.Price, Model.Currency!,
+                        Model.FeeValue, Model.FeeCurrency!);
+                    result = await TransactionsManager.CreateNewStock(command);
+                }
+                else
+                {
+                    var command = new AddTransactionCommand(
+                        Model.PortfolioId, Model.AccountId,
+                        Model.Type, Model.Class, Model.TransactionDate.Value,
+                        Model.Ticker, Model.Quantity, Model.Price, Model.Currency,
+                        Model.FeeValue, Model.FeeCurrency);
+                    result = await TransactionsManager.CreateNew(command);
+                }
             }
-        }
 
-        if (result == null)
+            if (result == null)
+            {
+                await DialogService!.ShowMessageBox(new MessageBoxOptions()
+                {
+                    Message = Localizer["NotImplemented"], Title = Localizer["NotImplemented"]
+                });
+                return;
+            }
+
+            if (!result.IsSuccess)
+                await DialogService!.ShowMessageBox(new MessageBoxOptions()
+                {
+                    Message = Localizer["ContentCannotSaveTransaction"], Title = Localizer["TitleCannotSaveTransaction"]
+                });
+
+            MudDialog.Close();
+        }
+        finally
         {
-            await DialogService!.ShowMessageBox(new MessageBoxOptions()
-            {
-                Message = Localizer["NotImplemented"], Title = Localizer["NotImplemented"]
-            });
-            return;
+            isSaving = false;
         }
-
-        if (!result.IsSuccess)
-            await DialogService!.ShowMessageBox(new MessageBoxOptions()
-            {
-                Message = Localizer["ContentCannotSaveTransaction"], Title = Localizer["TitleCannotSaveTransaction"]
-            });
-
-        MudDialog.Close();
     }
 
     public void Cancel()
@@ -383,6 +393,7 @@
         }
 
         private RetrieveBondEmissionByBuyDateQuery.Response? _bondInfo;
+
         public RetrieveBondEmissionByBuyDateQuery.Response? BondInfo
         {
             get => _bondInfo;
